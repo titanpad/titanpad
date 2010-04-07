@@ -17,13 +17,7 @@
 /* legacy URLs only apply to the public etherpad.com site. (not Pro or PNE). */
 
 var _legacyURLs = {
-  '/ep/beta-signup': '/',
-  '/ep/talktostrangers': '/',
-  '/ep/about/pricing-eepod': '/ep/about/pricing-pro',
-  '/static/html/enterprise-etherpad-installguide.html': '/ep/pne-manual/',
-  '/static/html/eepnet/eepnet-changelog.html': '/ep/pne-manual/changelog',
-  '/static/html/eepnet/eepnet-installguide.html': '/ep/pne-manual/',
-  '/ep/blog/posts/back-online-until-open-sourced': '/ep/blog/posts/etherpad-back-online-until-open-sourced'
+//  '/ep/EXAMPLE-old-url/': '/lala/',
 };
 
 function checkPath() {
