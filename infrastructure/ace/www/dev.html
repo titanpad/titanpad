@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC
+	  "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html debug="true">
+  <head>
+    <script src="jquery-1.2.1.js"></script>
+    <script src="ace2_common.js"></script>
+    <script src="ace2_outer.js"></script>
+    <script src="firebug/firebug.js"></script>
+    <script>
+function updateHTMLDisplay(html) {
+  $("#htmldisplay").html(html);
+}
+
+function addMessage(str) {
+  var li = document.createElement("li");
+  li.innerHTML = str;
+  $("#messages").prepend(li);
+}
+    </script>
+    <style>
+      #devstuff {
+        background-color: #ddd;
+        padding: 1em; 
+      }
+      #iframecontainer iframe { width: 500px; height: 300px; }
+    </style>
+  </head>
+  <body>
+    <div id="iframecontainer"><!-- --></div>
+    <hr>
+    <div id="devstuff">
+      <p><input type="text" id="cmdinput" size="100">
+	<button onclick="$('#cmdresult').html(htmlPrettyEscape(String(eval($('#cmdinput').get(0).value))))">Execute</button></p>
+      <p id="cmdresult"><!-- --></p>
+      <p id="htmldisplay"><!-- --></p>
+      <ul id="messages"><!-- --></ul>
+    </div>
+  </body>
+</html>

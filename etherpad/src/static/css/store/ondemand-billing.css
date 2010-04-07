@@ -1,0 +1,170 @@
+input[type="text"].greenborder {
+   border: 1px solid #0f0;
+}
+
+input[type="text"].redborder {
+   border: 1px solid #f00;
+}
+
+input[type="text"] {
+   border: 1px solid black;
+   padding: 2px;
+}
+
+h4 {
+   font-weight: bold;
+   margin-bottom: 0.75em;
+   margin-top: 1em;
+   margin-left: 15px;
+}
+
+div.billinginfo {
+   margin-left: 65px;
+   border-left: 1px solid gray;
+   border-right: 1px solid gray;
+   border-top: 1px solid gray;
+   border-bottom: 1px solid gray;
+   width: 600px;
+}
+
+.billinginfo table.billingtable {
+   width: 100%;
+   margin: 0;
+   background: #eef;
+}
+
+.billinginfo table.billingtable td, 
+.billinginfo table.billingtable th {
+   padding: 5px;
+}
+
+.billinginfo table.billingtable td.pcell,
+.billinginfo table.billingtable td.firstcell {
+   padding-left: 35px;
+}
+
+.billinginfo table.billingtable td.pcell {
+   width: 200px;
+}
+
+.billinginfo div {
+   padding-left: 35px;
+}
+
+.billinginfo div#billingselect {
+   padding-left: 0;
+}
+
+.billinginfo div#billingselect p {
+   padding: 3px;
+   padding-left: 35px;
+}
+
+.billingtable #ccimages img.ccimageselected {
+   border: 3px solid #0f0;
+   opacity: 1;
+}
+
+.billingtable #ccimages img {
+   border: 3px solid #eef;
+   opacity: 0.5;
+}
+
+a#cschelp {
+   font-size: 7pt;
+   color: blue;
+   border-bottom: 1px dashed blue;
+}
+
+div#contbutton {
+   margin-top: 1em;
+   margin-right: 45px;
+   float: right;
+}
+
+div#backbutton {
+   margin-top: 1em;
+   float: right;
+}
+
+div.errormsg {
+   border: 1px solid #caa;
+   padding: 1em;
+   margin: 1em 0;
+}
+
+div.errormsg,
+table tr.error,
+p.error,
+div.error {
+   background: #fdd;
+}
+
+table.billingsummary {
+   width: 100%;
+   border-top: 1px solid gray;
+   border-left: 1px solid gray;
+}
+
+table.billingsummary th,
+table.billingsummary td {
+   padding: 5px;
+   border-bottom: 1px solid gray;
+   border-right: 1px solid gray;
+}
+
+table.billingsummary th {
+   font-weight: bold;
+}
+
+span#editpaymentslink {
+   text-align: right;
+   font-size: 80%;
+   margin-left: 0.5em;
+}
+
+#editpaymentslink a {
+   text-decoration: underline;
+}
+
+
+.paymentbutton label {
+   cursor: pointer;
+}
+.paymentbutton {
+   padding-left: 1.5em;
+}
+
+/* invoice list */
+
+.informational {
+   font-style: italic;
+}
+
+table.invoicelist {
+   border-left: 1px solid #ccc;
+   border-top: 1px solid #ccc;
+   border-right: 1px solid #ccc;
+   width: 100%;
+   font-size: 10pt;
+}
+
+table.invoicelist tr:hover {
+   background: #ffc;
+}
+
+table.invoicelist td,
+table.invoicelist th {
+   border-bottom: 1px solid #ccc;
+   padding: 5px;
+}
+
+table.invoicelist th {
+   font-weight: bold;
+   background: #eef;
+}
+
+.returnlink {
+   font-size: 10pt;
+   font-style: italic;
+}

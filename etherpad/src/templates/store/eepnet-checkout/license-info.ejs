@@ -1,0 +1,40 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><p>Your license key will be issued to a particular individual at your organization, and will be delivered to the email address you specify below.</p>
+
+<table border="1">
+  <tr class="<%= errorIfInvalid('email') %>">
+    <td>Email address to receive license key:</td>
+    <td><input name="email" type="text"
+		     value="<%= cart.email %>" /></td>
+  </tr>
+
+  <tr class="<%= errorIfInvalid('ownerName') %>">
+    <td>Name of license owner (your name):</td>
+    <td><input name="ownerName" type="text"
+         value="<%= cart.ownerName %>" /></td>
+  </tr>
+
+  <tr class="<%= errorIfInvalid('orgName') %>">
+    <td>Organization or company name:</td>
+    <td><input name="orgName" type="text"
+         value="<%= cart.orgName %>" /></td>
+  </tr>
+
+  <tr class="<%= errorIfInvalid('licenseAgreement') %> center">
+    <td colspan=2>
+      <input id="c1" type="checkbox" name="licenseAgreement" <%= (cart.licenseAgreement ? 'checked="checked"' : '') %> /> 
+      <label for="c1">I agree to the <a target="_blank" href="/static/html/eepnet/eepnet-license.html">License</a>.</label>
+    </td>
+  </tr>
+</table>

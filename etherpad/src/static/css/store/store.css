@@ -1,0 +1,90 @@
+div.storepage a.downloadbutton_disabled {
+   text-decoration: none;
+   display: block;
+   padding: .4em;
+   margin: 1em;
+   font-size: 1.4em;
+   width: 270px;
+   margin-left: auto;
+   margin-right: auto;
+   border: 2px solid #ccc;
+   background: #eee;
+   color: #888;
+}
+
+div.storepage a.downloadbutton {
+   text-decoration: none;
+   display: block;
+   padding: .4em;
+   margin: 1em;
+   font-size: 1.4em;
+   width: 270px;
+   margin-left: auto;
+   margin-right: auto;
+   border: 2px solid #333;
+   background: #ccc;
+}
+div.storepage a.downloadbutton:hover {
+   background: #ddf;
+   cursor: pointer;
+}
+
+div.storepage label:hover {
+   cursor: pointer;
+}
+
+div.storepage div#topmsg {
+   border: 1px solid #999;
+   background: #dfd;
+   font-weight: bold;
+   padding: 1em;
+}
+
+div.storepage div#errormsg {
+   border: 1px solid #f00;
+   background: #fee;
+   font-weight: bold;
+   padding: 1em 2em;
+   magin-top: 1em;
+   margin-bottom: 1em;
+}
+
+#dlsignup {
+   border: 1px solid #ccc;
+/*   background: #ffefdf; */
+   background: #efe;
+   padding: 1em 2em;
+}
+
+#dlsignup, div#errormsg {
+   display: block;
+}
+
+#dlsignup p {
+   margin: 0;
+}
+
+#dlsignup p label {
+   display: block;
+   margin-top: .7em;
+   color: #444;
+}
+
+#dlsignup input,
+#dlsignup select {
+   width: 400px;
+}
+
+#dlsignup button {
+   margin-top: 1em;
+   width: 200px;
+   margin-left: 100px;
+}
+
+div#processingmsg {
+   border: 1px solid #ccc;
+   background: #efe;
+   padding: 1em 2em;
+   font-weight: bold;
+   font-size: 1.4em;
+}

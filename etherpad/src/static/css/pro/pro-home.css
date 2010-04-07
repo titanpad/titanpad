@@ -1,0 +1,65 @@
+
+#welcome-msg {
+  font-size: 1.2em;
+  color: #333;
+}
+
+#homeright {
+  width: 320px;
+  float: right;
+}
+
+#homeleft {
+  width: 548px;
+  float: left;
+}
+
+#homeleft-title {
+  font-weight: bold;
+  font-size: 1.0em;
+  margin-top: 1em;
+}
+
+.news-time-sep {
+  margin-top: 2em;
+}
+
+.news-time-sep .date {
+  float: left;
+  background: #fff;
+  padding-right: 1em;
+  color: #666;
+  font-size: .9em;
+}
+
+.news-time-sep .line {
+  height: .5em;
+  border-bottom: 1px solid #ccc;
+}
+
+.news-item {
+  padding: 0 2em 0 1em;
+  font-size: .86em;
+}
+
+/*--------------------------------------------------------------------------------
+ * recent pads
+ *--------------------------------------------------------------------------------*/
+
+#recent-pads #viewall {
+  display: block;
+  float: left;
+  margin: 0.8em 0;
+  font-size: 0.8em;
+}
+
+#homeright #padtable {
+  width: 100%;
+}
+
+#homeright h3 {
+  font-size: 1.0em;
+  font-weight: bold;
+  margin-top: 1em;
+}
+

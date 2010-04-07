@@ -1,0 +1,143 @@
+/* global */
+
+div.pne-manpage {
+  font-size: 1.1em;
+}
+
+.pne-manual-topnav {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1em;
+  padding-bottom: 4px;
+}
+
+div.pne-manpage h2 {
+  color: #111;
+  border-bottom: 1px solid #111;
+}
+
+div.pne-manpage ul,ol {
+  padding-left: 2em;
+}
+div.pne-manpage li {
+  margin-top: .4em;
+}
+div.pne-manpage ol li {
+  list-style: decimal;
+  margin-top: 1em;
+}
+
+
+div.pne-manpage tt {
+  font-family: monospace;
+  font-size: 1.1em;
+  color: #040;
+  font-style: italic;
+}
+
+div.pne-manpage div.code {
+  font-family: monospace;
+  font-size: 1.0em;
+  padding: 0 1em;
+  border: 1px solid #ccc;
+  background: #eee;
+  margin: 0;
+}
+
+div.pne-manpage div.code span.prompt {
+  color: #609;
+}
+
+div.pne-manpage div.code tt {
+  font-style: normal;
+  font-size: 1.0em;
+  color: #00f;
+}
+
+div.pne-manpage div.code p {
+  line-height: 125%;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* main */
+
+div#pne-main h2 {
+  font-size: 1.4em;
+  color: black;
+  font-weight: bold;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+div#pne-main h3 {
+  font-size: 1.1em;
+  color: #555;
+  font-style: italic;
+}
+div#pne-main h4 {
+  color: #888;
+  margin-top: 2em;
+  font-weight: bold;
+}
+div#pne-main ul {
+  padding-left: 2em;
+}
+div#pne-main ul li {
+  list-style: square;
+}
+div#pne-main p#version-notice {
+  font-size: 88%;
+  color: #333;
+  margin-top: 2em;
+  border-top: 1px solid #ccc;
+}
+
+/* configuration-guide */
+
+table#opts {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 0;
+  border-bottom: 0;
+  margin: 2em 0 1em 0;
+}
+table#opts td, table#opts th {
+  padding: 4px 0;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+table#opts td {
+  font-family: monospace;
+}
+table#opts td.desc {
+  font-family: Verdana, sans-serif;
+}
+table#opts th {
+  text-align: left;
+  font-weight: bold;
+}
+table#opts td.rowhead {
+  padding-top: 1em;
+  font-style: italic;
+  color: #222;
+  border-bottom: 1px solid #222;
+}
+
+/* changelog */
+
+div#pne-changelog h2 {
+  margin-top: 2em;
+}
+
+div#pne-changelog h3 {
+  font-weight: bold;
+  padding-left: 1em;
+  margin: 1em 0;
+}
+
+div#pne-changelog ul {
+  padding-left: 3em;
+}
+
+

@@ -1,0 +1,33 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><p>Thank you for choosing to purchase <strong>Enterprise EtherPad Private Network Edition.</strong></p>
+
+<p>A license allows a certain number of concurrent users, at a one-time cost of US $<%= dollars(costPerUser) %> per user with no recurring costs. <a target="_blank" href="/ep/about/pricing-eepnet-users">Learn more about how we count users</a>.</p>
+
+<p>How many users should your license support?</p>
+
+<table>
+  <tr class="<%= errorIfInvalid('numUsers') %>">
+    <td class="pcell">Number of Users at US $<%= dollars(costPerUser) %>/user:</td>
+    <td class="tcell"><input name="numUsers" type="text"
+         value="<%= cart.numUsers %>" /></td>
+  </tr>
+</table>
+
+<table>
+  <tr class="<%= errorIfInvalid('couponCode') %>">
+    <td colspan="2" class="pcell">Referral Code (optional):</td>
+    <td class="tcell"><input id="couponCode" name="couponCode" type="text"
+     maxlength="8" value="<%= cart.couponCode %>" /></td>
+  </tr>
+</table>

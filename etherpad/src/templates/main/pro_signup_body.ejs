@@ -1,0 +1,70 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% helpers.includeCss('pro-signup.css') %>
+
+<div class="fpcontent">
+  <div class="pro-signup">
+
+    <h1>EtherPad Professional for Teams</h1>
+
+      <div id="about">
+
+        <p>Create a team site in order to keep track of pads and share
+        them privately within your team.</p>
+
+      </div>
+
+    <form id="pro-act-form"
+          method="post" action="<%= request.path %>">
+
+      <%= errorDiv() %>
+
+      <div>
+        <div class="inputdiv">
+          <h3>Your team site will live at:</h3>
+
+          <%= input("subdomain") %>.<%= request.host %>/
+        </div>
+        <div class="inputhelp">
+          This is where you and members of your team will sign
+          in.
+        </div>
+        <%= helpers.clearFloats() %>
+      </div>
+
+      <br/><br/>
+
+      <div>
+        <div class="inputdiv">
+          <h3>Administrator account</h3>
+          <%= inf("fullName", "Full Name") %>
+          <%= inf("email", "Email") %>
+        </div>
+        <div class="inputhelp">
+          Instructions for choosing a password and signing in will
+          be emailed here.
+        </div>
+        <%= helpers.clearFloats() %>
+      </div>
+      
+      <br/>
+
+      <p><button type="submit" id="createbutton">Create team site now</button></p>
+
+    </form>
+
+    <p style="font-size: 80%;">Existing users: <a href="/ep/pro-account/sign-in">sign in
+    here</a></p>
+  </div>
+</div>
+

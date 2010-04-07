@@ -1,0 +1,119 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %>
+<div id="<%= shoppingcartid %>" class="shoppingcart">
+  <table cellspacing="0" cellpadding="0">
+    <tr>
+      <th>Item</th>
+      <th class="pcell">Cost</th>
+    </tr>
+
+    <% if (! ('baseCost' in cart) && ! ('supportCost' in cart)) { %>
+      <tr>
+        <td colspan="2" class="noitems">
+          <em>Nothing selected.</em>
+        </td>
+      </tr>
+    <% } %>
+    
+    <% if (cart.baseCost) { %>
+      <tr class="base">
+        <td>
+          <span class="item">Etherpad Private Network</span><br />
+          <span class="desc"><%= cart.numUsers %> users 
+            <% if (editable) { %> 
+              <span class="editlink">(<a href="<%= pathTo("purchase") %>">edit</a>)</span> 
+            <% } %>
+          </span>
+        </td>
+        <td class="pcell">US$<%= dollars(cart.baseCost) %></td>
+      </tr>
+      <% if (cart.couponProductPctDiscount) { %>
+        <tr class="basediscount refer">
+          <td>
+            <span class="desc">Referral - <%= cart.couponProductPctDiscount %>% savings</span>
+          </td>
+          <td class="pcell">-US$<%= dollars(cart.productReferralDiscount) %></td>
+        </tr>
+      <% } %>
+    <% } %>
+    
+    <% if (cart.supportCost) { %>
+      <tr class="support">
+        <td>
+          <span class="item">Support Contract
+            <% if (editable) { %> 
+              <span class="editlink">(<a href="<%= pathTo("support-contract") %>">edit</a>)</span>
+            <% } %>
+          </span>
+          <br />
+          <span class="desc">1 year</span>
+        </td>
+        <td class="pcell">US$<%= dollars(cart.supportCost) %></td>
+      </tr>
+      <% if (cart.couponSupportPctDiscount) { %>
+        <tr class="supportdiscount refer">
+          <td>
+            <span class="desc">Referral - <%= cart.couponSupportPctDiscount %>% savings</span>
+          </td>
+          <td class="pcell">-US$<%= dollars(cart.supportReferralDiscount) %></td>
+        </tr>
+      <% } %>
+    <% } else if (cart.baseCost) { %>
+      <tr class="support">
+        <td>
+          <span class="item">No Support Contract
+            <% if (editable) { %> 
+              <span class="editlink">(<a href="<%= pathTo("support-contract") %>">edit</a>)</span>
+            <% } %>
+          </span>
+        </td>
+        <td class="pcell">US$0.00</td>
+      </tr>
+    <% } %>
+    
+    <% if (cart.freeUserCount) { %>
+      <tr class="referralbonus refer">
+        <td>
+          <span class="item">Bonus Users</span><br />
+          <span class="desc">
+            Referral - <%= cart.freeUserCount %> free 
+            user<%= (cart.freeUserCount == 1 ? '' : "s") %>
+          </span>
+        </td>
+        <td class="pcell">US$0.00</td>
+      </tr>
+    <% } %>
+
+    <tr class="spacer"><td>&nbsp;</td></tr>
+
+    <% 
+      var pctDiscount = cart.couponTotalPctDiscount;
+      var hasSubtotal = pctDiscount > 0;
+    %>
+    <% if (hasSubtotal) { %>
+      <tr class="subtotal">
+        <td>Subtotal</td>
+        <td class="pcell">US$<%= dollars(cart.subTotal) %></td>
+      </tr>
+      <tr class="referraldiscount refer">
+        <td>Referral - <%= pctDiscount %>% savings</td>
+        <td class="pcell">-US$<%= dollars(cart.totalReferralDiscount) %></td>
+      </tr>
+    <% } %>
+    <tr class="total<%= (hasSubtotal ? '' : ' withoutsubtotal') %>">
+      <td>Total</td>
+      <td class="pcell">US$<%= dollars(cart.total) %></td>
+    </tr>
+  </table>
+</div>

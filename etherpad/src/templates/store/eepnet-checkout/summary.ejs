@@ -1,0 +1,91 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><%
+function textRow(tcell, pcell) {
+	%><tr>
+			<td class="tcell"><%= tcell %></td>
+			<td class="pcell"><%= pcell %></td>
+		</tr>
+	<%
+}
+var keyData = {
+  ownerName: cart.ownerName,
+  orgName: cart.orgName
+}
+if (cart.licenseKey) {
+  var parts = cart.licenseKey.split(":");
+  keyData.ownerName = parts[0];
+  keyData.orgName = parts[1];
+  keyData.key = parts[2];
+
+  keyData.keyLine1 = keyData.key.substring(0, keyData.key.length/3);
+  keyData.keyLine2 = keyData.key.substring(keyData.key.length/3, 2*keyData.key.length/3);
+  keyData.keyLine3 = keyData.key.substring(2*keyData.key.length/3, keyData.key.length);
+}
+
+function makeRows(arr) {
+	arr.forEach(function(arr) { textRow(arr[0], arr[1]); });
+}
+%>
+
+<h4>License Information <% if (editable) { %><span class="editlink">(<a href="<%= pathTo("license-info") %>">edit</a>)</span><% } %></h4>
+
+<table>
+	<% 
+	  makeRows([
+		  [ "Administrator name:", keyData.ownerName ],
+	    [ "Organization/Company:", keyData.orgName ],
+	    [ "Email address for delivery:", cart.email ],
+			[ "Total users:", cart.userCount ]
+		]);
+		if (keyData.key) {
+		  textRow("License key:", keyData.keyLine1+"<BR>"+keyData.keyLine2+"<BR>"+keyData.keyLine3);
+		  %><!-- key: <%= keyData.key %> --><%
+		}
+	%>
+</table>
+
+<h4>Payment Information <% if (editable) { %><span class="editlink">(<a href="<%= pathTo("billing-info") %>">edit</a>)</span><% } %></h4>
+
+<table>
+	<%
+	  var isUs = cart.billingCountry == "US";
+	  switch(cart.billingPurchaseType) {
+		case 'creditcard':
+			makeRows([
+			  [ "Credit card number:", obfuscateCC(cart.billingCCNumber) ],
+			  [ "Expiration date:", cart.billingExpirationMonth+" / 20"+cart.billingExpirationYear ]
+			]);
+		// falling through intentional.
+		case 'invoice':
+			makeRows([
+				[ "Purchaser name:", cart.billingFirstName + " " + cart.billingLastName ],
+				[ "Purchaser address: ", cart.billingAddressLine1 + "<br>" +
+					             (cart.billingAddressLine2 ? cart.billingAddressLine2 + "<br>" : "") +
+											 cart.billingCity + ", " +
+											 (isUs?cart.billingState:cart.billingProvince) + "<br>" +
+											 (isUs?cart.billingZipCode:cart.billingPostalCode) +
+											 (isUs?'':', '+cart.billingCountry) ],
+				[ "Invoice number: ", cart.invoiceId ]
+			]);
+			break;
+		case 'paypal':
+      textRow("Paid using:", "PayPal");
+	    textRow("InvoiceNumber:", cart.invoiceId);
+	}
+	%>
+</table>
+
+<h4>Summary of Charges</h4>
+
+<%= displayCart("shoppingconfirmation", editable) %>

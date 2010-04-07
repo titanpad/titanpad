@@ -1,0 +1,76 @@
+<html>
+<head>
+<script>
+function createRequestObject() {
+  var xmlhttp=false;
+  /*@cc_on @*/
+  /*@if (@_jscript_version >= 5)
+   try {
+    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+   } catch (e) {
+    try {
+     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } catch (E) {
+     xmlhttp = false;
+    }
+   }
+  @end @*/
+  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+    try {
+      xmlhttp = new XMLHttpRequest();
+    } catch (e) {
+      xmlhttp=false;
+    }
+  }
+  if (!xmlhttp && window.createRequest) {
+    try {
+      xmlhttp = window.createRequest();
+    } catch (e) {
+      xmlhttp=false;
+    }
+  }
+  return xmlhttp
+}
+var host = window.location.host;
+var oldDomain = document.domain;
+var newDomain = oldDomain.substring(oldDomain.indexOf(".", oldDomain.indexOf(".")+1)+1);
+
+function doAction(method, uri, async, headers, body, cb) {
+  try {
+    document.domain = oldDomain;
+  } catch (e) { }
+  var req = createRequestObject();
+  req.open(method, '//'+host+uri, async);
+  for (var i in headers) {
+    req.setRequestHeader(i, headers[i]);
+  }
+  req.onreadystatechange = function() {
+    if (req.readyState == 4) {
+      try {
+        document.domain = newDomain;
+        cb(req.status, req.responseText);
+      } catch (e) {
+        // yikes. well, hopefully a timeout will notice this error.
+      }
+    }
+  }
+  req.send(body);
+}
+function doAbort(xhr) {
+  try {
+    document.domain = oldDomain;
+  } catch (e) { }
+  xhr.abort();
+}
+document.domain = newDomain;
+window.onload = function() {
+  var doneKey = 'done_'+oldDomain.split(".", 2)[0];
+    setTimeout(function() {
+      window.parent[doneKey]();
+    }, 0);
+}
+</script>
+</head>
+<body>
+</body>
+</html>

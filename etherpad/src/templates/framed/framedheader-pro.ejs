@@ -1,0 +1,79 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% helpers.addBodyClass("pro-withtopbar"); %>
+
+<div id="pro-topbar">
+
+  <div id="pro-topbar-inner">
+
+    <% if (account) { %>
+      <div id="accountnav">
+        <%= toHTML(account.email) %>
+        <a href="/ep/account/sign-out">(sign out)</a>
+      </div>
+    <% } else { %>
+      <% // TODO: eventually have sign-in link here. %>
+    <% } %>
+
+    <div id="org-name">
+      <a href="/">
+        <%= proDomainOrgName %>
+      </a>
+
+      <% if (isAnEtherpadAdmin) { %>
+        <span style="color: #ff0; padding-left: 2em; font-weight: bold;">INVISIBLE ADMIN MODE</span>
+      <% } %>
+    </div>
+
+    <div style="clear: both;"><!-- --></div>
+
+  </div>
+</div>
+
+<% function renderProTopNav() {
+    var links = [
+      ['/', 'Home', 'home'],
+      ['/ep/padlist/', 'Pads', 'padlist'],
+      ['/ep/account/', 'My Account', 'account'],
+      ['/ep/pro-help/', 'Help', 'help']
+    ];
+    if (account && account.isAdmin) {
+      links.push(['/ep/admin/', 'Admin', 'admin']);
+    }
+    var ul = UL();
+    links.forEach(function(l) {
+      var c = l[2];
+      var selc = (request.path == l[0] || navSelection == c) ? " selected" : "";
+      ul.push(LI({className: 'topnav_'+c+selc},
+                 A({href: request.scheme + '://'+request.host+l[0]}, l[1])));
+    });
+    return ul;
+} %>
+
+  <%= pneTrackerHtml %>
+
+<div id="pro-topnav">
+  <div id="pro-topnav-inner">
+    <% if (validLicense && account) { %>
+      <%= renderProTopNav() %>
+      <%= helpers.clearFloats() %>
+    <% } %>
+  </div>
+</div>
+
+<!--
+<div id="shuttingdown">
+  <strong style="color:red">Note: EtherPad.com is shutting down March 31, 2010.</strong>
+  <a href="http://<%= fullSuperdomain %>/ep/blog/posts/google-acquires-appjet">(more info)</a>
+</div>
+-->

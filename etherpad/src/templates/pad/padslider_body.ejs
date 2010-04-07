@@ -1,0 +1,41 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><%
+ helpers.setHtmlTitle(toHTML("Time Slider"));
+ helpers.setBodyId("padsliderbody");
+ helpers.includeCss("etherpad.css");
+ //helpers.includeCss("jqueryui/theme/ui.all.css");
+ helpers.setRobotsPolicy({index: false, follow: false});
+ helpers.includeJQuery();
+ //helpers.includeJs("jquery-ui-slider-1.5.3.js");
+ helpers.includeJs("json2.js");
+ helpers.includeJs("timeslider.js");
+
+ function dfmt(t) {
+   var d = new Date(t);
+   return d.toString();
+ }
+%>
+
+<!-- <div id="sliderui"></div> -->
+<p>Powered by <a href="/">EtherPad</a>.</p><br />
+<div id="controls">
+<a href="<%= request.url %>#" class="prev">prev</a> /
+<a href="<%= request.url %>#" class="next">next</a> &nbsp; &nbsp;
+<a href="<%= request.url %>#" class="play">play</a> /
+<a href="<%= request.url %>#" class="stop">stop</a> &nbsp; &nbsp;
+seek to #<input class="entry" type="text" size="6"/>
+<div id="currevdisplay"><span class="min">0</span> --- <span class="cur">0</span> --- <span class="max">0</span></div>
+</div>
+
+<div id="stuff">Loading...</div>

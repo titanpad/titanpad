@@ -1,0 +1,175 @@
+/*------
+ Global Container
+------*/
+
+#container {
+   font-family: Arial, Helvetica, Calibri, sans-serif;
+}
+body.home {
+   background: #f7f7f7 url(/static/img/davy/bg/home2.png) repeat-x top;
+}
+.home #container {
+   width: 920px; margin: 0 auto;
+}
+body.nothome {
+   background: #f7f7f7 url(/static/img/davy/bg/product.png) repeat-x top;
+}
+.nothome #container {
+   width: 910px; margin: 0 auto;
+}
+
+/*------
+ Layout
+------*/
+
+#navigation,
+.home #top,
+.home #bottom,
+#footer {
+   width: 888px;
+   margin: 0 auto;
+}
+
+/* framed page general */
+div.fpcontent {
+   width: 848px;
+   margin: 0 auto;
+      
+   font-size: 1.3em;
+   padding: 20px;
+
+   background-color: #fff;
+   border-left: 1px solid #ccc;
+   border-right: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
+   border-top: 0;
+}
+div.fpcontent h1 {
+   color: #666;
+   border-bottom: 1px solid #666;
+   margin: .8m 0 1em 0;
+   font-size: 1.8em;
+}
+div.fpcontent h2 {
+   color: #666;
+   border-bottom: 1px solid #666;
+   font-size: 1.4em;
+   margin: 1em 0;
+}
+div.fpcontent p {
+   margin: 1em 0;
+   line-height: 150%;
+}
+div.fpcontent ul {
+   list-style: disc;
+   padding-left: 1.5em;
+}
+div.fpcontent ul li {
+   margin: 1em 0;
+   padding-left: .5em;
+}
+
+/*----------
+ Navigation
+----------*/
+
+#topnav_wrap {
+   background: url(/static/img/davy/bg/product.png) repeat-x top;
+}
+#navigation {
+   height: 38px;
+   overflow: hidden;
+   background: url(/static/img/davy/bg/home2.png) repeat-x top;
+}
+#navigation h1 a {
+   display: block;
+   width: 120px;
+   position: relative;
+   padding: 38px 0 0 0;
+   overflow: hidden;
+   background: transparent url(/static/img/davy/gfx/product-logo.gif) no-repeat 0 6px;
+   height: 0px;
+   float: left;
+}
+.home #navigation h1 a {
+   display: none;
+}
+#navigation ul {
+   margin-right: -10px;
+}
+#navigation li {
+   display: inline;
+}
+#navigation li a {
+   font-family: Calibri, "Trebuchet MS", Trebuchet, Arial, sans-serif;
+   font-size: 1.208em;
+   text-transform: uppercase;
+   color: #fff;
+   text-shadow: 0 1px 0 #223f6b;
+   letter-spacing: 1px;
+   display: block;
+   padding: 11px 10px 13px 10px;
+   float: right;
+}
+.home #navigation .topnav_pricing a {
+   color: #ffc261;
+}
+.home #navigation .topnav_pricing a:hover {
+   color: #FEAC59;
+}
+#navigation li.selected a {
+   color: #bddbff;
+}
+.home #navigation li.selected a {
+   background: url(/static/img/davy/bg/home-nav-selected.png) no-repeat center 32px;
+}
+.nothome #navigation li.selected a {
+   background: url(/static/img/davy/bg/product-nav-selected-white.png) no-repeat center 32px;
+}
+#navigation li a:hover {
+   color: #DEEDFF;
+   text-decoration: none;
+}
+
+        
+/*------
+ Footer
+------*/
+
+.home #footer {
+   border-top: 1px solid #d9d9d9;
+   margin-top: 24px;
+}
+
+.nothome #footer {
+   margin-top: 0px;
+}
+
+        #footer-inner {
+            border-top: 1px solid #f9f9f9;
+            padding: 12px 0;
+            color: #666;
+            font-size: .917em;
+        }
+
+#footer-left {
+   float: left;
+   width: 700px;
+}
+        #footer ul,
+        #footer li {
+            display: inline;
+        }
+        #footer li {
+            margin-left: 1em;
+        }
+        
+        #footer #appjet {
+            float: right;
+            margin-right: -12px;
+        }
+            #footer #appjet a {
+                background: url(/static/img/davy/gfx/plane.gif) no-repeat right center;
+                padding-right: 12px;
+            }
+

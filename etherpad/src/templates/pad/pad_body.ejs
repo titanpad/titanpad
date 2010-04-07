@@ -1,0 +1,69 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><%
+  var padIdHtml = toHTML(request.url.split("?", 1)[0]);
+%>
+
+<% helpers.setHtmlTitle("EtherPad: "+toHTML(proTitle || request.path.substr(1))); %>
+<% helpers.setBodyId("padbody") %>
+<% helpers.addBodyClass(bodyClass) %>
+<% helpers.includeCss("pad.css") %>
+<% helpers.includeJs("undo-xpopup.js") %>
+<% helpers.includeCometJs() %>
+<% helpers.includeJQuery(); %>
+<% helpers.includeJs("json2.js") %>
+<% helpers.includeJs("ace.js") %>
+<% helpers.includeJs("collab_client.js") %>    
+<% helpers.includeJs("pad.js") %>
+<% helpers.suppressGA() %>
+<% helpers.setRobotsPolicy({index: false, follow: false}) %>
+
+<div id="padpage">
+
+<div id="modaloverlay">
+  <div id="modaldialog">
+    <div id="dialogtopbar">Foo.</div>
+    <table id="dialogcontenttable" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td id="dialogcontent">This is a modal dialog!</td>
+    </tr></table>
+  </div>
+</div>
+<table id="padoutertable" cellpadding="0" cellspacing="0" border="0">
+<tr id="pot_toptr">
+  <td id="pot_shadlefttopseg" class="potshad">&nbsp;</td>
+  <td id="pot_top">
+    <a id="headhomelink" href="/">EtherPad</a>
+    <div id="headurl">
+      <label for="shareurl">Share this URL:</label>
+       &nbsp;<span id="shareurl"><%= padIdHtml %></span>
+    </div>
+    <a id="widthlink" href="javascript: void pad.toggleFullWidth()">M</a>
+    <a id="newpadlink" href="javascript:void pad.newPad()" 
+        title="Create and open a new pad in a new window">New Pad</a>
+  </td>
+  <td id="pot_shadrighttopseg" class="potshad">&nbsp;</td>
+</tr>
+
+<tr>
+  <td id="pot_shadleft" class="potshad"><div><!-- --></div></td>
+  <td id="pot_main">
+    <div id="padcontent">
+      <%= contentHtml %>
+    </div><!-- /padcontent -->
+  </td>
+  <td id="pot_shadright" class="potshad"><div><!-- --></div></td>
+</tr>
+
+</table><!-- /padoutertable -->
+  
+</div><!-- /padpage -->

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC
+	  "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>A Code Editor</title>
+    <script src="jquery-1.2.1.js"></script>
+    <!-- DEBUG -->
+    <script src="ace2_outer.js"></script>
+    <script src="firebug/firebugx.js"></script>
+    <!-- /DEBUG -->
+    <script src="testcode.js"></script>
+    <!-- PROD: <script src="ace2.js"></script> -->
+    <script>
+      $(document).ready(function() {
+        var editor = new Ace2Editor();
+        editor.init("editorcontainer", getTestCode(), editorReady);
+
+        editor.setOnKeyPress(function (evt) {
+          if (evt.ctrlKey && evt.which == "s".charCodeAt(0)) {
+            alert("You tried to save.");
+            return false;
+          }
+          return true;
+        });
+      
+        function editorReady() {
+	  resizeEditor();
+	  $(window).bind("resize", resizeEditor);
+	  setTimeout(function() {editor.focus();}, 0);
+	}
+
+        function resizeEditor() {
+	  $("#editorcontainer").get(0).style.height = "100%";
+	  editor.getFrame().style.height = ((document.documentElement.clientHeight)-1)+"px";
+	  editor.adjustSize();
+	}
+      });
+    </script>
+    <style>
+      html { overflow: hidden } /* for Win IE 6 */
+      body { margin:0; padding:0; border:0; overflow: hidden; }
+      #editorcontainer { height: 1000px; /* changed programmatically */ }
+      #editorcontainer iframe { width: 100%; height: 100%; border:0; padding:0; margin:0; }
+    </style>
+  </head>
+  <body>
+    <div id="editorcontainer"><!-- --></div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% helpers.includeJQuery() %>
+<% helpers.includeJs("etherpad.js") %>
+<% helpers.includeCss("pro/payment-required.css") %>
+
+<div class="fpcontent payment-required">
+
+
+<div id="outside">
+<div id="inside">
+
+  <h1>Payment Required</h1>
+
+  <div id="message"><%= message %></div>
+  <br/>
+
+  <% if (isAdmin) { %>
+    <a class="manage-billing-button" href="/ep/admin/billing/">
+      Manage Billing Info
+    </a>
+  <% } else { %>
+    <p>Please contact one of the following site administrator to
+      set up a billing profile on <%= request.domain %>:</p>
+
+    <ul>
+      <% adminList.forEach(function(a) { %>
+        <li><%= a.fullName %>&nbsp;&nbsp;&lt;<%= TT(a.email)
+        %>&gt;</li>
+      <% }); %>
+    </ul>
+
+  <% } %>
+
+  <br/><br/>
+  <p>Questions? Contact <%= helpers.oemail("support") %>.</p>
+
+</div>
+</div>
+
+

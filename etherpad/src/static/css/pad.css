@@ -1,0 +1,1000 @@
+*,html.body,p { margin: 0; padding: 0; }
+html {
+   font-size: 62.5%;
+}
+div.hidden { display: none; }
+
+/*----------------------------------------------------------------*/
+/* pad */
+/*----------------------------------------------------------------*/
+body#padbody {
+  font-family: verdana, helvetica, sans-serif;
+  background: white;
+  color: black;
+}
+
+body#padbody.limwidth {
+  background: #d2d2d2 url(/static/img/apr09/backgrad.png) repeat-x left top;
+}
+
+body #padoutertable { width: 100%; }
+body.limwidth #padoutertable { width: 940px;  margin-left: auto;  margin-right: auto; }
+#padoutertable td#pot_main, #padoutertable td#pot_top, #padoutertable td.potshad {
+  vertical-align: top; zoom: 1; position: relative; }
+#padoutertable #pot_main { background: white; padding-left: 12px; padding-right: 12px;
+  padding-top: 2px; 
+}
+
+body.fullwidth #padoutertable .potshad { display: none; }
+
+/* Achieve side drop shadows on top of background gradient using two drop shadow
+  images for each side (one with gradient in background, one to repeat down the
+  page).  Each side drop shadow gets a column of the padoutertable, but split into
+  two cells, because if a single cell is used on each side with rowspan=2 with a
+  tall image in it, IE 6 chooses an unsightly initial height for the top bar.
+*/
+body.limwidth #padoutertable .potshad { width: 4px; }
+body.limwidth #padoutertable .potshad div { height: 200px; }
+body.limwidth #padoutertable #pot_shadleft {
+  background: url(/static/img/apr09/shadleft.png) repeat-y right top; }
+body.limwidth #padoutertable #pot_shadleft div,
+body.limwidth #padoutertable #pot_shadlefttopseg {
+  background: url(/static/img/apr09/shadlefttop.png) no-repeat right top; }
+body.limwidth #padoutertable #pot_shadright {
+  background: url(/static/img/apr09/shadright.png) repeat-y left top; }
+body.limwidth #padoutertable #pot_shadright div,
+body.limwidth #padoutertable #pot_shadrighttopseg {
+  background: url(/static/img/apr09/shadrighttop.png) no-repeat left top; }
+body.limwidth #padoutertable #pot_main, body.limwidth #padoutertable #pot_top {
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+}
+body.limwidth #padoutertable #pot_main { border-bottom: 1px solid #333; }
+
+#padoutertable #pot_top { background: #2e609e url(/static/img/apr09/topbar.gif) repeat-x left top;
+  height: 28px; vertical-align: middle;
+  border-bottom: 1px solid #333;
+  padding-left: 1px; padding-right: 1px; /* a little padding helps "active" rects not extend outside */
+}
+
+#padpage #pot_top a#headhomelink {
+   display: block; float: left;
+   height: 0; width: 88px;
+   padding-top: 28px;
+   overflow: hidden;
+   text-decoration: none;
+   background: url(/static/img/apr09/topbarlogo.gif) no-repeat left top;
+}
+#padpage #pot_top a#widthlink {
+   display: block; float: right;
+   height: 0; width: 28px;
+   padding-top: 28px;
+   overflow: hidden;
+   text-decoration: none;
+}
+
+#padpage #pot_top, #padpage #pot_top a { color: #cbd7e7; }
+#padpage #pot_top a:focus { outline: 0; } /* for firefox */
+
+body.limwidth #padpage #pot_top a#widthlink {
+  background: url(/static/img/apr09/widthfull.gif) no-repeat center 8px; }
+body.fullwidth #padpage #pot_top a#widthlink {
+  background: url(/static/img/apr09/widthlim.gif) no-repeat center 8px; }  
+body.limwidth #padpage #pot_top a#widthlink:hover {
+  background: url(/static/img/apr09/widthfullactive.gif) no-repeat center 8px; }  
+body.fullwidth #padpage #pot_top a#widthlink:hover {
+  background: url(/static/img/apr09/widthlimactive.gif) no-repeat center 8px; }  
+
+#padpage #pot_top #headurl {
+   margin-left: 30px;
+   margin-top: 5px;
+   float: left;
+   margin-right: 20px;
+   padding: 2px;
+   height: 15px;
+   line-height: 14px;
+   font-size: 1.1em;
+}
+
+#padpage #pot_top #shareurl { font-weight: bold; }
+
+#padpage #pot_top #newpadlink {
+  display: block; float: right; margin-right: 30px;  font-size: 1.0em;
+  font-weight: bold; text-decoration: none;
+  height: 0;
+  padding-top: 8px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 6px;
+  overflow: hidden;
+  background: url(/static/img/apr09/newpadicon.gif) no-repeat 2px 8px;
+}
+#padpage #pot_top a#newpadlink:hover {
+  text-decoration: underline; color: white;
+}
+
+/*
+body#padbody.fullwidth {
+  background: #ddd;
+}
+#padpage {
+  
+}
+body.limwidth #padcontent {
+   width: 940px;
+   margin-left: auto;
+   margin-right: auto;
+}
+#padpage #padhead {
+   height: 38px;
+   text-align: center;
+   margin-bottom: 4px;
+}
+#padpage #padhead_inner {
+   width: 938px;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 0 1px;
+   background: url(/static/img/oct/minitopback2.gif) repeat center top;
+   border: 1px solid #666;
+   border-top: 0;
+}
+#padpage #padhead a#headhomelink {
+   display: block;
+   float: left;
+   height: 0;
+   width: 154px;
+   padding-top: 37px;
+   overflow: hidden;
+   text-decoration: none;
+   background: url(/static/img/oct/minitoplogo2.gif) no-repeat left top;
+}
+#padpage #headnewpad {
+   float: right;
+}
+#padpage #headnewpad #newbutton {
+   margin-top: 5px;
+   margin-right: 20px;
+}
+#padpage #headurl {
+   margin-left: 70px;
+   margin-top: 5px;
+   float: left;
+   font-size: 1.4em;
+   margin-right: 20px;
+   padding: 5px 5px 5px 5px;
+   height: 17px;
+   line-height: 17px;
+}
+#padpage #headurl label {
+   font-weight: bold;
+   font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+   font-size:1em;
+   position: relative;
+   top: 1px;
+}
+#padpage #headurl #shareurl {
+   border: 1px solid #999;
+   padding: 3px;
+}
+#padpage #padtablediv {
+   margin: 0;
+}
+body.limwidth #padpage #padtablediv {
+   margin: 0 20px;
+}
+*/
+
+#padpage #padtable {
+   width: 100%;
+}
+#padpage #padtable td#topbar {
+   height: 16px;
+}
+#padpage #padtable div#topbarmsg {
+   display: none;
+   float: left;
+   color: #642;
+   font-size: 1.0em;
+   padding-top: 2px;
+   padding-left: 4px;
+   border-left: 1px solid #ccc;
+}
+
+#padpage #topbar #connectionstatus {
+   float: left;
+   padding-top: 2px;
+   padding-right: 4px;
+   padding-left: 16px;
+   height: 16px;
+   font-size: 1.0em;
+   color: #666;
+}
+#padpage #topbar .connecting {
+   background: url(/static/img/pad/animated-orb-orange-12.gif) no-repeat left center;
+}
+#padpage #topbar .connected {
+   background: url(/static/img/pad/orb-greenred-12.gif) no-repeat left 3px;
+}
+#padpage #topbar .disconnected {
+   background: url(/static/img/pad/orb-greenred-12.gif) no-repeat left -17px;
+}
+#padpage #padtable a.showhide {
+   display: block;
+   margin: 0;
+   font-size: 1em;
+   text-decoration: none;
+}
+#padpage #padtable a.showhide:hover {
+   text-decoration: underline;
+}
+#padpage #padtable a.showhide, #padpage #padtable a.showhide:visited {
+   color: #66f;
+}
+#padpage #padtable a#showsidebar {
+   float: right;
+   display: none;
+   position: relative;
+   top: 2px;
+}
+#padpage #padtable a#hidesidebar {
+   float: left;
+   display: none;
+}
+/*#padpage #editorcontainer {
+   display: none;
+}*/
+/*#padpage #toptoolbar {
+   display: none;
+}*/
+#padpage .editorcell_loaded #editorcontainer {
+   background: #fff;
+   overflow: hidden;
+   display: block;
+}
+#padpage #toptoolbar {
+   border-bottom: 1px solid #666;
+   height: 30px;
+   background: #eee;
+   display: block;
+   position: relative; /* make it an offsetParent for padtitle stuff */
+   overflow: hidden;
+}
+#padpage #bottoolbar {
+   border-top: 1px solid #666;
+   height: 30px;
+   background: #eee;
+   display: none; /* set in pad.js */
+}
+#padpage #bottoolbar #viewzoom {
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+  float: left;
+}
+#padpage #bottoolbar #viewfont {
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+  float: left;
+}
+#padpage #editorcell {
+   border: 1px solid #666;
+}
+#padpage #toptoolbar a.toptoolbarbutton {
+  float: left;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #999;
+  background-color: #eee;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-top: 5px;
+  text-decoration: none;
+}
+#padpage #toptoolbar.disabledtoolbar a.toptoolbarbutton {
+  opacity: 0.5;
+  filter: alpha(opacity = 50); /* IE */
+  zoom: 1;
+  cursor: auto;
+}
+#padpage #toptoolbar #padtitle {
+  float: left;
+  margin-top: 5px;
+  margin-left: 20px;
+  line-height: 20px;
+  width: 400px;
+  height: 20px;
+  overflow: hidden;
+  display: none;
+}
+#padpage #toptoolbar .padtitlepad {
+  font-style: italic;
+  color: #666;
+  font-size: 1.2em;
+}
+#padpage #toptoolbar #padtitletitle {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+#padpage #toptoolbar .editlink {
+  font-size: 1em;
+  color: #666;
+}
+#padpage #toptoolbar .oklink {
+  display: none;
+  z-index: 2;
+  position: absolute;
+  line-height: 20px;
+  font-size: 1em;
+}
+#padpage #toptoolbar #padtitleedit {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+}
+#padpage #toptoolbar a:focus {
+  outline: 0;
+}
+#padpage #toptoolbar .bold { background-image: url(/static/img/may09/bold.gif); }
+#padpage #toptoolbar .italic { background-image: url(/static/img/may09/italic.gif); }
+#padpage #toptoolbar .underline { background-image: url(/static/img/may09/underline.gif); }
+#padpage #toptoolbar .undo { background-image: url(/static/img/may09/undo.gif); }
+#padpage #toptoolbar .redo { background-image: url(/static/img/may09/redo.gif); }
+#padpage #toptoolbar .bold, #padpage #toptoolbar .undo {
+  margin-left: 5px;
+}
+#padpage #toptoolbar #passwordlock {
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  width: 22px;
+  height: 22px;
+  text-decoration: none;
+}
+#padpage #toptoolbar a#passwordlock:hover {
+  background-color: #ffffee;
+}
+#padpage #toptoolbar .passwordhidden { display: none; }
+#padpage #toptoolbar .passwordlocked {
+  display: block;
+  background: url(/static/img/may09/passwordlocked.gif) no-repeat center center;
+}
+#padpage #toptoolbar .passwordnone {
+  display: block;
+  background: url(/static/img/may09/passwordnone.gif) no-repeat center center;
+}
+#padpage #sidebarcell {}
+#padpage #sidebar {
+   width: 300px;
+   border-top: 1px solid #666;
+   border-right: 1px solid #666;
+   border-bottom: 1px solid #666;
+   background: #fff;
+   overflow: auto;
+}
+#padpage div.sidebar_loading {
+   border-left: 1px solid #666;
+}
+#padpage #editorcontainer iframe {
+   width: 100%;
+   padding:0;
+   margin:0;
+}
+#padpage #appjetfooter {
+   padding: 3px 3px;
+   font-family: Verdana, Helvetica, sans-serif;
+   font-size: 1em;
+   text-align: right;
+}
+div#djs {
+   font-family: monospace;
+   font-size: 10pt;
+   height: 300px;
+   overflow: scroll;
+   border: 1px solid #ccc;
+   background: #fee;
+   margin: 5px 0;
+   padding: 6px;
+}
+div#djs p { margin: 0; padding: 0; display: block; }
+#padpage a.small_link {
+   font-style: normal;
+   color: #66f;
+   text-decoration: none;
+   font-size: 1.1em;
+}
+#padpage a.small_link:hover { text-decoration: underline; }
+#padpage .editorcell_loading #editorcellinner {
+  height: 400px; /* make #sizedcontent stretch the outer table for height calc */
+}
+#padpage #editorcellinner {
+  position: relative;
+  zoom: 1;
+}
+#padpage #loadingbox {
+   padding-top: 100px;
+   padding-bottom: 100px;
+   font-size: 2.5em;
+   color: #aaa;
+   text-align: center;
+   position: absolute;
+   width: 100%;
+   height: 30px;
+   z-index: 100;
+}
+/*----------------------------------------------------------------*/
+/* userlist */
+/*----------------------------------------------------------------*/
+#sidebar div.sideheadwrap {
+   font-weight: normal;
+   font-size: 1.2em;
+   text-align: center;
+   padding: 3px 6px;
+   background: #eee url(/static/img/pad/sidehead-grad.gif) repeat-x bottom left;
+   border-bottom: 1px solid #666;
+   cursor: pointer;
+   zoom: 1;
+}
+#sidebar div.sh_hilited {
+  background-image: url(/static/img/oct/sidehead-gradhilite.gif);
+}
+#sidebar div.sideheadwrap p.sidehead {
+  display: block;
+  text-align: left;
+  padding: 0 0 0 18px;
+  margin: 0;
+}
+#sidebar div.sh_uncollapsed p.sidehead {
+   background: url(/static/img/pad/expandy-arrow6-down.gif) no-repeat center left;
+}
+#sidebar div.sh_collapsed p.sidehead {
+   background: url(/static/img/pad/expandy-arrow6-right.gif) no-repeat center left;
+}
+#sidebar div.sideheadwrap:hover {
+   cursor: pointer;
+   background: #bbb;
+}
+#sidebar div.sh_uncollapsed:hover p.sidehead {
+   background: url(/static/img/pad/expandy-arrow6-down-active.gif) no-repeat center left;
+}
+#sidebar div.sh_collapsed:hover p.sidehead {
+   background: url(/static/img/pad/expandy-arrow6-right-active.gif) no-repeat center left;
+}
+#sidebar div.sidebox { margin-bottom: 10px; }
+#sidebar div#chatbox { margin-bottom: 2px; }
+#sidebar div.sidebox_last { margin-bottom: 0; }
+#sidebar #userlist div.userbox {
+   border-bottom: 1px solid #ccc;
+}
+#sidebar #userlist div.lastuser {
+   border-bottom: 0;
+}
+#sidebar #userlist div.userbox div.userinfo {
+   font-style: italic;
+   margin-top: 3px;
+}
+#sidebar #userlist div.userbox div.userinfo span.username {
+   padding-bottom: 4px;
+   font-size: 1.2em;
+}
+#sidebar #userlist div.userbox div.userinfo div.ip {
+   color: #999;
+   font-size: 1em;
+   margin-bottom: 3px;
+}
+#sidebar #userlist div.userbox div.usercolor {
+   border: 1px solid black;
+   width: 12px;
+   height: 12px;
+   float: left;
+   margin: 6px;
+   margin-top: 3px;
+   margin-left: 0;
+}
+#sidebar #userlist div.userbox div#rightuserlink {
+   float: right;
+   text-align: right;
+   width: 120px;
+}
+#sidebar #userlist a#changenamelink {
+   padding-right: 18px;
+   background: url(/static/img/pad/pencil-icon-small-blue.gif) no-repeat top right;
+}   
+#sidebar #userlist div.userinfowrap {
+   padding: 6px 0 6px 6px;
+}
+#sidebar #userlist div.myuserwrap:hover {
+   cursor: pointer;
+   background: #eee;
+}
+/*----------------------------------------------------------------*/
+/* editing my user info */
+/*----------------------------------------------------------------*/
+#userlist div.edituserinfo {
+   color: black;
+   padding: 6px 0 12px 12px;
+}
+#userlist div.edituserinfo p {
+   font-size: 1.2em;
+   margin: 8px 4px;
+}
+#userlist div.edituserinfo h4 {
+   margin-top: 1em;
+   margin-left: 4px;
+   font-size: 1.3em;
+   color: black;
+   font-weight: bold;
+}
+#userlist div.edituserinfo input {
+   width: 260px;
+}
+#userlist div.edituserinfo button {
+   margin: 8px 4px;
+}
+#colorpicker a {
+   border: 3px solid #ccc;
+   text-decoration: none;
+   display: block;
+   width: 12px;
+   height: 12px;
+   float: left;
+   margin: 4px;
+   cursor: pointer;
+}
+#colorpicker a.selectedcolor {
+   border: 3px solid black;
+}
+#colorpicker a:hover {
+   border: 3px solid black;
+}
+/*----------------------------------------------------------------*/
+/* invitemore */
+/*----------------------------------------------------------------*/
+#sidebar #invitemore {
+   display: none;
+   text-align: center;
+   margin-top: 10px;
+   font-size: 1.1em;
+}
+#sidebar #invitemore input {
+   font-size: 1.1em;
+}
+#sidebar #invitemore a {}
+#sidebar #invitemore #inviteinstructions {
+   background-color: #efe;
+   border: 1px solid #ccc;
+}
+#sidebar #invitemore #inviteinstructions p {
+   text-align: justify;
+   padding: .4em 1em;
+}
+#sidebar #invitemore #inviteinstructions p#hideinstructions {
+   text-align: center;
+}
+#sidebar #invitemore #inviteinstructions p#emailinviteleadin {
+   margin-top: .6em;
+}
+#sidebar #invite_email { width: 160px; }
+#sidebar #invitemore #inviteinstructions #invite_email_submit {}
+#sidebar #invitemore #invite_email_status { color: #642; }
+/*----------------------------------------------------------------*/
+/* prefs */
+/*----------------------------------------------------------------*/
+#sidebar div#headprefs { border-top: 1px solid #666; }
+#sidebar div#headfeedback { border-top: 1px solid #666; }
+#sidebar div#headrevisions { border-top: 1px solid #666; }
+#sidebar div#headchatbox { border-top: 1px solid #666; }
+#sidebar div#headimportexport { border-top: 1px solid #666; }
+#sidebar #prefs div.prefcheckbox {
+   margin: 0;
+   cursor: pointer;
+   border: 1px solid #fff;
+   font-size: 1em;
+}
+#sidebar #prefs div.prefcheckbox td.checkboxcell {
+   padding: 0 4px;
+}
+#sidebar #prefs div.prefcheckbox td.labelcell {
+   padding: 3px 4px;
+}
+#sidebar #prefs div.prefcheckbox:hover {
+   cursor: pointer;
+   background-color: #def;
+   border: 1px solid #aaa;
+}
+/*----------------------------------------------------------------*/
+/* revisions */
+/*----------------------------------------------------------------*/
+#sidebar #revisions {
+   text-align: center;
+}
+#sidebar #revisionlist {}
+#sidebar #revisions input#savenow {
+   width: 260px;
+   margin-left: auto; margin-right: auto;
+   margin-top: 6px; margin-bottom: 6px;
+}
+#sidebar #revisions .revisioninfo {
+   text-align: left;
+   font-size: 1.1em;
+   border-top: 1px solid #ccc;
+   padding: 3px 2px 3px 6px;
+}
+#sidebar #revisions .revisioninfo .ractions {
+   color: #aaa;
+   font-size: 1em;
+}
+#sidebar #revisions .revisioninfo .rleft {
+   width: 96px;
+   float: left;
+}
+#sidebar #revisions .revisioninfo .editrlabel {
+   padding-left: 16px;
+   background: url(/static/img/pad/pencil-icon-small-blue.gif) no-repeat center left;
+}
+#sidebar #revisions .revisioninfo .rright {
+   margin-left: 18px;
+   color: #777;
+   font-style: italic;
+}
+#sidebar #revisions .revisionbottomlinks {
+   border-top: 1px solid #eee;
+   padding-top: 5px;
+   color: #888;
+   font-size: 1.1em;
+}
+#sidebar #revisions #nosaveprivs {
+   display: none;
+   color: #282;
+   font-size: 1.2em;
+   padding: 1em;
+}
+#sidebar #revisions p.revlabelprompt {
+   color: #444;
+   padding: 2px;
+}
+#sidebar #revisions input.inputrevlabel {
+   display: block;
+   width: 260px;
+   margin-left: auto; margin-right: auto;
+   margin-top: 6px; margin-bottom: 6px;
+   border: 1px solid #ccf;
+}
+   
+/*----------------------------------------------------------------*/
+/* feedback */
+/*----------------------------------------------------------------*/
+#sidebar #feedback {
+   background: #eee;
+   padding: 1px 8px; /* non-zero padding so that background extends */
+   border-bottom: 1px solid #bbb;
+   text-align: center;
+   padding-bottom: 12px;
+}
+#sidebar #feedback p {
+   font-size: 1.1em;
+   margin: 10px 0;
+   color: #333;
+   text-align: justify;
+}
+#sidebar #feedback p em {
+   font-weight: bold;
+   font-style: italic;
+}
+#sidebar #feedback #formbox {
+   width: 260px;
+   margin-left: auto;
+   margin-right: auto;
+   zoom: 1;
+   positive: relative;
+}
+#sidebar #feedback textarea {
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   height: 100px;
+}
+#sidebar #feedbacksubmit {
+   width: 100%;
+   text-align: center;
+   margin-left: auto;
+   margin-right: auto;
+}
+#sidebar #feedbackresult {
+   display: none;
+}
+/*----------------------------------------------------------------*/
+/* other */
+/*----------------------------------------------------------------*/
+a#newbutton {
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:1.2em;
+    line-height:1.0;
+    margin:0 0 0 0;
+    text-decoration:none;
+
+    background-color:#eee;
+    border:1px solid #999;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #666;
+    
+    padding:5px 5px 3px 5px;
+    
+    cursor:pointer;
+    font-weight:bold;
+    color:#555;
+    display: block;
+}
+a#newbutton:hover {
+    background-color: #ddd;
+    border: 1px solid #999;
+    color: #333;
+}
+a#newbutton img {
+    padding:0;
+    padding-bottom: 2px;
+    border:none;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+#framedpage #notice {
+   padding: 40px 20px;
+}
+#framedpage #notice p {
+   margin: 16px 0;
+}
+
+img#plane { border: 0; vertical-align: middle; }
+
+/*----------------------------------------------------------------*/
+/* top msgs */
+/*----------------------------------------------------------------*/
+
+div.topmsg {
+   zoom: 1;
+   margin: 5px 0;
+   position: relative;
+}
+div.topmsg a#hidetopmsg {
+   position: absolute;
+   right: 5px;
+   bottom: 5px;
+}
+
+div#bigtoperror_wrap {
+   border: 1px solid #a66;
+   background: #fdd;
+   font-size: 1.2em;
+   padding: 1em;
+   padding-bottom: .5em;
+}
+div#bigtoperror_wrap p {
+   margin-bottom: 6px;
+   color: #222;
+}
+div#bigtoperror_wrap p.whynote {
+   color: #444;
+}
+div#bigtoperror_wrap p.whynote a {
+   color: #33f;
+}
+div#bigtoperror_wrap button.forcereconnect {
+   margin-top: 6px;
+}
+div#bigtoperror_wrap a { color: #00a; }
+div#bigtoperror_wrap a:visited { color: #00a; }
+   
+div#servermsg {
+   position: relative;
+   border: 1px solid #992;
+   background: #ffc;
+   padding: 1em;
+}
+
+/*----------------------------------------------------------------*/
+/* chat */
+/*----------------------------------------------------------------*/
+#chatbox {}
+#chatbox #chatmessages {
+   margin: 0;
+   margin-bottom: 2px;
+   height: 160px;
+   border: 1px solid #ccc;
+   overflow: auto;
+}
+#chatbox div.chatmessage { padding: 2px 0; }
+#chatbox div.chatusermessage0 { background-color: #eee; }
+#chatbox span.chatname { font-style: italic; }
+#chatbox span.chattime { font-style: italic; color: #444; }
+#chatbox span.chatline { color: #222; }
+#chatbox input#chatinput { width: 100%; }
+#chatbox #chatsaytable {
+   width: 270px;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 0;
+   border-spacing: 0;
+}
+#chatbox #chatsaytable td { padding: 0 2px; }
+
+/*----------------------------------------------------------------*/
+/* import/export */
+/*----------------------------------------------------------------*/
+
+#importexport td.exportpic a img {
+   border: 0;
+}
+
+#importexport .exportspinner {
+  display: none;
+}
+
+#importexport .exportspinner img {
+  margin-left: 7px;
+}
+
+#importexport a.disabledexport {
+  color: gray;
+}
+
+#importexport {
+   font-size: 1em;
+   font-family: verdana, helvetica, sans-serif;
+}
+
+#importexport .exportlink {
+   margin: 2px 0;
+}
+
+#importexport td.labelcell {
+  padding-left: 4px;
+}
+
+#importexport td.firsttd {
+   padding-left: 10px;
+}
+
+#importexport td.secondtd {
+  padding-left: 50px;
+}
+
+#importexport #headexport {
+  font-size: 1.1em;
+  margin: 7px;
+  margin-top: 10px;
+}
+
+#importexport #importsection {
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  padding-top: 3px;
+}
+
+#importexport .importformdiv {
+	padding: 5px 15px;
+}
+
+#importexport #importformsubmitdiv {
+  margin-top: 5px;
+}
+
+.importformenabled {
+	background: #cfc;
+	border-top: 1px solid #292;
+	border-bottom: 1px solid #292;
+}
+
+#importexport #headimport {
+  font-size: 1.1em;
+  margin: 7px;
+}
+
+#importexport .importmessage {
+  display: none;
+  border: 1px solid #992;
+  background: #ffc;
+  padding: 5px;
+}
+
+#importexport #exportmessage {
+  display: none;
+  border: 1px solid #992;
+  background: #ffc;
+  padding: 5px;
+  margin: 10px 15px;
+}
+
+#importexport #importmessagefail {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+#importexport #importmessagesuccess {
+  margin: 0 20px;
+}
+
+#importexport #importstatusball {
+  display: none;
+  padding-bottom: 3px;
+}
+
+#importexport #importarrow {
+  display: none;
+  margin-left: 5px;
+}
+
+span.nowrap {
+  white-space: nowrap;
+}
+
+#sidebar #prefs div.prefcheckbox {
+   margin: 0;
+   cursor: pointer;
+   border: 1px solid #fff;
+   font-size: 1em;
+}
+#sidebar #prefs div.prefcheckbox td.checkboxcell {
+   padding: 0 4px;
+}
+#sidebar #prefs div.prefcheckbox td.labelcell {
+   padding: 3px 4px;
+}
+#sidebar #prefs div.prefcheckbox:hover {
+   cursor: pointer;
+   background-color: #def;
+   border: 1px solid #aaa;
+}
+
+/*----------------------------------------------------------------*/
+/* modal dialogs */
+/*----------------------------------------------------------------*/
+
+#modaloverlay {
+  position: absolute;
+  z-index: 100;
+  background-image: url(/static/img/apr09/black35.png);
+  zoom: 1;
+  display: none;
+  left: 0; top: 0;
+  width: 100%;
+}
+
+* html #modaloverlay { /* for IE 6+ */
+  background-color: transparent;
+  background-image: url(/static/img/apr09/blank.gif);
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/static/img/apr09/black35.png", sizingMethod="scale");
+}
+
+#modaldialog {
+  border: 1px solid #333;
+  background: #ddd;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+#dialogtopbar {
+  height: 18px;
+  border-bottom: 1px solid #333;
+  background: #2e609e url(/static/img/apr09/modalbar.gif) repeat-x left top;
+  color: #cbd7e7;
+  font-size: 1.0em;
+  font-weight: bold;
+  line-height: 18px;
+  padding-left: 10px;
+  cursor: default;
+}
+
+td#dialogcontent {
+  padding: 10px;
+  height: 100px;
+  vertical-align: top;
+}
+
+table#dialogcontenttable { width: 100%; }

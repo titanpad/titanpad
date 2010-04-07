@@ -1,0 +1,143 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><%
+ helpers.addBodyClass(bodyClass);
+ helpers.setHtmlTitle(toHTML(padId + " / " + rlabel));
+ helpers.setBodyId("padviewbody");
+ helpers.includeCss("broadcast.css");
+ helpers.setRobotsPolicy({index: false, follow: false})
+ helpers.includeJQuery();
+ helpers.includeCometJs();
+ helpers.includeJs("json2.js");
+ helpers.includeJs("pad_utils.js");
+ helpers.includeJs("broadcast_slider.js");
+ helpers.includeJs("broadcast_revisions.js");
+ helpers.includeJs("easysync2_client.js");
+ helpers.includeJs("domline_client.js");
+ helpers.includeJs("linestylefilter_client.js");
+ helpers.includeJs("cssmanager_client.js");
+ helpers.includeJs("broadcast.js");
+ helpers.addToHead('\n<style type="text/css" title="dynamicsyntax"></style>\n');
+
+ function dfmt(t) {
+   var d = new Date(t);
+   return d.toString();
+ }
+
+ function exportOption(type, label, requiresOffice, url, title) {
+   url = url || '/ep/pad/export/'+padId+'/'+revisionId+'?format='+type;
+   var aStart =
+     ['<a',
+      (requiresOffice && ! hasOffice ? ' class="disabledexport"' : ' href="'+url+'"'),
+      '>'].join('');
+   var r = ['<div class="exportlink" id="export', type, '"'];
+   if (title) {
+     r.push(' title="'+title+'"');
+   }
+   r.push('>');
+   r.push('<table cellspacing="0" cellpadding="0" border="0">');
+   r.push('<tr>');
+   r.push('<td class="exportpic" valign="middle">');
+   r.push(aStart, '<img src="/static/img/may09/'+type+'.gif" />', '</a>');
+   r.push('<td class="labelcell" valign="middle">');
+   r.push(aStart, label, '</a>');
+   if (title) {
+     r.push('<sup>?</sup>')
+   }
+   r.push('</td>');
+   r.push('</tr>');
+   r.push('</table>');
+   r.push('</div>');
+   return r.join('');
+ }
+%>
+
+<div id="padpage">
+<div id="topbar" style="margin: 7px; margin-top: 0px;">
+  <div id="topbarleft"><!-- --></div>
+  <div id="topbarright"><!-- --></div>
+  <div id="topbarcenter">
+    <a href="/" id="topbaretherpad">EtherPad</a>
+  </div>
+<% if (isProAccountHolder) { %>
+    <div id="accountnav"><%= toHTML(account.email) %>
+      <a href="/ep/account/sign-out">(sign out)</a>
+    </div>
+<% } else if (isPro) { %>
+    <div id="accountnav">
+      <a href="<%= signinUrl %>">sign in</a>
+    </div>
+<% } %>
+</div>
+
+<div id="timeslider-wrapper">
+<div id="error" style="display: none">It looks like you're having connection troubles. <a href="/ep/pad/view/<%= padId %>/latest">Reconnect now</a>.</div>
+<div id="timeslider" unselectable="on" style="display: none">
+  <div id="timeslider-left"></div>
+  <div id="timeslider-right"></div>
+  <div id="timer"><%= dateFormat %></div>
+  <div id="timeslider-slider">
+    <div id="ui-slider-handle">
+
+    </div>
+    <div id="ui-slider-bar">
+
+    </div>
+  </div>
+  <div id="playpause_button">
+    <div id="playpause_button_icon" class=""></div>
+  </div>
+  <div id="steppers">
+    <div class="stepper" id="leftstar"></div>
+    <div class="stepper" id="rightstar"></div>
+    <div class="stepper" id="leftstep"></div>
+    <div class="stepper" id="rightstep"></div>
+  </div>
+</div>
+</div>
+<div id="rightbars">
+<div id="rightbar"><a id="viewlatest" href="/ep/pad/view/<%= padId %>/latest">
+<% if (revisionId != "latest") { %>View latest content<% } else { %>Viewing latest content<% } %></a><br>
+<a class="tlink" href="/ep/pad/view/<%= padId %>/<%= revisionId %>" thref="/ep/pad/view/<%= padId %>/rev.%revision%">Link to this version</a>
+<% if (readOnly === false) { %><br><a class="tlink" href="/ep/pad/view/<%= roPadId %>/<%= revisionId %>" thref="/ep/pad/view/<%= roPadId %>/rev.%revision%">Link to read-only page</a><br><a href="/<%= padId %>">Edit this pad</a><% } %>
+<h2>Download as</h2>
+<img src="/static/img/may09/html.gif"><a class="tlink" href="/ep/pad/export/<%= padId %>/<%= revisionId %>?format=html" thref="/ep/pad/export/<%= padId %>/rev.%revision%?format=html">HTML</a><br>
+<img src="/static/img/may09/txt.gif" ><a class="tlink" href="/ep/pad/export/<%= padId %>/<%= revisionId %>?format=html" thref="/ep/pad/export/<%= padId %>/rev.%revision%?format=txt" >Plain text</a><br>
+<img src="/static/img/may09/doc.gif" ><a class="tlink" href="/ep/pad/export/<%= padId %>/<%= revisionId %>?format=html" thref="/ep/pad/export/<%= padId %>/rev.%revision%?format=doc" >Microsoft Word</a><br>
+<img src="/static/img/may09/pdf.gif" ><a class="tlink" href="/ep/pad/export/<%= padId %>/<%= revisionId %>?format=html" thref="/ep/pad/export/<%= padId %>/rev.%revision%?format=pdf" >PDF</a>
+
+
+</div>
+<div id="legend">
+<h2>Authors</h2>
+<table id="authorstable" border="0" cellspacing="0" cellpadding="0">
+
+</table>
+</div>
+
+</div>
+<div id="padmain"
+     <% if (request.userAgent.isIPhone()) { %> style="font-size: 3em;" <% } %>
+>
+<div id="titlebar"><h1><%= padTitle %></h1><div id="revision"><span id="revision_label"><%= rlabel %></span><br><span id="revision_date">
+Saved
+<%= ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"][new Date(savedWhen).getMonth()] %>
+<%= new Date(savedWhen).getDate() %>,
+<%= new Date(savedWhen).getFullYear() %>
+</span></div></div>
+  <div id="padcontent"
+     <% if (request.userAgent.isIPhone()) { %> style="font-size: 1.3em;" <% } %>
+  >
+<%= padHTML %></div>
+</div>
+</div>

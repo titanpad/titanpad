@@ -1,0 +1,183 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% 
+  if (!cart.billingCountry) {
+     cart.billingCountry = "US";
+  }
+  helpers.includeJQuery();
+  helpers.includeJs("billing_shared.js");
+  helpers.includeJs("billing.js");
+  
+  function classesPlusError(classes, id) {
+    return (classes || []).concat(errorIfInvalid(id) || []).join(' ');
+  }
+%>
+
+<% function textRow(id, label, classes, notBillingField) {
+   var val = (cart[id] || "");
+   var maxlen=60;
+	 var border;
+   if (id == "billingCCNumber") {
+	   if (billing.validateCcNumber(val)) {
+			 border = "greenborder";
+     } else if (billing.validateCcLength(val)) {
+			 border = "redborder";
+     }
+     val = obfuscateCC(val);
+     maxlen = 16;
+   }
+   var classString = classesPlusError((notBillingField?[]:['billingfield']).concat(classes), id);
+   return TR({className: classString},
+         TD({className: 'pcell'},
+            LABEL({htmlFor: id}, label+(label.length > 0 ? ":" : ''))),
+         TD({className: 'tcell'}, 
+            INPUT({type: 'text', name: id, size:35, maxlength:maxlen, 
+                   value: val,
+                   className: border})));
+   } %>
+
+<h4>Your name:</h4>
+<table class="billingtable">
+  <%= textRow("billingFirstName", "First Name", [], true) %>
+  <%= textRow("billingLastName", "Last Name", [], true) %>
+</table>
+
+<h4>Payment information:</h4>
+
+<% if (request.scheme == 'https') { %>
+  <div class='secure'>
+    <p>Your payment information will be sent securely.</p>
+  </div>
+<% } %>
+
+<%
+	function purchaseType(id, title) {
+		var sel; 
+		if (! cart.billingPurchaseType) {
+			sel = (id == 'creditcard');
+		} else {
+			sel = (cart.billingPurchaseType == id);
+		}
+		%>
+    <span class="paymentbutton">
+			<input type="radio" value="<%= id %>" name="billingPurchaseType" id="purchase<%= id %>" <%= sel ? 'checked="checked"' : "" %> style="display: inline-block; vertical-align: middle;"/>
+			<label for="purchase<%= id %>">
+			  <img src="/static/img/billing/<%= id %>.gif" style="display: inline-block; vertical-align: middle;" /> <span style="display: inline-block; vertical-align: middle;"><%= title %></span>
+			</label>
+		</span>
+		<%
+	}
+%>
+
+<div id="billingselect">
+<p class="<%= errorIfInvalid("billingPurchaseType") %>">Pay using:
+<% purchaseType('creditcard', 'Credit Card'); %>
+<% purchaseType('invoice', 'Invoice'); %>
+<% purchaseType('paypal', 'PayPal'); %>
+</p>
+</div>
+
+<table class="billingtable">
+  <%= textRow("billingCCNumber", "Credit Card Number", ['creditcardreq']) %>
+
+<% function cardInput(cctype) {
+	  var classes = [];
+		if (cart.billingCCNumber) {
+			if (cctype == billing.getCcType(cart.billingCCNumber)) {
+				classes.push("ccimageselected");
+			}
+		}
+		classes.push("ccimage");
+	  var img = IMG({
+			src: "/static/img/billing/"+cctype+".gif", 
+			alt: cctype,
+			className: classes.join(" "),
+			style: "vertical-align: middle",
+			id: "img"+cctype});
+		return img;
+  } %>
+
+  <tr class="billingfield creditcardreq">
+    <td class="pcell">&nbsp;</td>
+    <td valign="center">
+			<div id="ccimages">
+	      <% ["visa", "mc", "disc", "amex"].forEach(function(t) { %>
+	        <%= cardInput(t) %>
+	      <% }); %>
+			</div>
+    </td>
+  </tr>
+
+  <tr class="billingfield creditcardreq <%= errorIfInvalid("billingMeta") %>">
+    <td class="pcell">Expiration (MM/YY):</td>
+    <td>
+  	  <input type="text" name="billingExpirationMonth" size="2" maxlength="2"
+            value="<%= (cart.billingExpirationMonth || '') %>" />
+  	  /
+  	  <input type="text" name="billingExpirationYear" size="2" maxlength="2" 
+            value="<%= (cart.billingExpirationYear || '') %>" />
+  	  &nbsp;&nbsp;&nbsp;&nbsp;CSC/CVC:
+  	  <input type="text" name="billingCSC" size="4" maxlength="4" 
+					  value="<%= (cart.billingCSC || '') %>"/>
+      <a target="_blank" href="//<%= getFullSuperdomainHost() %>/ep/store/csc-help" id="cschelp">what's this?</a>
+	  </td>
+  </tr>
+
+  <tr class="billingfield creditcardreq">
+    <td colspan=2 style="text-align: center; font-weight: normal;">(Be sure to enter your <strong>credit card billing address</strong> below.)</td>
+  </tr>
+
+  <tr class="<%= classesPlusError(['billingfield', 'creditcardreq', 'invoicereq'], 'billingCountry') %>">
+	  <td class="pcell">Country:</td>
+  	<td>
+  	  <select id="billingCountry" name="billingCountry">
+        <% countryList.forEach(function(c) { %>
+          <%= ((c[0] == cart.billingCountry) ?
+               OPTION({value: c[0], selected: true}, c[1]) :
+               OPTION({value: c[0]}, c[1])) %>
+        <% }); %>
+  	  </select>
+  	</td>
+  </tr>
+
+  <%= textRow("billingAddressLine1", "Address", ['creditcardreq', 'invoicereq']) %>
+  <%= textRow("billingAddressLine2", "", ['creditcardreq', 'invoicereq']) %>
+  <%= textRow("billingCity", "City", ['creditcardreq', 'invoicereq']) %>
+      
+  <tr class="<%= classesPlusError(['billingfield', 'creditcardreq', 'invoicereq', 'usonly'], 'billingState') %>">
+    <td class="pcell">State:</td>
+    <td>
+      <select id="billingState" name="billingState">
+      <% usaStateList.forEach(function(s) { %>
+        <%= ((s == cart.billingState) ?
+             OPTION({value: s, selected: true}, s) :
+             OPTION({value: s}, s)) %>
+      <% }); %>
+      </select>
+    </td>
+  </tr>
+  <%= textRow("billingProvince", "Province", ['creditcardreq', 'invoicereq', 'intonly'])%>
+  <%= textRow("billingZipCode", "Zip Code", ['creditcardreq', 'invoicereq', 'usonly']) %>
+  <%= textRow("billingPostalCode", "Postal Code", ['creditcardreq', 'invoicereq', 'intonly'])%>
+	<tr class="billingfield paypalreq"><td colspan=2 class="firstcell">Click "<%= billingButtonName %>" below to continue with PayPal.</td></tr>
+</table>
+
+<% if (showCouponCode) { %>
+  <h4>Optional information:</h4>
+  <table class="billingtable">
+    <%= textRow("billingReferralCode", "Referral Code", [], true) %>
+  </table>
+<% } %>
+
+
+<%= billingFinalPhrase %>

@@ -1,0 +1,55 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %>
+<h3 class="top">Application Configuration</h3>
+
+<%= messageDiv() %>
+
+<form action="<%= request.path %>" method="post">
+
+<table id="t-pro-config">
+  <tr>
+    <th width="50%" valign="top">Site Name (appears in
+    the header of all pages):</th>
+    <td width="50%" valign="top">
+      <input type="text" name="siteName" value="<%=
+      config.siteName %>" id="siteName" />
+    </td>
+  </tr>
+
+  <tr>
+    <th valign="top">Always require all users on this domain to use secure
+    (HTTPS) connections?</th>
+    <td valign="top">
+      <input type="checkbox" id="alwaysHttps" name="alwaysHttps"
+             <%= config.alwaysHttps ? 'checked="on"' : '' %> />
+    </td>
+  </tr>
+
+  <tr>
+    <th valign="top">Default pad text:</th>
+    <td valign="top">
+      <textarea name="defaultPadText" id="defaultPadText"><%=
+      config.defaultPadText %></textarea>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" style="text-align: right;">
+      <input type="submit" name="save" value="Apply" />
+    </td>
+  </tr>
+</table>
+
+</form>
+

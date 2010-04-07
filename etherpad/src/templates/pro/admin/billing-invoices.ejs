@@ -1,0 +1,45 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><%
+  helpers.includeCss('store/ondemand-billing.css');
+%>
+
+<% 
+function displayInvoice(invoice) { %> 
+  <tr>
+    <td><%= formatDate(invoice.time) %></td>
+    <td><%= invoice.id %></td>
+    <td><%= invoice.status == 'paid' ? "Paid" : (invoice.status == 'pending' ? "<strong>Pending</strong>" : (invoice.status == 'refunded' ? "<em>Refunded</em>" : invoice.status)) %></td>
+    <td><%= invoice.users %></td>
+    <td>US $<%= dollars(centsToDollars(invoice.amt)) %></td>
+    <td><a href="<%= request.path %>?id=<%= invoice.id %>">View</a></td>
+  </tr>
+<% } %>
+
+<h3 class="top">Past Invoices</h3>
+
+<% if (invoices.length == 0) { %>
+  <p class="informational">No old invoices.</p>
+<% } else { %> 
+  <table class="invoicelist">
+    <tr>
+      <th>Date</th>
+      <th>Invoice Number</th>
+      <th>Status</th>
+      <th>Number of users</th>
+      <th>Cost</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% invoices.forEach(displayInvoice); %>
+  </table>
+<% } %>

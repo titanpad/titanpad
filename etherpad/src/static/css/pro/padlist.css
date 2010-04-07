@@ -1,0 +1,115 @@
+
+/*---- nav ----*/
+
+#padlist-nav {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+#padlist-nav ul {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+#padlist-nav form {
+  float: right;
+  padding-top: 2px;
+}
+
+#padlist-nav ul li { 
+  list-style: none;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+#padlist-nav ul li a {
+  display: block;
+  padding: 8px 12px;
+  font-size: .8em;
+}
+
+#padlist-nav ul li a.selected {
+  color: black;
+}
+
+#padlist-nav ul li a#nav-all-pads {
+  padding-left: 0;
+}
+
+/*---- showing sentence ----*/
+
+#showing-desc {
+  margin-top: 12px;
+  color: #464;
+  font-size: .8em;
+  font-style: italic;
+}
+
+/*---- table ----*/
+
+#padtable {
+  margin-top: 1em;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+#padtable th {
+  font-weight: bold;
+}
+
+#padtable th,
+#padtable td {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 4px 8px;
+}
+
+#padtable td.actions {
+  padding: 0;
+}
+
+#padtable tr:hover {
+  background: #ffffaa;
+}
+#padtable tr.toprow:hover {
+  background: inherit;
+}
+
+#padtable div.gear-drop {
+  width: 36px;
+  height: 20px;
+  background: url(/static/img/pro/padlist/gear-drop.gif) no-repeat center 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+#padtable tr.selected {
+/*  background: #6670ff; */
+  background: #ffff88;
+}
+#padtable tr.selected td {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 0;
+}
+#padtable tr.selected td.first {
+  border-left: 1px solid black;
+}
+#padtable tr.selected td.last {
+  border-right: 1px solid black;
+}
+#padtable tr.selected td a {
+  color: #000;
+}
+
+div.padlist-notice {
+  border: 1px solid #ccc;
+  font-weight: bold;
+  background: #fff6cc;
+  padding: 1em;
+  margin-bottom: 1em;
+  font-size: 82.5%;
+}
+

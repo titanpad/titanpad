@@ -1,0 +1,93 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %>Dear <%= cart.ownerName %>,
+
+Thank you for your purchase of EtherPad Private Network Edition. This is your receipt. Please keep this email for your records.
+
+-- The EtherPad Staff
+
+<%
+function row(key, value) {
+%><%= key %>:
+    <%= String(value).split("\n").join("\n    ") %>
+<%
+}
+
+function $(cost) {
+  return "US $"+dollars(cost);
+}
+%>
+
+License Information:
+
+<% 
+row("Administrator Name", cart.ownerName)
+row("Organization Name", cart.orgName)
+row("Total Users", cart.userCount)
+%>
+
+Billing Information:
+
+<%
+var isUs = cart.billingCountry == "US";
+switch(cart.billingPurchaseType) {
+	case "creditcard":
+    row("Credit Card Number", obfuscateCC(cart.billingCCNumber));
+    row("Expiration Date", cart.billingExpirationMonth+" / 20"+cart.billingExpirationYear);
+    // falling through here intentional.
+  case "invoice":
+    row("Purchaser Name", cart.billingFirstName + " " + cart.billingLastName);
+    row("Purchaser Address", cart.billingAddressLine1 + "\n" +
+      (cart.billingAddressLine2 ? cart.billingAddressLine2 + "\n" : "") +
+      cart.billingCity + ", " + 
+      (isUs?cart.billingState:cart.billingProvince) + "\n" +
+      (isUs?cart.billingZipCode:cart.billingPostalCode)+
+      (isUs?'':', '+cart.billingCountry));
+    row("Invoice Number", cart.invoiceId);
+	  break;
+	case "paypal":
+    row("Paid Using", "PayPal");
+    row("Invoice Number", cart.invoiceId);
+} 
+%>
+
+Summary of Charges:
+
+<%
+row("Etherpad Private Network, "+cart.numUsers+" users", $(cart.baseCost));
+if (cart.couponProductPctDiscount) {
+  row("Referral - "+cart.couponProductPctDiscount+"% savings",
+       "-"+$(cart.productReferralDiscount));
+}
+if (cart.supportCost) {
+  row("Support Contract, 1 year", $(cart.supportCost));
+  if (cart.couponSupportPctDiscount) {
+    row("Referral - "+cart.couponSupportPctDiscount+"% savings",
+         "-"+$(cart.supportReferralDiscount));
+  }
+}
+if (cart.freeUserCount) {
+  row("Referral Bonus - "+cart.freeUserCount+" free user"+(cart.freeUserCount == 1 ? '' : "s"),
+       "US$0.00");
+}
+%>-------------------------------------------------------------------------------
+<%
+var pctDiscount = cart.couponTotalPctDiscount;
+var hasSubtotal = pctDiscount > 0;
+
+if (hasSubtotal) {
+  row("Subtotal", $(cart.subTotal));
+  row("Referral - "+pctDiscount+"% savings", "-"+$(cart.totalReferralDiscount));
+}
+row("Total", $(cart.total));
+%>

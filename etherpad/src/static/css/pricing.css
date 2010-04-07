@@ -1,0 +1,153 @@
+/*----------------------------------------------------------------*/
+/* pricing */
+/*----------------------------------------------------------------*/
+
+div.pricingpage {
+}
+
+.pricingpage form#pricingcontact {
+   display: block;
+   margin: 1em 0;
+   background: #eee;
+   border: 1px solid #ccc;
+   padding: 1em;
+}
+.pricingpage form#pricingcontact p { margin: .75em 0; font-weight: bold; }
+.pricingpage form#pricingcontact ul li { list-style: none; margin: 0;}
+
+.pricingpage .eepnet-inquiry label {
+  display: block;
+  float: left;
+  width: 140px;
+  text-align: right;
+  font-weight: normal;
+  color: #444;
+}
+.pricingpage .eepnet-inquiry input.ti,
+.pricingpage .eepnet-inquiry select {
+  width: 240px;
+  margin-left: 12px;
+}
+.pricingpage .eepnet-inquiry button {
+  width: 100px;
+  margin-left: 160px;
+}
+.pricingpage div.inquiryhead {
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 1em;
+  border-bottom: 2px solid #aaa;
+}
+
+.pricingpage div#errorbox, .pricingpage div#confirmbox {
+   color: #222;
+   font-weight: bold;
+   padding: 1em .5em;
+}
+.pricingpage div#errorbox {
+   background: #fee;
+   border: 1px solid #f66;
+}
+.pricingpage div#confirmbox {
+   background: #efe;
+   border: 1px solid #ccc;
+}
+
+a.pricingbox {
+   display: block;
+   height: 280px;
+   border: 1px solid #777;
+   background: #fcfcfc;
+   cursor: pointer;
+   text-align: center;
+   text-decoration: none;
+}
+
+a.pricingbox span {
+   display: block;
+}
+
+a.pricingbox span#buylink {
+   display: inline;
+   color: #004ca8;
+}
+
+a.pricingbox span#buylink:hover {
+   text-decoration: underline;
+}
+
+a.pricingbox:hover {
+   background: #e2f2ff;
+   border: 1px solid #000;
+   text-decoration: none;
+}
+
+a.pricingbox img {
+   margin: 10px 0;
+   border: 0;
+}
+   
+a.pricingbox span.pricingtitle {
+   display: block;
+   margin-top: 5px;
+   margin-left: 10px;
+   font-size: 1.2em;
+   color: #119;
+   text-decoration: underline;
+}
+
+a.pricingbox span.pricingdesc {
+   display: block;
+   color: #555;
+   margin: 10px;
+   height: 4.25em;
+}
+
+a.pricingbox span.pricingcost {
+   top: 10px;
+   display: block;
+   color: #000;
+   margin: 10px;
+   font-weight: bold;
+}
+
+a.pricingbox span.pricingcost p {
+  font-weight: normal;
+}
+
+#freetrialwrap a.freetrialbox {
+   padding-top: 4px;
+   display: block;
+   border: 1px solid #ccc;
+   background: #eee;
+   cursor: pointer;
+   color: #000;
+   text-decoration: underline;
+}
+#freetrialwrap a.freetrialbox:hover {
+   background: #def;
+}
+#freetrialwrap a.freetrialbox span.freetrialtext {
+   margin-top: 7px;
+   float: left;
+}
+a.freetrialbox img {
+   border: 0;
+   float: left;
+   margin: 5px 10px;
+}
+
+a.pro-signup-button {
+  display: block
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  overflow: visible;
+  padding: 0;
+  background: #70a4ec;
+  border: 1px solid #3773c6;
+  padding: 4px 6px;
+  margin-top: 4px;
+}
+

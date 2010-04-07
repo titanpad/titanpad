@@ -1,0 +1,63 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% helpers.includeJQuery() %>
+<% helpers.includeJs("etherpad.js") %>
+<% helpers.includeCss("beta.css") %>
+
+<div class="fpcontent">
+  <div class="beta-signup">
+
+    <h1 style="border: 0;">EtherPad Professional Edition</h1>
+
+    <div class="right">
+      <br/>
+
+      <p>Want an account to keep track of all your team's pads?
+      EtherPad Professional Edition 
+      gives you your own site to keep track
+      of pads and control who gets to access what.</p>
+
+
+      <form id="beta-signup-form" action="/ep/beta-account/signup"
+            method="post">
+
+        <% if (errorMsg) { %>
+          <div id="error-msg">
+            <%= errorMsg %>
+          </div>
+        <% } %>
+
+        <p>Your Email:</p>
+        <input type="text" name="email" id="email" />
+        <br/>
+        <button type="submit">Submit</button>
+
+      </form>
+
+      <p>Email <%= helpers.oemail("support") %> with questions or
+      concerns.</p>
+    </div>
+
+    <div class="left">
+      
+      <img src="/static/img/account/betawarn.jpg"
+      />
+
+    </div>
+
+    <%= helpers.clearFloats() %>
+
+  </div>
+</div>
+
+

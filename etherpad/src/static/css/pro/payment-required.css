@@ -1,0 +1,39 @@
+
+#outside{
+  padding: 0 0 0 266px;
+  background: url(/static/img/pro/billing/cards-button.gif) 50px 25px no-repeat;
+}
+
+#inside {
+  margin: 0;
+  padding: 1em;
+  border-left: 1px solid #ccc;
+  background: #fff;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 1.33em;
+  border-bottom: 1px solid #ccc;
+}
+
+#message {
+  border: 1px solid #b97;
+  background: #ffe;
+  padding: 1em;
+  margin: 1em 0;
+}
+
+a.manage-billing-button {
+  display: block
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  overflow: visible;
+  background: #70a4ec;
+  border: 1px solid #3773c6;
+  padding: 8px 12px;
+  margin-top: 4px;
+}
+

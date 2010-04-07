@@ -1,0 +1,125 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% helpers.setHtmlTitle("Sign up for EtherPad PNE Free Trial"); %>
+<% helpers.includeJQuery() %>
+<% helpers.includeJs("etherpad.js") %>
+<% helpers.includeJs("store.js") %>
+<% helpers.includeCss("store/store.css") %>
+
+<% function renderField(maxlen, id, title) {
+     var oldValue = (oldData[id] || "");
+     return DIV(P(LABEL({htmlFor: id}, title),
+                  INPUT({maxlength: maxlen,
+                         type: "text",
+                         className: "signupData",
+                         name: id,
+                         id: id,
+                         value: oldValue})));
+  }
+
+   function renderWebLeadField(name) {
+     return INPUT({type: 'hidden', name: name, id: "wl_"+name, value: ""});
+   }
+%>
+
+<div class="fpcontent storepage" id="eepnet_trial_signup_page">
+
+  <h2 id="toph2">Private Network Edition: <%= trialDays %>-Day Free Trial</h2>
+
+  <p>Enter your information here to download a free <%= trialDays
+  %>-day trial of EtherPad Private Network Edition.</p>
+
+  <div style="display: none;" id="errormsg">&nbsp;</div>
+
+  <div style="display: none;" id="processingmsg">
+    <img src="/static/img/misc/status-ball.gif" alt="" />
+    Processing, please wait...
+  </div>
+
+  <div id="dlsignup">
+    
+    <form id="signupForm" method="post" action="<%= request.path %>">
+
+      <% /* note: these fields should match exactly the eepnet-pricingcontact
+                  form in pricing_eepnet.ejs */ %>
+       
+      <%= renderField(40, "firstName", "First Name:") %>
+      <%= renderField(80, "lastName", "Last Name:") %>
+      <%= renderField(80, "email", "Your Email (license key will be sent here):") %>
+      <%= renderField(40, "orgName", "Company/Organization:") %>
+
+      <p>
+        <label for="industry">Industry</label>
+        <select id="industry" name="industry">
+          <% sfIndustryList.forEach(function(i) { %>
+             <%= ((i == oldData.industry) ? 
+                 OPTION({value: toHTML(i), selected: true}, i) :
+                 OPTION({value: toHTML(i)}, i)) %>
+          <% }); %>
+        </select>
+      </p>
+
+      <%= renderField(40, "jobTitle", "Your Title:") %>
+      <%= renderField(40, "phone", "Phone Number:") %>
+      <%= renderField(160, "estUsers", "Estimated number of users:") %>
+
+    </form>
+
+    <p><button id="submit" onclick="javascript: void store.eepnetTrial.submit();">Go To Download --&gt;</button></p>
+
+  </div>
+
+  <p>If you already have a license, you
+  can <a href="/ep/store/eepnet-download">skip directly to download</a>.</p>
+
+  <p>You can also <a href="/ep/store/eepnet-recover-license">recover a
+  lost license key</a>.</p>
+  
+  <p>Questions?  Email <%= helpers.oemail("sales") %>.</p>
+
+</div>
+
+<form id="wlform"
+      method="post"
+      target="wltarget"
+      action="<%= request.scheme %>://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+>
+
+  <input type="hidden" name="retURL" value="<%= request.scheme %>://<%= request.host %>/ep/store/salesforce-web2lead-ok" />
+
+  <% [
+    "oid",
+    "first_name",
+    "last_name",
+    "email",
+    "company",
+    "title",
+    "phone",
+    "00N80000003FYtG",
+    "00N80000003FYto",
+    "00N80000003FYuI",
+    "lead_source",
+    "industry"
+   ].forEach(function(f) { %>
+
+     <%= renderWebLeadField(f) %>
+
+  <% }); %>
+
+</form>
+
+<iframe style="width: 1px; height: 1px; border: 0;"
+	name="wltarget"
+	id="wltarget"
+	src="about:blank"></iframe>
+

@@ -1,0 +1,45 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %>
+<h1>Account Quotas and Billing</h1>
+
+<p>
+EtherPad Professional Edition allows you to create accounts for members
+of your team.  Account-holders may sign in at
+<tt>your-domain.etherpad.com</tt>.
+</p>
+
+<p>You may have up to <%= numFreeAccounts %> accounts for free.  Once you
+try to add more accounts, you will be prompted to enter payment
+information.  Above <%= numFreeAccounts %> accounts, you will be charged
+$<%= pricePerAccount %> per account per month.  For example, to have <%=
+numFreeAccounts+1 %> accounts will cost a total of $<%= pricePerAccount *
+(numFreeAccounts+1) %> per month.</p>
+
+<p>You are billed at the end of your monthly billing cycle, so if you
+start on January 1st, you will not be billed until February 1st.  To
+compute the total amount charged at the end of the month, we use the
+<b>maximum number of accounts that existed throughout the month</b>.  So
+if you create 10 accounts, but then delete 3 before the end of the month,
+  you will still be charged for 10 at the end of the month.  Likewise, if
+  you create 10 accounts, delete them all, and create 10 new accounts,
+  you will be charged for 10 accounts.</p>
+
+<p>EtherPad lets you to collaborate with <b>guests</b> in
+addition to account-holders.  Guests are users who do not have accounts
+but join you in public pads on your site.  You can always have unlimited
+guest collaborators, and you are not ever charged for guests.  You are
+only charged for account-holders.</p>
+
+
+

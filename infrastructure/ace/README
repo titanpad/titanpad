@@ -1,0 +1,69 @@
+=====
+ACE2 (originally AppJet Code Editor)
+=====
+
+(This doc started Dec 2009 by dgreenspan.)
+
+ACE2 is EtherPad's editor, a content-editable-based rich text editor
+that supports IE6+, FF(2?/)3+, Safari(3?/)4+.  It supports
+collaborative editing using operation transforms (easysync2),
+undo/redo, copy/paste.
+
+The name "ACE2" is because this is a rewrite of aiba's original
+content-editable AppJet Code Editor.
+
+== Building it
+
+In this directory, run `bin/make normal etherpad` (requires scala),
+which generates `build/ace2.js` and copies this and other files into
+the etherpad source tree.  To have the script keep running and
+automatically rebuild when source files change, run `bin/make auto
+etherpad`.
+
+The original reason for the build process was that ACE needs to
+construct two nested iframes on the client, and to do this without
+incurring round-trips to the server, it programmatically loads code
+into the outer iframe that loads code into the inner iframe; so the
+bulk of ACE's code is compressed into a string literal (twice).  Later
+on, refactoring meant that the source is also divided into more than a
+dozen files that the build script combines, and some are also
+server-side EtherPad modules or client-side libraries (or both).
+
+The master copy of the operational transform (OT) library, easysync2,
+lives here.
+
+In the early days it was possible to run ACE in a sort of development
+mode, without the compression and iframe injection, by running it out
+of the 'www' directory, but this is no longer possible.
+
+== Browser support
+
+We went out of our way to support IE6+.  IE's design-mode is quite
+robust, though there are some differences in manipulation of the
+selection and insertion point and in the DOM representation we had to
+use.
+
+We don't support Opera.  Opera is a problematic case, because
+apparently JS running in different iframes is run concurrently, not
+linearized into a single event thread.  This seems to be a rather
+obscure fact and is almost difficult to believe.  As if iframes don't
+complicate scripting enough!
+
+== Syntax highlighting
+
+Though syntax highlighting predated rich text as the original
+motivation for the design of ACE, support was eventually dropped in
+EtherPad.  At first the plan was to generalize it to other programming
+languages, but the task was deprioritized (and difficult), and during
+subsequent optimization and refactoring of ACE, calls to the
+incremental lexer were stripped out because they complicated things.
+
+One plan for multi-language syntax highlighting, never implemented,
+was to calculate syntax highlighting on the server as a sort of "style
+overlay" and feed updates to the client along with updates to the
+document text.
+
+== Changeset format
+
+See easysync-notes.txt for some notes on the changeset format, which
+was redesigned with the advent of rich text.

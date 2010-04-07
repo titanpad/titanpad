@@ -1,0 +1,69 @@
+.pro-signup {
+}
+
+.pro-signup #about {
+  width: 400px;
+  font-size: 86%;
+  color: #333;
+}
+
+.pro-signup h1 {
+  border: 0;
+}
+
+.pro-signup h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 0 .75em 0;
+  color: #888;
+}
+
+form#pro-act-form {
+}
+
+div.inputdiv {
+  width: 400px;
+  float: left;
+  background: #efe;
+  padding: .75em;
+  border-right: 1px solid #999;
+}
+
+div.inputdiv p {
+  margin: .2em 0 .6em 0;
+}
+
+div.inputhelp {
+  width: 300px;
+  font-size: 86%;
+  color: #555;
+  float: left;
+  padding-left: 1em;
+  padding-top: .5em;
+}
+
+form input {
+  border: 1px solid #377ec6;
+}
+
+form button {
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  overflow: visible;
+  padding: 0;
+  background: #70a4ec;
+  border: 1px solid #3773c6;
+  padding: 4px 6px;
+  margin-top: 4px;
+}
+
+div.err {
+  margin: 1em 0;
+  padding: 1em;
+  font-weight: bold;
+  border: 1px solid #500;
+  background: #fdd;
+}
+

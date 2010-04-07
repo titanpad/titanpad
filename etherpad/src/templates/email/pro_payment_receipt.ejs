@@ -1,0 +1,55 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %>Dear <%= fullName %>,
+
+Thank you for using EtherPad Professional. Your monthly billing cycle has ended, and your account has been charged; this is your receipt. Please keep this email for your records.
+
+-- The EtherPad Staff
+
+<%
+function row(key, value) {
+%><%= key %>:
+    <%= String(value).split("\n").join("\n    ") %>
+<%
+}
+
+function $(cost) {
+  return "US $"+dollars(cost);
+}
+%>
+
+Billing Information:
+
+<%
+row("Name", fullName);
+row("Paid Using", paymentSummary);
+row("Expiration", expiration);
+row("Invoice Number", invoiceNumber);
+%>
+
+Summary of Charges:
+
+<%
+row("EtherPad Professional, "+numUsers+" users", $(cost));
+if (coupon) { 
+  var discount = [];
+  if (coupon.pctDiscount) {
+    discount.push(coupon.pctDiscount+"% savings");
+  }
+  if (coupon.freeUsers) {
+    discount.push((coupon.freeUsers)+" free users");
+  }
+  discount = discount.join(" and ");
+  %>
+This charge reflects your referral bonus of <%= discount %>.
+<% } %>

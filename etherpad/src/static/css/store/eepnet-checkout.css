@@ -1,0 +1,284 @@
+#shoppingmain dt {
+   margin: 0.5em;
+   margin-left: 0.5em;
+   font-weight: bold;
+   line-height: 120%;
+}
+
+#shoppingmain dd {
+   margin: 0.5em;
+   margin-top: 1em;
+   margin-bottom: 2em;
+   line-height: 120%;
+}
+
+#shoppingmain dd:first-letter,
+#shoppingmain dt:first-letter {
+   font-weight: bold;
+}
+
+#shoppingmain table {
+   background: #eef;
+   width: 100%;
+}
+
+#shoppingmain table tr {}
+#shoppingmain > table td,
+#shoppingmain > table th {
+   padding: 6px 8px;
+}
+
+#shoppingmain {
+   width: 100%;
+   border: 1px solid #ccc;
+}
+
+#shoppingmain p {
+   margin: 1em;
+}
+
+#shoppingmain a {
+   text-decoration: underline;
+}
+
+#shoppingmain ul,
+#shoppingmain ol {
+  margin-right: 1em;
+}
+
+#shoppingmain h3 {
+   background: #eee;
+   padding: 0.5em 1em;
+   border-bottom: 1px solid #ccc;
+   font-weight: bold;
+   font-size: 110%;
+}
+
+#shoppingwrapper {
+   width: 580px;
+}
+
+.shoppingcart table td.pcell, table th.pcell {
+   text-align: right;
+   white-space: nowrap;
+}
+
+#shoppingcart {
+   border: 1px solid #ccc;
+   background: white;
+}
+
+.shoppingcart table {
+   width: 100%;
+}
+
+.shoppingcart table th {
+   font-weight: bold;
+   background: #eee;
+   border-bottom: 1px solid #ccc;
+}
+
+.shoppingcart table td {
+  padding: 0 3px;
+}
+
+.shoppingcart table th {
+  padding: 5px;
+}
+
+div.checkoutnav {
+   padding-top: 10px;
+   clear: both;
+   display: block;
+   text-align: center;
+}
+
+.center,
+.center td {
+   text-align: center;
+}
+
+div.errormsg {
+   border: 1px solid #caa;
+   padding: 1em;
+   margin: 1em 0;
+}
+
+div.errormsg,
+table tr.error,
+p.error,
+div.error {
+   background: #fdd;
+}
+
+div.innererrormsg {
+   margin: 1em;
+   border: 1px solid #aca;
+   padding: 1em;
+   background: #dfd;
+}
+
+a#cschelp {
+   font-size: 7pt;
+   color: blue;
+   border-bottom: 1px dashed blue;
+}
+
+table tr.total td {
+   font-weight: bold;
+}
+
+#shoppingcart {
+   width: 250px;
+   float: right;
+   font-size: 85%;
+}
+
+.shoppingcart span.desc {
+   display: block;
+   padding-top: 4px;
+   padding-left: 10px;
+   font-style: italic;
+}
+
+table tr.withoutsubtotal td,
+table tr.subtotal td {
+   border-top: 1px solid #ccc;
+}
+
+#backbutton {
+   float: right;
+   padding: 5px;
+}
+
+#continuebutton {
+   float: right;
+   padding: 5px;
+}
+
+.shoppingcart tr.base td {
+   padding-top: 5px;
+}
+
+.shoppingcart tr.refer td {
+   color: green;
+   font-weight: bold;
+}
+
+.shoppingcart tr.support td {
+   padding-top: 10px;
+}
+
+.shoppingcart tr.referralbonus td {
+   padding-top: 10px;
+}
+
+.shoppingcart tr.spacer td {
+   padding-top: 10px;
+}
+
+.shoppingcart tr.subtotal td {
+   padding-top: 5px;
+}
+
+.shoppingcart tr.referraldiscount td {
+   padding-top: 5px;
+}
+
+.shoppingcart tr.total td {
+   padding-top: 5px;
+   padding-bottom: 5px;
+}
+
+.shoppingcart td.noitems {
+   text-align: center;
+   padding-top: 15px;
+}
+
+.paymentbutton label {
+   cursor: pointer;
+}
+
+.billingtable td.pcell {
+   width: 300px;
+}
+
+.billingtable tr.intonly {
+   display: none;
+}
+
+.billingtable #ccimages img.ccimageselected {
+   border: 3px solid #0f0;
+   opacity: 1;
+}
+
+.billingtable #ccimages img {
+   border: 3px solid #eef;
+   opacity: 0.5;
+}
+
+input[type="text"].greenborder {
+   border: 1px solid #0f0;
+}
+
+input[type="text"].redborder {
+   border: 1px solid #f00;
+}
+
+input[type="text"] {
+   border: 1px solid black;
+   padding: 2px;
+}
+
+td.tcell {
+   width: 200px;
+}
+
+#shoppingmain td {
+   font-weight: bold;
+}
+
+#shoppingmain input,
+#shoppingmain p,
+#shoppingmain td,
+#shoppingmain li {
+   font-size: 85%;
+}
+
+h4 {
+   font-weight: bold;
+   font-size: 100%;
+   margin: 10px;
+   margin-top: 20px;
+}
+
+h4 .editlink {
+   font-size: 75%;
+}
+
+span.item .editlink {
+   font-size: 75%;
+}
+
+span.desc .editlink {
+   font-size: 75%;
+   font-style: normal;
+}
+
+.paymentbutton {
+   padding-left: 1.5em;
+}
+
+div.position {
+   font-size: 80%;
+   color: #999;
+   padding-bottom: 10px;
+}
+
+div.position .current {
+   color: #f93;
+}
+
+span.poslabel {
+  padding: 0 1em;
+}

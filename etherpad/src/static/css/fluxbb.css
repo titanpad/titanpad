@@ -1,0 +1,55 @@
+/* fluxbb-specific CSS rules go here. */
+
+/*----------------------------------------------------------------*/
+/* Etherpad overriding shit */
+/*----------------------------------------------------------------*/
+
+div.epforum {
+   width: 780px;
+   padding-top: 1em;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+div#punwrap div.pun {
+   font-size: 120%;
+}
+
+div#idx1 h2 { display: none; }
+
+div#punwrap div.pun h2 {
+   color: white;
+   font-style: normal;
+   font-weight: normal;
+   font-family: sans-serif;
+   font-size: 1.2em;
+}
+
+div#punwrap div.pun p { margin: 0; }
+
+.pun div.box {
+   border: 1px solid #ccc;
+}   
+
+div#brdheader div.box {
+   background: #fff;
+   border: 0;
+   padding: 0;
+   margin: 0;
+}
+
+div#brdheader div#brdtitle {
+   padding: 0;
+}
+div#brdheader h1 {
+   font-family: "Lucida Grande","Lucida Sans Unicode",sans-serif;
+   color: #666;
+   border-bottom: 1px solid #666;
+   font-size: 1.8em;
+}
+
+div#brdwelcome {
+   margin-top: 1em;
+   border: 1px solid #ccc;
+   background: #f1f1f1;
+}

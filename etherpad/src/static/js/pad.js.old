@@ -1,0 +1,1984 @@
+//----------------------------------------------------------------
+// initialization
+//----------------------------------------------------------------
+
+$(document).ready(function() {
+  if (!pad.initialized) {
+    pad.init();
+  }
+});
+
+$(window).unload(function() {
+  if (pad.ace) {
+    pad.ace.destroy();
+  }
+});
+
+pad = {
+  initTime: 0,
+  initialized: false,
+  myUserInfo: null, /* userInfo for this client's user */
+  debugEnabled: false,
+  userBoxIds: {},
+  lastBoxId: 0,
+  connectionState: 'DISCONNECTED',
+  notifyQueue: [],
+  lastNotify: 0,
+  persistLastNotify: false,
+  collabClient: null,
+  users: {},
+  ace: null,
+  padId: null,
+  wrapLines: true,
+  initialCookiePrefs: {},
+  revisionList: [],
+  clientTimeOffset: (+new Date()) - clientVars.serverTimestamp,
+  REVISIONCOUNT_STEP: 5,
+  shownRevisions: 5,
+  sideBarVisible: true,
+  sideBoxVisibility: {},
+  diagnosticInfo: {},
+  experiencingConnectionTrouble: false,
+  padHasFocus: true,
+  isFreshCookie: false,
+  viewZoom: 100,
+  title: null,
+  password: null,
+  isEditingTitle: false
+};
+
+pad.initCookie = function() {
+  pad.initialCookiePrefs = pad.getInitialCookiePrefs();
+};
+
+pad.initPrefsPane = function() {
+  // Setup checkbox prefs.
+  function scbp(n, v) {
+    var t = pad.initialCookiePrefs[v];
+    pad.markPref(n, t);
+  }
+  scbp('wrap', 'wrapLines');
+  scbp('showcolors', 'showAuthorColors');
+  scbp('linenums', 'showLineNumbers');
+  scbp('fullwidth', 'fullWidth');
+
+  pad.setFullWidth(pad.initialCookiePrefs.fullWidth);
+
+  // events
+  function prefclick(elt) {
+    var d = $(elt);
+    var name = d.attr('id').substr("checkpref".length);
+    var t = !pad.isPrefMarked(name);
+    pad.markPref(name, t);
+    pad.updatePref(name, t);
+    pad.saveCookie();
+  }
+  $('div.prefcheckbox').mousedown(function(e) {
+    prefclick(this);
+    e.preventDefault();
+    return false;
+  });
+  $('div.prefcheckbox').mouseup(pad.handlerPreventDefault);
+  $('div.prefcheckbox').click(pad.handlerPreventDefault);
+};
+
+pad.initAce = function(donefunc) {
+
+  // ACE functions.
+  function editorReady() {
+    $('#editorcell').removeClass('editorcell_loading').addClass('editorcell_loaded');
+    $('#sidebar').removeClass('sidebar_loading');
+    $('#loadingbox').remove();
+    $(window).bind("resize", pad.resizePage);
+    setTimeout(function() { ace.focus(); pad.resizePage(); }, 0);
+    donefunc();
+  }
+
+  // Setup ace.
+  pad.dmesg("pad.init(): loading Ace2Editor");
+  var ace = new Ace2Editor();
+  ace.init("editorcontainer", "", editorReady);
+  ace.setProperty("wraps", pad.initialCookiePrefs.wrapLines);
+  ace.setProperty("showsAuthorColors", pad.initialCookiePrefs.showAuthorColors);
+  ace.setProperty("lineNumbers", pad.initialCookiePrefs.showLineNumbers);
+  if (pad.initialCookiePrefs.highlightJs === true) {
+    ace.setProperty("lexer", "js");
+    pad.markPref('jshighlight', true);
+  } else {
+    ace.setProperty("lexer", "txt");
+    pad.markPref('jshighlight', false);
+  }
+  // star window title on dirty
+  ace.setNotifyDirty(function() {
+    if (!pad.padHasFocus) {
+      var currentTitle = $(document).attr('title');
+      if (currentTitle.charAt(0) != '*') {
+        $(document).attr('title', '* '+currentTitle);
+      }
+    }
+  });
+  if (pad.debugEnabled) {
+    ace.setProperty("dmesg", pad.dmesg);
+  }
+
+  pad.ace = ace;
+};
+
+pad.initMyUserInfo = function() {
+  // assigned colorId
+  var colorId = clientVars.assignedColorId;
+  if (!clientVars.colorPalette[colorId]) {
+    colorId = Math.floor((Math.random() * clientVars.colorPalette.length));
+  }
+
+  // Populate user info.
+  pad.dmesg("clientVars: "+JSON.stringify(clientVars));
+  pad.myUserInfo = {
+    userId: (pad.initialCookiePrefs.userId || pad.uniqueId()),
+    name: pad.getDefaultUsername(),
+    ip: clientVars.clientIp,
+    colorId: colorId,
+    userAgent: pad.uaDisplay(clientVars.userAgent)
+  };
+
+  pad.userJoin(pad.myUserInfo);
+  pad.dmesg("myUserInfo: "+JSON.stringify(pad.myUserInfo));
+};
+
+pad.initSideBoxes = function() {
+  // expand side-bars if cookie indicates
+  for (paneName in pad.initialCookiePrefs.sideBoxVisibility) {
+    if (pad.initialCookiePrefs.sideBoxVisibility[paneName]) {
+      pad.showSideBox(paneName);
+    }
+  }
+};
+
+pad.initCollab = function() {
+  var collabOptions = {
+    colorPalette: clientVars.colorPalette
+  };
+  pad.collabClient = getCollabClient(pad.ace,
+				     clientVars.collab_client_vars,
+				     pad.myUserInfo,
+				     collabOptions);
+
+  pad.collabClient.setOnClientMessage(pad.onClientMessage);
+  pad.collabClient.setOnServerMessage(pad.onServerMessage);
+  pad.collabClient.setOnUserJoin(pad.userJoin);
+  pad.collabClient.setOnUserLeave(pad.userLeave);
+  pad.collabClient.setOnUpdateUserInfo(pad.updateUserInfo);
+  pad.collabClient.setOnChannelStateChange(pad.channelStateChange);
+  pad.collabClient.setOnConnectionTrouble(pad.onConnectionTrouble);
+};
+
+pad.initRevisions = function() {
+  // Render revision list.
+  pad.revisionList = clientVars.initialRevisionList;
+  pad.renderRevisionList();
+
+  // Events
+  $('#savenow').click(function(e) {
+    pad.saveRevision();
+    e.preventDefault();
+    return false;
+  });
+  setInterval(function() {
+    pad.renderRevisionList(true);
+  }, (2*60*1000)); // to update times correctly
+};
+
+pad.initEvents = function() {
+  // shareurl click
+  $("#headurl").click(function() { selectElementContents($("#shareurl").get(0)); });
+
+  // feedback form
+  $('#feedbacksubmit').click(function(e) {
+    pad.submitfeedback();
+    e.preventDefault();
+    return false;
+  });
+
+  // sidepane expand/collapse events
+  $('#sidebar div.sideheadwrap').mousedown(function(e) {
+    var paneName = $(this).attr('id').substr("head".length);
+    if (pad.isSideBoxVisible(paneName)) {
+      pad.hideSideBox(paneName);
+    } else {
+      pad.showSideBox(paneName);
+    }
+    e.preventDefault();
+    return false;
+  });
+  $('#sidebar div.sideheadwrap').mouseup(pad.handlerPreventDefault);
+  $('#sidebar div.sideheadwrap').click(pad.handlerPreventDefault);
+
+  // ---- share link ----
+  $('#invitemore').show();
+  $('#invite_email_submit').click(pad.invitemoreSendEmail);
+  pad.setOnEnterKey('#invite_email, #invite_email_submit', pad.invitemoreSendEmail);
+
+  // ---- force reconnect ----
+  $('button.forcereconnect').click(function() {
+    pad.forceReconnect();
+  });
+};
+
+pad.initFocusTracker = function() {
+  var myFrames = [];
+  function walkframes(frame, depth) {
+    try {
+      if (depth > 4) { return; }
+      myFrames.push(frame);
+      $(frame).contents().find('iframe').each(function() {
+	walkframes(this, depth+1);
+      });
+    } catch (ex) {/*swallow*/}
+  }
+  myFrames.push($(window));
+  $('iframe').each(function() { walkframes(this, 1); });
+
+  function onFocus() { pad.padHasFocus = true; }
+  function onBlur() { pad.padHasFocus = false; }
+
+  for (var i = 0; i < myFrames.length; i++) {
+    var f = myFrames[i];
+    $(f).focus(onFocus).blur(onBlur);
+    /*
+    if (f.contentDocument) {
+      $(f.contentDocument).click(onFocus);
+    }*/
+  }
+  /* $(document).click(onFocus); */
+
+  // Reclaim the title periodically
+  var focusedLastCheck = true;
+  setInterval(function() {
+    if (!focusedLastCheck && pad.padHasFocus) {
+      $(document).attr('title', 'EtherPad: '+pad.padId);
+    }
+    focusedLastCheck = pad.padHasFocus;
+  }, 1000);
+};
+
+pad.initWelcomeMessage = function() {
+  if (pad.isFreshCookie && (clientVars.numConnectedUsers == 0)) {
+    pad.invitemoreShow();
+  }
+};
+
+pad.initResizeTimer = function() {
+  pad.resizePage(true);
+  setInterval(function() { pad.resizePage(true); }, 2000);
+}
+
+pad.initModalDialogs = function() {
+  pad.swallowAllMouseEvents($("#dialogtopbar"));
+}
+
+pad.initImportExport = function() {
+  // pad.addExportFrames();
+  pad.addImportFrames();
+  $('#importfileinput').change(pad.fileInputUpdated);
+  $('#importform').submit(pad.fileInputSubmit);
+  $('.disabledexport').click(pad.cantExport)
+  // $('.requiresoffice').click(pad.exportDoLongClick);
+  // $('.exportlink').click(pad.exportHideMessages);
+}
+
+pad.initRichText = function() {
+  $(".toptoolbarbutton").attr("unselectable", "on"); // for IE
+  $("#toptoolbar").removeClass("disabledtoolbar");
+}
+
+pad.initViewBar = function() {
+
+  pad.setViewFont(pad.initialCookiePrefs.viewFont || 'normal'); // sets pad.viewFont
+  pad.setViewZoom(pad.initialCookiePrefs.viewZoom || 100); // sets pad.viewZoom
+
+  $("#bottoolbar").css('display', 'block'); // show it
+  $("#bottoolbar").removeClass("disabledtoolbar");
+
+  $("#viewzoommenu").change(function(evt) {
+    pad.setViewZoom(Number($("#viewzoommenu").val().substring(1))); // remove 'z' from val
+  });
+  $("#viewfontmenu").change(function(evt) {
+    pad.setViewFont($("#viewfontmenu").val());
+  });
+}
+
+pad.initPadTitle = function() {
+  pad.title = clientVars.initialTitle;
+  pad.password = clientVars.initialPassword;
+
+  $("#padtitle").submit(function(evt) {
+    pad.submitTitle(true);
+    evt.preventDefault();
+    return false;
+  });
+  $("#padtitleedit").keyup(function(evt) {
+    if (evt.which == 27) {
+      // "escape" key
+      pad.submitTitle(false);
+    }
+  });
+  pad.renderPadTitle();
+}
+
+pad.init = function() {
+  // note: order of init calls is important.
+
+  pad.debugEnabled = clientVars.debugEnabled;
+  pad.padId = clientVars.padId;
+  pad.diagnosticInfo.uniqueId = pad.uniqueId();
+
+  pad.dmesg("pad.init()");
+
+  pad.initCookie();
+  pad.initResizeTimer();
+  pad.initAce(function() {
+    document.domain = document.domain; // for comet, set after ACE creates its frames
+    pad.initMyUserInfo();
+    pad.initSideBoxes();
+    pad.initCollab();
+    pad.initRichText();
+    pad.initViewBar();
+    pad.initRevisions();
+    pad.initPrefsPane();
+    pad.initChat();
+    pad.initEvents();
+    pad.initFocusTracker();
+    pad.initPadTitle();
+    $('a#hidesidebar').show();
+    pad.initTime = +(new Date());
+    pad.initialized = true;
+    pad.saveCookie(); // must happen after pad.initialized = true.
+    pad.initModalDialogs();
+    pad.initImportExport();
+    pad.initWelcomeMessage();
+    pad.dmesg("pad.init(): done!");
+  });
+};
+
+//----------------------------------------------------------------
+
+pad.getDefaultUsername = function() {
+  var cookieName = pad.initialCookiePrefs.name;
+  if (cookieName) {
+    return cookieName;
+  }
+  var nameGuess = clientVars.nameGuess;
+  if (nameGuess) { return nameGuess; }
+  return null;
+};
+
+pad.getCurrentPageHeight = function() {
+  return $("#padcontent").offset().top + $("#padcontent").height() + 1;
+}
+
+pad.resizePage = function(dontReschedule) {
+  // this method should not require any init to have happened
+
+  var visibleHeight = document.documentElement.clientHeight;
+  var sizedContentHeight = $("#sizedcontent").height() - 2; // subtract 2 for border
+  var pageHeight = pad.getCurrentPageHeight();
+
+  var newHeight = visibleHeight - (pageHeight - sizedContentHeight);
+  var totalToolbarHeight = $("#toptoolbar").outerHeight() + $("#bottoolbar").outerHeight();
+
+  // editor (left column, 1)
+  var oldHeight1 = $("#editorcontainer").height() - totalToolbarHeight;
+  var newHeight1 = newHeight - totalToolbarHeight;
+
+  // sidebar (right column, 2)
+  var oldHeight2 = $("#sidebar").height();
+  var newHeight2 = newHeight;
+
+  if (newHeight1 != oldHeight1) {
+    $("#editorcontainer").css('height', newHeight1+"px");
+    if (pad.ace) {
+      pad.ace.adjustSize();
+    }
+  }
+  if (newHeight2 != oldHeight2) {
+    $("#sidebar").css('height', newHeight2+"px");
+  }
+
+  pad.repositionModals();
+  if (pad.initialized) {
+    pad.renderPadTitle();
+  }
+
+  if (! dontReschedule) {
+    // try again in a bit in case we missed the correct size,
+    // but don't let that call cause another setTimeout
+    setTimeout(function() { pad.resizePage(true); }, 100);
+  }
+};
+
+pad.setOnEnterKey = function(eltpath, f) {
+  $(eltpath).keydown(function(e) {
+    if (e.keyCode == 13) {
+      f(e);
+      e.preventDefault();
+      return false;
+    }
+    return true; //continue event
+  });
+};
+
+//----------------------------------------------------------------
+// New pad button.
+//----------------------------------------------------------------
+
+pad.newPad = function() {
+  $('#newpad').submit();
+};
+
+//----------------------------------------------------------------
+// UI Preferences
+//----------------------------------------------------------------
+
+pad.isPrefMarked = function(n) {
+  var v = !!$('#checkpref'+n+' input').attr('checked');
+  pad.dmesg("isPrefMarked("+n+") = "+v);
+  return v;
+};
+
+pad.markPref = function(n, t) {
+  var i = $('#checkpref'+n+' input');
+  if (t) {
+    i.attr('checked', 'checked');
+  } else {
+    i.removeAttr('checked');
+  }
+};
+
+pad.updatePref = function(name, val) {
+  var ace = pad.ace;
+  if (name == "showcolors") {
+    ace.setProperty("showsAuthorColors", val);
+  }
+  if (name == "wrap") {
+    ace.setProperty("wraps", val);
+  }
+  if (name == "linenums") {
+    ace.setProperty("lineNumbers", val);
+  }
+  if (name == "jshighlight") {
+    if (val) {
+      ace.setProperty("lexer", "js");
+    } else {
+      ace.setProperty("lexer", "txt");
+    }
+  }
+  if (name == "fullwidth") {
+    pad.setFullWidth(val);
+  }
+};
+
+//----------------------------------------------------------------
+
+pad.uniqueId = function() {
+  return [
+    clientVars.clientIp,
+    String(+(new Date())),
+    String(Math.floor(Math.random()*100000))
+  ].join('.');
+};
+
+pad.getUserDisplayName = function(userInfo) {
+  // strip HTML from newName.
+  // TODO: better HTML escaping?
+  var name = userInfo.name;
+  if (!(typeof(name) == "string")) {
+    name = "unnamed";
+    if (userInfo.userId == pad.myUserInfo.userId) {
+      name += ' (me)';
+    }
+  }
+  return name;
+};
+
+//----------------------------------------------------------------
+// userJoin
+//----------------------------------------------------------------
+
+pad.userJoin = function(userInfo) {
+  pad.dmesg("pad.userJoin: "+userInfo.name+"/"+userInfo.userId);
+  pad.users[userInfo.userId] = userInfo;
+
+  var name = pad.escapeHtml(pad.getUserDisplayName(userInfo));
+  if (userInfo.userId != pad.myUserInfo.userId) {
+    var currentTime = +(new Date());
+    if ((currentTime - pad.initTime) > 1000*2) {
+      pad.notify('<i>'+name+'</i> has joined the pad.');
+    }
+  }
+
+  // assign an ID for the userbox div
+  var boxId = pad.userBoxIds[userInfo.userId];
+  if (!boxId) {
+    pad.lastBoxId++;
+    boxId = "userbox"+pad.lastBoxId;
+    pad.userBoxIds[userInfo.userId] = boxId;
+    var classNames = "userbox";
+    if (userInfo.userId == pad.myUserInfo.userId) { classNames += " me"; }
+    var userbox = '<div class="'+classNames+'" id="'+boxId+'"><!-- --></div>';
+    $('#userlist').append(userbox);
+  }
+
+  $('#userlist div.lastuser').removeClass('lastuser');
+  $('#'+boxId).addClass('lastuser').hide();
+
+  pad.updateUserBox(userInfo);
+  pad.updateChatHistoryForUser(userInfo);
+
+  // show
+  $('#'+boxId).fadeIn('slow');
+};
+
+pad.updateUserBox = function(userInfo) {
+  var nameHtml = '<span class="username">' + pad.escapeHtml(pad.getUserDisplayName(userInfo)) + '</span>';
+  var changeLink = '';
+  var isMe = (userInfo.userId == pad.myUserInfo.userId);
+  if (isMe) {
+    changeLink = '<div id="rightuserlink">'+
+      '<a id="changenamelink" href="javascript: void;" class="small_link">edit name/color</a>'+
+      '</div>';
+  }
+  var displayIp = userInfo.ip + '/' + userInfo.userAgent;
+  var boxId = pad.userBoxIds[userInfo.userId];
+  var box = $('#'+boxId);
+  if (box.size() != 1) {
+    pad.notify("Warning: spurious user update for user &lt;"+userInfo.userId+"&gt;");
+    return;
+  }
+  var bgcolor = clientVars.colorPalette[userInfo.colorId];
+  box.empty().html([
+    '<div class="userinfowrap' + (isMe ? ' myuserwrap' : '') + '">',
+    '<div class="usercolor" style="background-color: ',bgcolor, '">',
+    '&nbsp;</div>',
+    '<div class="userinfo">',
+    changeLink,
+    '  <div>',
+    nameHtml,
+    '  </div>',
+    '  <div class="ip">',
+    displayIp,
+    '  </div>',
+    '</div>',
+    '<div style="clear: both;"><!-- --></div>',
+    '</div>'
+  ].join(''));
+  if (isMe) {
+    $('#userlist div.myuserwrap').click(pad.myUserInfoClick);
+  }
+};
+
+pad.myUserInfoClick = function(e) {
+  if (pad.isEditingUserInfo) {
+    return true;
+  }
+  pad.oldColorId = pad.myUserInfo.colorId;
+  pad.isEditingUserInfo = true;
+  $('#userlist div.me').hide().html([
+    '<div class="edituserinfo">',
+    '<h4>Name:</h4>',
+    '<p><input type="text" id="mynewname" /></p>',
+    '<h4>Color:</h4>',
+    pad.renderColorPicker(),
+    '<button id="savemyuserinfo">Save</button>',
+    '<button id="canceleditmyuserinfo">Cancel</button>',
+    '</div>'
+  ].join('')).fadeIn('fast', function() {});
+
+  $('input#mynewname').val(pad.getUserDisplayName(pad.myUserInfo)).focus().select();
+  pad.setOnEnterKey('input#mynewname', pad.saveMyNewUserInfo);
+
+  $('#canceleditmyuserinfo').click(pad.cancelEditMyUserInfo);
+  $('#savemyuserinfo').click(pad.saveMyNewUserInfo);
+
+  e.preventDefault();
+  return false;
+};
+
+pad.cancelEditMyUserInfo = function(e) {
+  if (pad.oldColorId != pad.myUserInfo.colorId) {
+    pad.myUserInfo.colorId = pad.oldColorId;
+    pad.collabClient.updateUserInfo(pad.myUserInfo);
+  }
+  $('#userlist div.me').fadeOut('fast', function() {
+    pad.updateUserBox(pad.myUserInfo);
+    $('#userlist div.me').fadeIn('fast');
+    pad.isEditingUserInfo = false;
+  });
+  e.preventDefault();
+  return false;
+};
+
+pad.saveMyNewUserInfo = function(e) {
+  var newName = $('#mynewname').val();
+  if (newName != "unnamed (me)") {
+    pad.myUserInfo.name = newName;
+  }
+  $('#userlist div.me').fadeOut('fast', function() {
+    $('#userlist div.me').html('Saving...');
+    pad.collabClient.updateUserInfo(pad.myUserInfo);
+    pad.saveCookie();
+    pad.updateUserBox(pad.myUserInfo);
+    $('#userlist div.me').fadeIn('fast');
+    pad.isEditingUserInfo = false;
+    pad.updateChatHistoryForUser(pad.myUserInfo);
+  });
+  e.preventDefault();
+  return false;
+};
+
+pad.renderColorPicker = function() {
+  function renderColorSquare(i) {
+    var classNames = "";
+    if (i == pad.myUserInfo.colorId) {
+      classNames += " selectedcolor";
+    }
+    var html = [
+      '<a class="'+classNames+'"',
+      '   id="colorchoice'+i+'"',
+      '   style="background: '+clientVars.colorPalette[i], ';"',
+      '   href="javascript:void pad.chooseNewColor('+i+');">',
+      '&nbsp;</a>'
+    ].join('');
+    return html;
+  }
+  var r = '<div id="colorpicker">';
+  for (var i = 0; i < clientVars.colorPalette.length; i++) {
+    r += renderColorSquare(i);
+  }
+  r += '<div style="clear: both;"><!-- --></div></div>';
+  return r;
+};
+
+pad.chooseNewColor = function(colorId) {
+  pad.myUserInfo.colorId = colorId;
+  pad.collabClient.updateUserInfo(pad.myUserInfo);
+  $('#colorpicker a').removeClass('selectedcolor');
+  $('#colorpicker a#colorchoice'+colorId).addClass('selectedcolor');
+};
+
+//----------------------------------------------------------------
+// userLeave
+//----------------------------------------------------------------
+
+pad.userLeave = function(userInfo) {
+  pad.dmesg("pad.userLeave: "+userInfo.name+"/"+userInfo.userId);
+
+  var box = $('#'+pad.userBoxIds[userInfo.userId]);
+  box.attr('id', ('oldbox'+(+(new Date()))));
+
+  delete pad.users[userInfo.userId];
+  delete pad.userBoxIds[userInfo.userId];
+
+  box.fadeOut('slow', function() {
+    box.remove();
+    var boxes = $('#userlist').children();
+    if (boxes.size() > 0) {
+      $(boxes.get(boxes.size()-1)).addClass('lastuser');
+    }
+  });
+
+  pad.updateChatHistoryForUser(userInfo);
+};
+
+//----------------------------------------------------------------
+// updateUserInfo
+//----------------------------------------------------------------
+
+pad.updateUserInfo = function(userInfo) {
+  pad.updateUserBox(userInfo);
+  pad.updateChatHistoryForUser(userInfo);
+  // TODO: draw attention to the updated userbox somehow?  flash it?
+  var oldInfo = pad.users[userInfo.userId];
+  if (oldInfo.name != userInfo.name) {
+    var oldName = pad.escapeHtml(pad.getUserDisplayName(oldInfo));
+    var newName = pad.escapeHtml(pad.getUserDisplayName(userInfo));
+    pad.notify("<i>"+oldName+"</i> is now known as <i>"+newName+"</i>.");
+  }
+  if (oldInfo.colorId != userInfo.colorId) {
+    pad.notify("<i>"+pad.escapeHtml(pad.getUserDisplayName(userInfo))+"</i> has a new background color.");
+  }
+  pad.users[userInfo.userId] = userInfo;
+};
+
+//----------------------------------------------------------------
+// channelStateChange
+//----------------------------------------------------------------
+
+pad.channelStateChange = function(newState, message) {
+  pad.connectionState = newState;
+  if (newState == "CONNECTED") {
+    $('#savenow').removeAttr('disabled');
+    pad.displayConnectionStatus('connected');
+    pad.notify("Connected to EtherPad synchronization server.");
+  }
+  if (newState == "RECONNECTING") {
+    $('#savenow').attr('disabled', true);
+    pad.displayConnectionStatus('connecting');
+    pad.notify("Lost connection with server. Attempting to reconnect...", true);
+  }
+  if (newState == "DISCONNECTED") {
+    pad.diagnosticInfo.disconnectedMessage = message;
+    pad.diagnosticInfo.padInitTime = pad.initTime;
+    pad.asyncSendDiagnosticInfo();
+
+    $('#savenow').attr('disabled', true);
+
+    pad.displayConnectionStatus('disconnected');
+    if (typeof top.ajlog == "string") { top.ajlog += ("Disconnected: "+message+'\n'); }
+
+    $('div#bigtoperror_wrap').addClass('hidden');
+    $('div.bigtoperror').hide();
+    pad.clearNotificationQueue();
+    if (pad.ace) {
+      pad.ace.setProperty("grayedOut", true);
+      pad.ace.setEditable(false);
+    }
+    if (message == "userdup") {
+      $('div#disconnected_userdup').show();
+    } else if (message == "looping") {
+      $('div#disconnected_looping').show();
+      $('div#reconnect_advise').show();
+    } else if (message == "slowcommit") {
+      $('div#disconnected_slowcommit').show();
+      $('div#reconnect_advise').show();
+    } else if (message == "initsocketfail") {
+      $('div#disconnected_initsocketfail').show();
+      $('div#reconnect_advise').show();
+    } else {
+      $('div#disconnected_unknown').show();
+      $('div#reconnect_advise').show();
+    }
+    pad.notify("Lost connection with server.");
+    $('div#bigtoperror_wrap').html();
+    $('div#bigtoperror_wrap').removeClass('hidden').fadeIn('fast', function() {
+      pad.resizePage();
+    });
+    $('div#userlist div.userbox').remove();
+  }
+};
+
+//----------------------------------------------------------------
+// Notification system
+//----------------------------------------------------------------
+
+pad.notify = function(message, persist) {
+  pad.notifyQueue.push([message, persist]);
+  setTimeout(pad.processNotifyQueue, 50);
+};
+
+pad.clearNotificationQueue = function() {
+  delete pad.notifyQueue;
+  pad.notifyQueue = [];
+};
+
+pad.processNotifyQueue = function() {
+  if (pad.notifyQueue.length == 0) {
+    return;
+  }
+  var msSinceLast = (+(new Date()) - pad.lastNotify);
+  if (msSinceLast < 1000) {
+    setTimeout(pad.processNotifyQueue, 1050-msSinceLast);
+    return;
+  }
+  var msg = pad.notifyQueue.shift();
+  $('#topbarmsg').fadeOut('fast', function() {
+    $('#topbarmsg').html(msg[0]).fadeIn('slow');
+  });
+  pad.lastNotify = +(new Date());
+
+  // set window title if blurred
+  function striptags(x) {
+    return x.replace(/<[^\>]+>/g, '');
+  }
+  if (!pad.padHasFocus) {
+    $(document).attr('title', '* '+striptags(msg[0]));
+  }
+
+  // clear it after 5 seconds unless "persist" was specified
+  pad.persistLastNotify = msg[1];
+  setTimeout(function() {
+    if (!pad.persistLastNotify) {
+      $('#topbarmsg').fadeOut('slow');
+    }
+  }, 5000);
+};
+
+//----------------------------------------------------------------
+// Cookies
+//----------------------------------------------------------------
+
+pad.saveCookie = function() {
+  if (!pad.initialized) { return; }
+  var prefs = {
+    userId: pad.myUserInfo.userId,
+    name: pad.myUserInfo.name,
+    colorId: pad.myUserInfo.colorId,
+    wrapLines: pad.isPrefMarked('wrap'),
+    showAuthorColors: pad.isPrefMarked('showcolors'),
+    showLineNumbers: pad.isPrefMarked('linenums'),
+    highlightJs: pad.isPrefMarked('jshighlight'),
+    fullWidth: pad.isPrefMarked('fullwidth'),
+    sideBoxVisibility: pad.sideBoxVisibility,
+    viewZoom: pad.viewZoom,
+    viewFont: pad.viewFont
+  };
+  var expiresDate = new Date();
+  expiresDate.setFullYear(3000);
+  document.cookie = ('prefs='+escape(JSON.stringify(prefs))+
+		     ';expires='+expiresDate.toGMTString());
+
+  // If the browser rejects the cookie, then show an error message.
+  if (clientVars.isProPad &&
+      !(document.cookie &&
+	(document.cookie.length > 0) &&
+	(document.cookie.indexOf('prefs') >= 0))) {
+
+    if (!pad.alreadyWarnedAboutNoCookies) {
+      alert("Warning: it appears that your browser does not have cookies enabled."+
+	    " EtherPad uses cookies to keep track of unique users for the purpose"+
+	    " of putting a quota on the number of active users.  Using EtherPad without "+
+	    " cookies may fill up your server's user quota faster than expected.");
+      pad.alreadyWarnedAboutNoCookies = true;
+    }
+  }
+};
+
+pad.getInitialCookiePrefs = function() {
+
+  function _getExistingCookie() {
+    if (document.cookie.length < 1) {
+      pad.isFreshCookie = true;
+      return {};
+    }
+    var name = "prefs";
+    var start = document.cookie.indexOf(name + "=");
+    if (start == -1) {
+      pad.isFreshCookie = true;
+      return {};
+    }
+    start = start + name.length + 1;
+    var end = document.cookie.indexOf(";", start);
+    if (end == -1) {
+      end = document.cookie.length;
+    }
+    try {
+      return JSON.parse(unescape(document.cookie.substring(start, end)));
+    } catch (ex) {
+      pad.isFreshCookie = true;
+      return {};
+    }
+  }
+
+  var cp = _getExistingCookie();
+
+  // required cookie fields & defaults
+  function _setDefault(name, val) {
+    if (cp[name] === undefined) {
+      cp[name] = val;
+    }
+  }
+  _setDefault('sideBoxVisibility', {});
+  _setDefault('wrapLines', true);
+  _setDefault('showAuthorColors', true);
+  _setDefault('showLineNumbers', false);
+  _setDefault('fullWidth', false);
+
+  return cp;
+};
+
+//----------------------------------------------------------------
+
+pad.forceReconnect = function(diagnosticInfo) {
+  $('form#reconnect input#padId').val(pad.padId);
+  pad.diagnosticInfo.collabDiagnosticInfo = pad.collabClient.getDiagnosticInfo();
+  $('form#reconnect input#diagnosticInfo').val(JSON.stringify(pad.diagnosticInfo));
+  $('form#reconnect input#missedChanges').val(JSON.stringify(pad.collabClient.getMissedChanges()));
+  $('form#reconnect').submit();
+};
+
+pad.dmesg = function(m) {
+  if (pad.debugEnabled) {
+    $('#djs').append('<p>'+m+'</p>');
+    var djs = $('#djs').get(0);
+    djs.scrollTop = djs.scrollHeight;
+  }
+};
+
+pad.showSideBar = function() {
+  $('#sidebarcell').show().addClass('visible');
+  $('a#showsidebar').hide();
+  $('a#hidesidebar').show();
+  pad.sideBarVisible = true;
+  pad.saveCookie();
+  return false;
+};
+
+pad.hideSideBar = function() {
+  $('#sidebarcell').hide().removeClass('visible');
+  $('a#showsidebar').show();
+  $('a#hidesidebar').hide();
+  pad.sideBarVisible = false;
+  pad.saveCookie();
+  return false;
+};
+
+pad.setFullWidth = function(fullWidth) {
+  if (fullWidth) {
+    //$('#padhead, #appjetfooter').fadeOut('fast').addClass('hidden');
+    $('body').removeClass('limwidth').addClass('fullwidth');
+    $('#widthlink').attr('title', "Use fixed pad width");
+  } else {
+    // hack:
+    $("#padtitle").css('width', '400px');
+
+    //$('#padhead, #appjetfooter').removeClass('hidden').fadeIn('fast');
+    $('body').removeClass('fullwidth').addClass('limwidth');
+    $('#widthlink').attr('title', "Use full window width");
+  }
+  if (pad.initialized) {
+    pad.resizePage();
+  }
+};
+
+pad.toggleFullWidth = function() {
+  // fires when user clicks icon in corner; updates preferences
+  var oldValue = pad.isPrefMarked("fullwidth");
+  var newValue = ! oldValue;
+
+  pad.markPref("fullwidth", newValue);
+  pad.updatePref("fullwidth", newValue);
+
+  pad.saveCookie();
+}
+
+pad.handlerPreventDefault = function(e) {
+  e.preventDefault();
+  return false;
+}
+
+pad.swallowAllMouseEvents = function(jqueryNodes) {
+  jqueryNodes.click(pad.handlerPreventDefault);
+  jqueryNodes.mousedown(pad.handlerPreventDefault);
+  jqueryNodes.mouseup(pad.handlerPreventDefault);
+}
+
+//----------------------------------------------------------------
+// Saved Revisions
+//----------------------------------------------------------------
+
+pad.renderRevisionList = function(fast) {
+  var rlis = pad.revisionList;
+  var content = "";
+  for (var i = 0; (i < rlis.length) && (i < pad.shownRevisions); i++) {
+    var rnum = rlis.length - i;
+    var name = pad.escapeHtml(rlis[i].savedBy);
+    name += " ("+rlis[i].ip+")";
+    var when = pad.timediff(new Date(rlis[i].timestamp));
+    var viewLink = '/ep/pad/view/'+pad.padId+'/'+rlis[i].id;
+    var restoreLink = 'javascript:void pad.restoreRevision('+rnum+');';
+    var label = pad.escapeHtml(rlis[i].label || ('Revision '+rnum));
+    if (rlis[i].savedById == pad.myUserInfo.userId &&
+        ((+(new Date()) - rlis[i].timestamp) < (24*60*60*1000))) {
+      label = ('<a class="editrlabel small_link" href="javascript: void pad.editRevisionLabel('+rnum+');">'+
+	       label + '</a>');
+    }
+    content += ('<div class="revisioninfo" id="revisioninfo_'+rnum+'">'+
+		'  <div class="rleft">'+
+		'    <div id="rlabel'+rnum+'">'+label+'</div>'+
+		'    <div class="ractions">'+
+		'      <a class="small_link" target="_blank" href="'+viewLink+'">view</a>&nbsp;|&nbsp;<a class="small_link" href="'+restoreLink+'">restore</a>'+
+		'    </div>'+
+		'  </div>'+
+		'  <div class="rright">saved '+when+' by '+name+'</div>'+
+		'  <div style="clear: both;"><!-- --></div>'+
+		'</div>');
+  }
+  var areMore = (pad.shownRevisions < pad.revisionList.length);
+  var areFewer = (pad.shownRevisions > pad.REVISIONCOUNT_STEP);
+  content += '<div class="revisionbottomlinks">';
+  if (areMore || areFewer) {
+    content += 'show:&nbsp;';
+  }
+  if (areFewer) {
+    content += '<a class="small_link" href="javascript:void pad.fewerRevisions();">fewer</a>';
+  }
+  if (areMore && areFewer) {
+    content += '&nbsp;|&nbsp;';
+  }
+  if (areMore) {
+    content += '<a class="small_link" href="javascript:void pad.moreRevisions();">more</a>';
+  }
+  content += '</div>';
+
+  if (fast) {
+    $('#revisionlist').html(content);
+  } else {
+    $('#revisionlist').hide().html(content).fadeIn('fast');
+  }
+};
+
+pad.fewerRevisions = function() {
+  pad.shownRevisions -= pad.REVISIONCOUNT_STEP;
+  pad.renderRevisionList();
+};
+
+pad.moreRevisions = function() {
+  pad.shownRevisions += pad.REVISIONCOUNT_STEP;
+  pad.renderRevisionList();
+};
+
+pad.saveRevision = function() {
+  var mv = clientVars.accountPrivs.maxRevisions;
+  if ((mv != -1) && (pad.revisionList.length >= mv)) {
+    $('#savenow').hide();
+    $('#nosaveprivs').fadeIn('fast');
+    return;
+  }
+  $('#savenow').attr('disabled', true).val("Saving...");
+  var savedBy = pad.myUserInfo.name || "unnamed";
+  pad.collabClient.callWhenNotCommitting(doAjax);
+  function doAjax() {
+    $.ajax({
+      type: 'post',
+      url: '/ep/pad/saverevision',
+      data: {
+	padId: pad.padId,
+	savedBy: savedBy,
+	savedById: pad.myUserInfo.userId,
+	revNum: pad.collabClient.getCurrentRevisionNumber()
+      },
+      success: success,
+      error: error
+    });
+  }
+  function success(text) {
+    pad.revisionList = JSON.parse(text);
+    if (pad.revisionList.length > 0) {
+      pad.clientTimeOffset = +(new Date) - pad.revisionList[0].timestamp;
+    }
+    pad.renderRevisionList();
+    pad.collabClient.sendClientMessage({
+      type: 'newRevisionList',
+      revisionList: pad.revisionList,
+      savedBy: savedBy
+    });
+    $('#savenow').val("Save Now").removeAttr('disabled');
+  }
+  function error(e) {
+    alert("Oops!  The server failed to save the revision.  Please try again later.");
+    $('#savenow').val("Save Now").removeAttr('disabled');
+  }
+};
+
+pad.restoreRevision = function(rnum) {
+  var i = pad.revisionList.length - rnum;
+  var rev = pad.revisionList[i];
+  var warning = ("Restoring this revision will replace the current"
+		 + "pad with the text saved in revision \""
+		 + ""+rev.label+"\".  Are you sure you want to continue?");
+
+  if (confirm(warning)) {
+    $.ajax({
+      type: 'get',
+      url: '/ep/pad/getrevisionatext',
+      data: {padId: pad.padId, revId: rev.id},
+      success: success,
+      error: error
+    });
+  }
+  function success(resultJson) {
+    var result = JSON.parse(resultJson);
+    pad.collabClient.addHistoricalAuthors(result.historicalAuthorData);
+    pad.ace.importAText(result.atext, result.apool, true);
+  }
+  function error(e) {
+    alert("Oops!  There was an error retreiving the text (revNum= "+
+	  rev.revNum+"; padId="+pad.padId);
+  }
+};
+
+pad.editRevisionLabel = function(rnum) {
+  var i = pad.revisionList.length - rnum;
+  var rev = pad.revisionList[i];
+  $('#revisioninfo_'+rnum).html(
+    '<p class="revlabelprompt">Enter a label for revision #'+rnum+' and press return.</p>'+
+    '<input class="inputrevlabel"'+
+    ' id="inputrevlabel'+rnum+'" type="text" />'
+  );
+  $('input#inputrevlabel'+rnum).val(rev.label).focus().select();
+  pad.setOnEnterKey('#inputrevlabel'+rnum, function() {
+    pad.saveRevisionLabel(rnum);
+  });
+};
+
+pad.saveRevisionLabel = function(rnum) {
+  var i = pad.revisionList.length - rnum;
+  var rev = pad.revisionList[i];
+  var newLabel = $('#inputrevlabel'+rnum).val();
+  $.ajax({
+    type: 'post',
+    url: '/ep/pad/saverevisionlabel',
+    data: {userId: pad.myUserInfo.userId,
+	   padId: pad.padId,
+	   revId: rev.id,
+	   newLabel: newLabel},
+    success: success,
+    error: error
+  });
+  function success(text) {
+    pad.revisionList = JSON.parse(text);
+    pad.renderRevisionList();
+    pad.collabClient.sendClientMessage({
+      type: 'revisionLabel',
+      revisionList: pad.revisionList,
+      savedBy: pad.myUserInfo.name,
+      newLabel: newLabel
+    });
+  }
+  function error(e) {
+    alert("Oops! There was an error saving that revision label.  Please try again later.");
+  }
+};
+
+//----------------------------------------------------------------
+// Feedback form.
+//----------------------------------------------------------------
+pad.submitfeedback = function() {
+  var feedback = $('#feedbackarea').val();
+  $('#feedbackarea').val('');
+  $.ajax({
+    type: 'post',
+    url: '/ep/pad/feedback',
+    data: {feedback: feedback, padId: pad.padId, username: pad.myUserInfo.name},
+    success: success,
+    error: error
+  });
+
+  $('#feedbackresult #feedbackemail').html('feedback'+'@'+'etherpad'+'.com');
+  $('#feedbackbox').fadeOut('fast', function() {
+    $('#feedbackresult').fadeIn('slow', function() {
+      setTimeout(function() {
+	$('#feedbackresult').fadeOut('slow', function() {
+	  $('#feedbackbox').fadeIn('fast');
+	});
+      }, 10000);
+    });
+  });
+
+  function success(msg) {};
+  function error(e) {
+    alert("Oops!  There was an error submitting the feedback.  Please try again later.");
+  }
+};
+
+//----------------------------------------------------------------
+// UA Display
+//----------------------------------------------------------------
+
+pad.uaDisplay = function(ua) {
+  var m;
+
+  function clean(a) {
+    var maxlen = 16;
+    a = a.replace(/[^a-zA-Z0-9\.]/g, '');
+    if (a.length > maxlen) {
+      a = a.substr(0,maxlen);
+    }
+    return a;
+  }
+
+  function checkver(name) {
+    var m = ua.match(RegExp(name + '\\/([\\d\\.]+)'));
+    if (m && m.length > 1) {
+      return clean(name+m[1]);
+    }
+    return null;
+  }
+
+  // firefox
+  if (checkver('Firefox')) { return checkver('Firefox'); }
+
+  // misc browsers, including IE
+  m = ua.match(/compatible; ([^;]+);/);
+  if (m && m.length > 1) {
+    return clean(m[1]);
+  }
+
+  // iphone
+  if (ua.match(/\(iPhone;/)) {
+    return 'iPhone';
+  }
+
+  // chrome
+  if (checkver('Chrome')) { return checkver('Chrome'); }
+
+  // safari
+  m = ua.match(/Safari\/[\d\.]+/);
+  if (m) {
+    var v = '?';
+    m = ua.match(/Version\/([\d\.]+)/);
+    if (m && m.length > 1) {
+      v = m[1];
+    }
+    return clean('Safari'+v);
+  }
+
+  // everything else
+  var x = ua.split(' ')[0];
+  return clean(x);
+};
+
+//----------------------------------------------------------------
+// invitemoreClick
+//----------------------------------------------------------------
+
+pad.invitemoreShow = function() {
+  $('#invitemorelink').hide();
+  $('#inviteinstructions').fadeIn('fast');
+  $('#invite_email').focus();
+};
+
+pad.invitemoreHide = function() {
+  $('#inviteinstructions').fadeOut('fast');
+  $('#invitemorelink').show();
+};
+
+pad.invitemoreSendEmail = function() {
+  function msg(m) {
+    $('#invite_email_status').hide().html(m).fadeIn('fast');
+  }
+  var email = $('#invite_email').val();
+  if (!pad.validEmail(email)) {
+    msg("That doesn't look like a valid email address.");
+    return;
+  }
+  $('#invite_email_submit').attr('disabled', true).val('Sending...');
+  $.ajax({
+    type: 'post',
+    url: '/ep/pad/emailinvite',
+    data: {email: email,
+	   padId: pad.padId,
+	   username: (pad.myUserInfo.name || "someone")
+    },
+    success: function() {
+      $('#invite_email').val('');
+      msg("Email sent to "+email+".");
+      $('#invite_email_submit').val('Send').removeAttr('disabled');
+    },
+    error: function() {
+      msg("Oops!  There was an error sending the invite.  Please try again later.");
+      $('#invite_email_submit').val('Send').removeAttr('disabled');
+    }
+  });
+};
+
+pad.validEmail = function(x) {
+  return (x.length > 0 &&
+	  x.match(/^[\w\.\_\+\-]+\@[\w\_\-]+\.[\w\_\-\.]+$/));
+};
+
+/*
+pad.getQueryParam = function(name) {
+  var params = {};
+  var query = window.location.search.substr(1);
+  var parts = query.split('&');
+  for (var i = 0; i < parts.length; i++) {
+    var subparts = parts[i].split('=');
+    if (subparts.length == 2) {
+      params[subparts[0]] = subparts[1];
+    }
+  }
+  return params[name];
+};
+*/
+
+pad.timediff = function(d) {
+  function format(n, word) {
+    n = Math.round(n);
+    return ('' + n + ' ' + word + (n != 1 ? 's' : '') + ' ago');
+  }
+  d = (+(new Date) - (+d) - pad.clientTimeOffset) / 1000;
+  if (d < 60) { return format(d, 'second'); }
+  d /= 60;
+  if (d < 60) { return format(d, 'minute'); }
+  d /= 60;
+  if (d < 24) { return format(d, 'hour'); }
+  d /= 24;
+  return format(d, 'day');
+};
+
+//----------------------------------------------------------------
+
+pad.onClientMessage = function(m) {
+  if (m.type == 'newRevisionList') {
+    pad.revisionList = m.revisionList;
+    pad.notify(pad.escapeHtml(m.savedBy) + " saved a new revision.");
+    pad.renderRevisionList();
+  }
+  if (m.type == 'revisionLabel') {
+    pad.revisionList = m.revisionList;
+    pad.notify(pad.escapeHtml(m.savedBy) + ' labeled a revision, "'+pad.escapeHtml(m.newLabel)+'".');
+    pad.renderRevisionList();
+  }
+  if (m.type == 'chat') {
+    pad.receiveChat(m);
+  }
+  if (m.type == 'padtitle') {
+    pad.title = m.title;
+    pad.renderPadTitle();
+    if (m.changedBy) {
+      pad.notify(pad.escapeHtml(m.changedBy) + ' changed the pad title.');
+    }
+  }
+  if (m.type == 'padpassword') {
+    pad.password = m.password;
+    pad.renderPadTitle();
+    if (m.changedBy) {
+      pad.notify(pad.escapeHtml(m.changedBy) + (
+        m.password ? ' changed the pad password.' : ' removed password protection from this pad.'));
+    }
+  }
+};
+
+pad.onServerMessage = function(m) {
+  if (m.type == 'NOTICE') {
+    if (m.text) {
+      $('#servermsg').hide().addClass('hidden');
+      $('#servermsgdate').html((new Date()).toString());
+      $('#servermsgtext').html(m.text);
+      $('#servermsg').removeClass('hidden').fadeIn('fast', function() { pad.resizePage(); });
+      pad.notify("Server Notice");
+    }
+    if (m.js) {
+      eval(m.js);
+    }
+  }
+};
+
+pad.hideTopMsg = function(mn) {
+  var x = $('#'+mn+'msg');
+  x.fadeOut('fast', function() {
+    x.addClass('hidden');
+    pad.resizePage();
+  });
+};
+
+//----------------------------------------------------------------
+
+pad.isSideBoxVisible = function(paneName) {
+  var head = $('#head'+paneName);
+  var box = $('#'+paneName);
+  return head.hasClass('sh_uncollapsed');
+};
+
+pad.showSideBox = function(paneName) {
+  var head = $('#head'+paneName);
+  var box = $('#'+paneName);
+  head.removeClass('sh_collapsed').addClass('sh_uncollapsed');
+  box.fadeIn('fast', function() {});
+  pad.sideBoxVisibility[paneName] = true;
+  pad.saveCookie();
+  if (paneName == "chatbox") {
+    pad.onShowChatBox();
+  }
+};
+
+pad.hideSideBox = function(paneName) {
+  var head = $('#head'+paneName);
+  var box = $('#'+paneName);
+  box.fadeOut('fast', function() {
+    head.removeClass('sh_uncollapsed').addClass('sh_collapsed');
+    pad.sideBoxVisibility[paneName] = false;
+    pad.saveCookie();
+  });
+};
+
+//----------------------------------------------------------------
+
+pad.escapeHtml = function(x) {
+  return x.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+};
+
+//----------------------------------------------------------------
+// Chat
+//----------------------------------------------------------------
+
+pad.initChat = function() {
+  pad.setOnEnterKey('#chatinput', function() {
+    pad.sendChat();
+  });
+  pad.chatUserNums = {};
+  pad.lastChatUserNum = 0;
+  pad.numUnreadChatMessages = 0;
+  pad.initChatHistory();
+};
+
+pad.sendChat = function() {
+  var lineText = $('#chatinput').val();
+  $('#chatinput').val('').focus();
+  var msg = {
+    type: 'chat',
+    userId: pad.myUserInfo.userId,
+    lineText: lineText
+  };
+  pad.collabClient.sendClientMessage(msg);
+  pad.receiveChat(msg);
+};
+
+pad.updateChatHistoryForUser = function(userInfo) {
+  if (!(pad.chatUserNums && pad.users)) {
+    return;
+  }
+  var userNum = pad.chatUserNums[userInfo.userId];
+  var bgcolor = '#fff';
+  if (pad.users[userInfo.userId]) {
+    // only color the chat if user is on the pad.
+    bgcolor = clientVars.colorPalette[userInfo.colorId];
+  }
+  var name = pad.escapeHtml(pad.getUserDisplayName(userInfo));
+  $('.chatusermessage'+userNum).css('background-color', bgcolor);
+  $('.chatusername'+userNum).html(name);
+};
+
+pad.receiveChat = function(msg, quick) {
+  var userInfo = pad.users[msg.userId];
+  if (!userInfo) { return; }
+
+  if (!pad.chatUserNums[userInfo.userId]) {
+    pad.lastChatUserNum++;
+    pad.chatUserNums[userInfo.userId] = pad.lastChatUserNum;
+    userNum = pad.lastChatUserNum;
+  }
+  var userNum = pad.chatUserNums[userInfo.userId];
+
+  pad.renderChatLine(userNum, '.', +(new Date), msg.lineText);
+  pad.updateChatHistoryForUser(userInfo);
+  pad.notifyNewChatMessage(userInfo, msg);
+};
+
+pad.renderChatLine = function(userNum, name, t, lineText) {
+  function chatTime() {
+    var x = '';
+    var d = new Date(t);
+    x += (d.getHours() < 10) ? ('0'+d.getHours()) : d.getHours();
+    x += ':';
+    x += (d.getMinutes() < 10) ? ('0'+d.getMinutes()) : d.getMinutes();
+    return x;
+  }
+  var displayName;
+  if (!name) {
+    name = "unnamed";
+  }
+  $('#chatmessages').append([
+    '<div class="chatmessage chatusermessage'+userNum+'">',
+    '<span class="chatname chatusername'+userNum+'">'+pad.escapeHtml(name)+'</span>',
+    '<span class="chattime">&nbsp;(', chatTime(t), ')</span>:&nbsp;',
+    '<span class="chatline">', pad.escapeHtml(lineText), '</span>',
+    '</div>'
+  ].join(''));
+};
+
+pad.initChatHistory = function() {
+  var chatHistory = clientVars.chatHistory;
+  if (!chatHistory) { return; }
+  for (var i = 0; i < chatHistory.length; i++) {
+    var l = chatHistory[i];
+    pad.renderChatLine(0, l.name, l.time, l.lineText);
+  }
+  pad.scrollChatBox();
+};
+
+pad.onShowChatBox = function() {
+  $('#chatheadname').html('Chat');
+  $('#headchatbox').removeClass('sh_hilited');
+  pad.numUnreadChatMessages = 0;
+  pad.scrollChatBox();
+};
+
+pad.scrollChatBox = function() {
+  var messageBox = $('#chatmessages').get(0);
+  messageBox.scrollTop = messageBox.scrollHeight;
+};
+
+pad.notifyNewChatMessage = function(userInfo, msg) {
+  if (userInfo.userId != pad.myUserInfo.userId) {
+    var name = pad.escapeHtml(pad.getUserDisplayName(userInfo));
+    var text;
+    if (msg.lineText.length <= 40) {
+      text = msg.lineText;
+    } else {
+      text = (msg.lineText.substr(0, 37) + '...');
+    }
+    text = pad.escapeHtml(text);
+    pad.notify("<i>"+name+" says</i>: "+text);
+  }
+  if ($('#headchatbox').hasClass('sh_collapsed')) {
+    pad.numUnreadChatMessages++;
+    var pluralS = (pad.numUnreadChatMessages > 1 ? 's' : '');
+    $('#chatheadname').html('Chat <b>('+pad.numUnreadChatMessages+' unread message'+pluralS+')</b>');
+    if (!$('#headchatbox').hasClass('sh_hilited')) {
+      $('#headchatbox').addClass('sh_hilited');
+    }
+  }
+  pad.scrollChatBox();
+};
+
+//----------------------------------------------------------------
+// Connection trouble
+//----------------------------------------------------------------
+
+pad.onConnectionTrouble = function(troubleStatus) {
+  if (troubleStatus == "OK") {
+    $('#savenow').removeAttr('disabled');
+    pad.displayConnectionStatus('connected');
+    if (pad.experiencingConnectionTrouble) {
+      pad.notify("Connection re-established!");
+      pad.experiencingConnectionTrouble = false;
+    }
+  } else if (troubleStatus == "SLOW") {
+    $('#savenow').attr('disabled', true);
+    pad.displayConnectionStatus('connecting');
+    if (!pad.experiencingConnectionTrouble) {
+      pad.experiencingConnectionTrouble = true;
+      pad.notify("The network seems slow.  Waiting to hear back from the server...", true);
+    }
+  }
+};
+
+//----------------------------------------------------------------
+// Connection Status Display
+//----------------------------------------------------------------
+
+pad.displayConnectionStatus = function(status) {
+  var cs = $('#connectionstatus');
+  cs.attr('class', status);
+  if (status == "connecting") { cs.html("Connecting..."); }
+  else if (status == "connected") { cs.html("Connected"); }
+  else if (status == "disconnected") { cs.html("Disconnected"); }
+  else { cs.html(status+'?'); }
+};
+
+//----------------------------------------------------------------
+
+pad.asyncSendDiagnosticInfo = function() {
+  pad.diagnosticInfo.collabDiagnosticInfo = pad.collabClient.getDiagnosticInfo();
+  setTimeout(function() {
+    $.ajax({
+      type: 'post',
+      url: '/ep/pad/connection-diagnostic-info',
+      data: {padId: pad.padId, diagnosticInfo: JSON.stringify(pad.diagnosticInfo)},
+      success: function() {},
+      error: function() {}
+    });
+  });
+};
+
+//----------------------------------------------------------------
+// Modal Dialogs
+//----------------------------------------------------------------
+
+pad.repositionModals = function() {
+  var overlayNode = $("#modaloverlay");
+  var pageHeight = pad.getCurrentPageHeight();
+  overlayNode.height(pageHeight);
+
+  var dialogNode = $("#modaldialog");
+  var dialogHeight = dialogNode.outerHeight();
+  dialogNode.css('top', Math.round((pageHeight - dialogHeight)/2)+"px");
+}
+
+//----------------------------------------------------------------
+// Import/Export
+//----------------------------------------------------------------
+
+pad.importClearTimeout = function() {
+  if (pad.currentImport) {
+    clearTimeout(pad.currentImport);
+    delete pad.currentImport;
+  }
+}
+
+pad.importApplicationSuccessful = function(data, textStatus) {
+  if (data.substr(0, 2) == "ok") {
+    if ($('.importmessage').is(':visible')) {
+      $('.importmessage').hide();
+    }
+    $('#importmessagesuccess').html('<strong style="color: green">Import successful!</strong>').show();
+    $('#importformfilediv').hide();
+    setTimeout(function() {
+      $('#importmessagesuccess').fadeOut("slow", function() { $('#importformfilediv').show() });
+  	}, 4000);
+  } else if (data.substr(0, 4) == "fail") {
+    pad.importErrorMessage("Couldn't update pad contents. Do you have \"cookies\" enabled in your web browser?");
+  } else if (data.substr(0, 4) == "msg:") {
+    pad.importErrorMessage(data.substr(4));
+  }
+  pad.importDone();
+}
+
+pad.importSuccessful = function(token) {
+  $.ajax({
+    type: 'post',
+    url: '/ep/pad/impexp/import2',
+    data: {token: token, padId: pad.padId},
+    success: pad.importApplicationSuccessful,
+    error: pad.importApplicationFailed,
+    timeout: 25000 // 20 second timeout.
+  });
+  pad.addImportFrames();
+}
+
+pad.importApplicationFailed = function(xhr, textStatus, errorThrown) {
+  pad.importErrorMessage("Error during conversion.");
+  pad.importDone();
+}
+
+pad.importFailed = function(msg) {
+  pad.importErrorMessage(msg);
+  pad.importDone();
+  pad.addImportFrames();
+}
+
+pad.importErrorMessage = function(msg) {
+  function showError(fade) {
+    $('#importmessagefail').html('<strong style="color: red">Import failed:</strong> '+
+			 (msg || 'Please try a different file.'))[(fade?"fadeIn":"show")]();
+  }
+
+  if ($('.importmessage').is(':visible')) {
+	  $('#importmessagesuccess').fadeOut("fast");
+	  $('#importmessagefail').fadeOut("fast", function() { showError(true) });
+  } else {
+	  showError();
+  }
+}
+
+pad.fileInputUpdated = function() {
+	$('#importformfilediv').addClass('importformenabled');
+	$('#importsubmitinput').removeAttr('disabled');
+	$('#importmessagefail').fadeOut("fast");
+	$('#importarrow').show();
+	$('#importarrow').animate({paddingLeft:"0px"}, 500)
+	  .animate({paddingLeft:"10px"}, 150, 'swing')
+	  .animate({paddingLeft:"0px"}, 150, 'swing')
+	  .animate({paddingLeft:"10px"}, 150, 'swing')
+	  .animate({paddingLeft:"0px"}, 150, 'swing')
+	  .animate({paddingLeft:"10px"}, 150, 'swing')
+	  .animate({paddingLeft:"0px"}, 150, 'swing');
+}
+
+pad.importDone = function() {
+  $('#importsubmitinput').removeAttr('disabled').val("Import Now");
+  setTimeout(function() { $('#importfileinput').removeAttr('disabled'); }, 0);
+  $('#importstatusball').hide();
+  pad.importClearTimeout();
+}
+
+pad.fileInputSubmit = function() {
+  $('#importmessagefail').fadeOut("fast");
+  var ret = confirm("Importing a file will overwrite your existing document,"+
+                    " and cannot be undone. If you want to keep your current"+
+										" document, download it or save a revision.\n\n"+
+										"Are you sure you want to proceed?");
+  if (ret) {
+    pad.currentImport = setTimeout(function() {
+      if (! pad.currentImport) {
+        return;
+      }
+      delete pad.currentImport;
+      pad.importFailed("Request timed out.");
+    }, 25000); // 20 second timeout.
+    $('#importsubmitinput').attr({disabled: true}).val("Importing...");
+    setTimeout(function() { $('#importfileinput').attr({disabled: true}) }, 0);
+    $('#importarrow').stop(true, true).hide();
+    $('#importstatusball').show();
+  }
+  return ret;
+}
+
+pad.cantExport = function() {
+  var type = $(this);
+  if (type.hasClass("exporthrefpdf")) {
+    type = "PDF";
+  } else if (type.hasClass("exporthrefdoc")) {
+    type = "Microsoft Word";
+  } else if (type.hasClass("exporthrefodt")) {
+    type = "OpenDocument";
+  } else {
+    type = "this file";
+  }
+  alert("Exporting as "+type+" format is disabled. Please contact your"+
+        " system administrator for details.");
+  return false;
+}
+
+// pad.exportDoNothingClickHandler = function() { return false; }
+// pad.exportDoLongClick = function() {
+//   if ($(this).hasClass('exporthrefdoc')) {
+//     pad.exportStartLong('doc');
+//   } else if ($(this).hasClass('exporthrefpdf')) {
+//     pad.exportStartLong('pdf');
+//   } else {
+//     return false;
+//   }
+//   setTimeout(pad.exportDisableOffice, 0);
+//   return true;
+// }
+//
+// pad.exportDisableOffice = function() {
+//   $('.requiresoffice').unbind('click', pad.exportDoLongClick);
+//   $('.requiresoffice').click(pad.exportDoNothingClickHandler);
+//   $('.requiresoffice').addClass('disabledexport');
+// }
+//
+// pad.exportEnableOffice = function() {
+//   $('.exportspinner').hide();
+//   $('.requiresoffice').removeClass('disabledexport');
+//   $('.requiresoffice').unbind('click', pad.exportDoNothingClickHandler);
+//   $('.requiresoffice').click(pad.exportDoLongClick);
+// }
+//
+// pad.exportMessage = function(msg, head) {
+//   function showMessage(fade) {
+//     head = head || '<strong style="color: red">Export failed:</strong> ';
+//     msg = msg || 'Please try a different file type or try again later.';
+//     $('#exportmessage').html(head+msg)[(fade?"fadeIn":"show")]();
+//   }
+//   if ($('#exportmessage').is(":visible")) {
+//     $('#exportmessage').fadeOut("fast", function() { showMessage(true) });
+//   } else {
+//     showMessage();
+//   }
+// }
+//
+// pad.exportDone = function(message) {
+//   if (message == "ok") {
+//     pad.exportMessage("downloading...", '<strong style="color: green">Conversion successful;</strong> ');
+//     setTimeout(function() {
+//       $('#exportmessage').fadeOut();
+//     }, 4000);
+//   } else if (message == "timeout") {
+//     pad.exportMessage("Request timed out; please try a different file type or try again later.");
+//   } else if (message == "nocookie") {
+//     pad.exportMessage("Conversion in progress, please wait...", " ");
+//     setTimeout(function() {
+//       pad.exportDone("nocookie-delay");
+//     }, 25000);
+//   } else if (message == "nocookie-delay") {
+//     pad.exportMessage("If your download hasn't started yet, then an error occurred; please try a different file type or try again later.", " ");
+//     setTimeout(function() {
+//       $('#exportmessage').fadeOut();
+//     }, 10000);
+//   } else {
+//     pad.exportMessage("Error converting; please try a different file type or try again later.");
+//   }
+//   pad.exportEnableOffice();
+//   if (! $.browser.opera) {
+//     pad.addExportFrames();
+//   }
+// }
+//
+// pad.exportHideMessages = function() {
+//   $('#exportmessage').fadeOut();
+// }
+//
+// pad.exportStartLong = function(format) {
+//   $('#exportspinner'+format).show();
+//   $.ajax({
+//     type: 'post',
+//     url: '/ep/pad/impexp/exportsync',
+//     data: { waiter: pad.exportSetCookie() },
+//     success: function(data) { pad.exportDone(data); },
+//     error: function(xhr, textStatus) { pad.exportDone(textStatus); },
+//     timeout: 25000
+//   });
+// }
+//
+// pad.exportSetCookie = function() {
+//   var cookieValue = Math.round(Math.random()*1e20);
+//   document.cookie = "EPexport="+cookieValue;
+//
+//   if (!(document.cookie &&
+//  (document.cookie.length > 0) &&
+//         (document.cookie.indexOf('EPexport') >= 0))) {
+//     return false;
+//   }
+//   return cookieValue;
+// }
+//
+// pad.addExportFrames = function() {
+//   $('.exportframe').remove();
+//   $('#importexport').append(
+//     $('<iframe style="display: none;" name="exportofficeiframe" class="exportframe"></iframe>'));
+//   $('#importexport').append(
+//     $('<iframe style="display: none;" name="exportiframe" class="exportframe"></iframe>'));
+// }
+
+pad.addImportFrames = function() {
+  $('.importframe').remove();
+  $('#importexport').append(
+    $('<iframe style="display: none;" name="importiframe" class="importframe"></iframe>'));
+}
+
+//----------------------------------------------------------------
+// Rich text
+//----------------------------------------------------------------
+
+pad.isTopToolbarEnabled = function() {
+  return ! $("#toptoolbar").hasClass('disabledtoolbar');
+}
+
+pad.isBotToolbarEnabled = function() {
+  return ! $("#bottoolbar").hasClass('disabledtoolbar');
+}
+
+pad.toolbarClick = function(which) {
+  if (pad.isTopToolbarEnabled()) {
+    pad.ace.execCommand(which);
+  }
+  pad.ace.focus();
+}
+
+//----------------------------------------------------------------
+// View bar
+//----------------------------------------------------------------
+
+pad.setViewZoom = function(percent) {
+  if (! (percent >= 50 && percent <= 1000)) {
+    // percent is out of sane range or NaN (which fails comparisons)
+    return;
+  }
+
+  pad.viewZoom = percent;
+  $("#viewzoommenu").val('z'+percent);
+  pad.updateAceFontAndSize();
+  pad.saveCookie(); // does nothing if we were called from init > initViewBar
+}
+
+pad.setViewFont = function(font) {
+  pad.viewFont = font;
+  $("#viewfontmenu").val(font);
+  pad.updateAceFontAndSize();
+  pad.saveCookie();
+}
+
+pad.updateAceFontAndSize = function() {
+  var baseSize = 12;
+  pad.ace.setProperty('textsize', Math.round(baseSize * pad.viewZoom / 100));
+
+  var face = "sans-serif";
+  if (pad.viewFont == 'code') {
+    face = "monospace";
+  }
+  pad.ace.setProperty('textface', face);
+}
+
+//----------------------------------------------------------------
+// Pad title
+//----------------------------------------------------------------
+
+pad.renderPadTitle = function() {
+  if (pad.title) {
+    var theTitle = (pad.isEditingTitle ? "-" : pad.title);
+
+    $("#padtitle").css('display', 'block');
+
+    var padtitleWidth = $("#toptoolbar").width() - $("#toptoolbar .toptoolbarbutton:last").position().left - 80;
+    $("#padtitle").css('width', padtitleWidth+"px");
+
+    var shownLength = theTitle.length;
+    $("#padtitletitle").html(pad.escapeHtml(theTitle));
+
+    // while it wraps, shorten the displayed title
+    while ($("#padtitle .editlink").offset().top > $("#padtitle .padtitlepad").offset().top +
+           $("#padtitle .padtitlepad").height()) {
+      shownLength--;
+      $("#padtitletitle").html(pad.escapeHtml(theTitle.substring(0, shownLength)+"..."));
+    }
+
+    var titlePos = $("#padtitletitle").position();
+    var titleHeight = $("#padtitletitle").height();
+    var inputBox = $("#padtitleedit");
+    var inputWidth = $("#toptoolbar").width() - titlePos.left - 70;
+    inputBox.css({left: titlePos.left, top: titlePos.top, height: titleHeight,
+                  width: inputWidth});
+    $("#toptoolbar .oklink").css({ top: 5, left: titlePos.left + inputWidth + 15 });
+  }
+  else {
+    $("#padtitle").css('display', 'none');
+  }
+
+  if (clientVars.isProPad) {
+    if (pad.password) {
+      $("#passwordlock").attr('title','Change password...').get(0).className = 'passwordlocked';
+    }
+    else {
+      $("#passwordlock").attr('title','Password protect...').get(0).className = 'passwordnone';
+    }
+  }
+};
+
+pad.editTitle = function() {
+  $("#padtitleedit").val(pad.title).show().focus().select();
+  $("#padtitle .oklink").show();
+  $("#padtitle .editlink").hide();
+
+  pad.isEditingTitle = true;
+  pad.renderPadTitle();
+}
+
+pad.submitTitle = function(acceptChanges) {
+  if (acceptChanges) {
+    var newTitle = $("#padtitleedit").val();
+    if (newTitle) {
+      newTitle = newTitle.substring(0, 80);
+      pad.title = newTitle;
+
+      pad.collabClient.sendClientMessage({
+        type: 'padtitle',
+        title: newTitle,
+        changedBy: pad.myUserInfo.name || "unnamed"
+      });
+    }
+  }
+
+  $("#padtitleedit").hide();
+  $("#padtitle .oklink").hide();
+  $("#padtitle .editlink").show();
+
+  pad.isEditingTitle = false;
+  pad.renderPadTitle();
+};
+
+pad.passwordClick = function() {
+  var oldPassword = pad.password;
+
+  var msg = (oldPassword ? "Enter a new password for this pad, or "+
+             "make blank to remove password protection:" :
+             "Choose a password that will be required to view this pad:");
+
+  var result = window.prompt(msg, oldPassword || '');
+  if ((typeof result) == "string") {
+    pad.password = (result || null); // empty string --> null
+    if (pad.password !== oldPassword) {
+      pad.collabClient.sendClientMessage({
+        type: 'padpassword',
+        password: pad.password,
+        changedBy: pad.myUserInfo.name || "unnamed"
+      });
+      pad.renderPadTitle();
+    }
+  }
+  else {
+    // user canceled
+  }
+};

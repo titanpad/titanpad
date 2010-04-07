@@ -1,0 +1,26 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %>Dear <%= fullName %>,
+
+Thank you for using EtherPad Professional. Your monthly billing cycle has ended, but we were unsuccessful in charging your account on file.
+
+<% if (billingError && billingError.length > 0) { %>
+  The following error occurred:
+
+  <%= billingError %>
+  
+<% } %>If you do not update your payment information and pay the remaining balance of <%= balance %>, your account will be suspended on <%= suspensionDate %>.
+
+You may update your payment information here: <%= billingAdminLink %>
+
+-- The EtherPad Staff

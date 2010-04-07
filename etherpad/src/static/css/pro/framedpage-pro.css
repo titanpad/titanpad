@@ -1,0 +1,125 @@
+/*--- farmed page styles ---*/
+
+/*------
+ Global Container
+------*/
+
+body#framedpagebody {
+  background: #fff;
+}
+
+#container {
+   font-family: Arial, Helvetica, Calibri, sans-serif;
+   width: 920px; margin: 0 auto;
+}
+
+/*------
+ Layout
+------*/
+
+/* framed page general */
+div.fpcontent {
+   width: 888px;
+   margin: 0 auto;
+   font-size: 1.3em;
+   background-color: #fff;
+   padding-top: 1em;
+}
+
+div.fpcontent p {
+   margin: 1em 0;
+   line-height: 150%;
+}
+div.fpcontent ul {
+   list-style: disc;
+   padding-left: 2em;
+}
+div.fpcontent ul li {
+   margin: 1em 0;
+}
+
+/* top header */
+
+body.pro-withtopbar {
+  background: url(/static/img/pro/header/pro-header-plustopnav-back.gif) repeat-x top !important;
+}
+
+#pro-topbar {
+  height: 48px;
+}
+
+#pro-topbar-inner {
+  width: 888px;
+  margin: 0 auto;
+  height: 48px;
+  line-height: 48px;
+  background: url(/static/img/pro/header/pro-header-logo.png) no-repeat top center;
+}
+
+#pro-topbar div#org-name a {
+  font-size: 1.4em;
+  color: #fff;
+  vertical-align: center;
+}
+
+#pro-topbar #accountnav {
+  float: right;
+  vertical-align: center;
+  color: #fff;
+}
+
+#pro-topbar #accountnav a {
+  color: #cde7ff;
+  text-decoration: underline;
+}
+
+
+/* navigation */
+
+#pro-topnav {
+  background: url(/static/img/pro/topnav/pro-topnav-back.gif) repeat-x top;
+  height: 36px;
+}
+
+#pro-topnav-inner {
+  margin: 0 auto;
+  height: 36px;
+  width: 888px;
+}
+
+#pro-topnav ul {
+  float: left;
+}
+#pro-topnav ul li {
+  display: block;
+  height: 36px;
+  float: left;
+}
+#pro-topnav ul li a {
+  display: block;
+  line-height: 36px;
+  margin: 0 20px;
+}
+#pro-topnav ul li.topnav_home a {
+  margin-left: 0;
+}
+#pro-topnav ul li a:hover { }
+#pro-topnav ul li.selected a { 
+  color: #000;
+  background: url(/static/img/pro/topnav/pro-topnav-notch.gif) no-repeat center 28px;
+}
+
+#shuttingdown { position: relative; zoom: 1; border: 1px solid #992;
+  background: #ffc; padding: 0.6em; font-size: 1.2em; margin-top: 6px; }
+
+
+/*--- framed page styles ---*/
+
+div.global-pro-notice {
+  margin: .5em 1em;
+  border: 1px solid #f84;
+  background: #ffc;
+  font-weight: bold;
+  padding: 1em;
+}
+

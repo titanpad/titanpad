@@ -1,0 +1,43 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% if (cart.showStartOverMessage) { %>
+  <div class="innererrormsg">
+    Your purchase is complete! To purchase another item, please return to the <a href="<%= pathTo('purchase') %>?clearcart=1">purchase page</a>.
+  </div> 
+<% }
+
+switch(cart.status) {
+	case 'success':
+		%><p><strong>Thank you for your purchase!</strong> This page serves as your receipt. Please print it for your records. You will receive a copy of this receipt and license key by email shortly.</p><%
+		break;
+	case 'pending':
+		%><p>Your purchase is pending approval by PayPal. Once it clears, 
+			usually in 2-5 business days, you will receive a copy of this receipt and
+			your license key by email.</p><%
+		break;
+} %>
+
+<%
+  var instructions = "/ep/pne-manual";
+  var download = "/ep/store/eepnet-download-nextsteps";
+%>
+
+<p>To install EtherPad Private Network Edition:</p>
+<ul>
+  <li><a href="<%= download %>">Download Etherpad: Private Network Edition</a>.</li>
+  <li>Read the <a href="<%= instructions %>">EtherPad: Private Network Edition installation instructions</a>.</li>
+</ul>
+
+<p><strong></strong></p>
+
+<%= displaySummary() %>

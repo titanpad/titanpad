@@ -1,0 +1,26 @@
+
+#home {
+  width: 600px;
+  margin: 0 auto;
+  padding: 2em;
+  text-align: center;
+}
+
+#home #title {
+  font-size: 3.6em;
+}
+
+#home a#home-newpad {
+  display: block;
+  padding: 1em;
+  margin: 12px 60px;
+  font-size: 1.6em;
+  border: 1px solid black;
+  background: #049;
+  color: #fff;
+}
+
+#home a#home-newpad:hover {
+  background: #26b;
+}
+

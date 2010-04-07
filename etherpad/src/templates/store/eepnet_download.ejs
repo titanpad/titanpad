@@ -1,0 +1,43 @@
+<% /* Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ %><% helpers.includeCss("store/store.css") %>
+<% helpers.includeJQuery() %>
+<% helpers.includeJs("store.js") %>
+
+<div class="fpcontent storepage" id="downloadpage">
+
+  <% if (message) { %>
+    <div id="topmsg">
+      <%= message %>
+    </div>
+  <% } %>
+
+  <h2>Download EtherPad Private Network Edition:</h2>
+
+  <br/><br/>
+  <center>
+    <input id="license_agree" type="checkbox" />
+    <label id="license_agree_label"
+	   for="license_agree" style="font-size: 1.2em;">
+      Agree to the <a target="_blank" href="/static/html/eepnet/eepnet-eval-license.html">License</a>
+    </label>
+
+    <a class="downloadbutton_disabled" href="javascript:store.mustAgree();">
+      Download Now
+    </a>
+    <h3>Version: <%= versionString %></h3><br/>
+
+  </center>
+
+  
+</div>

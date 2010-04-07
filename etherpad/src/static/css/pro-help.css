@@ -1,0 +1,19 @@
+
+h1 {
+  font-size: 1.33em;
+  color: #555;
+  border-bottom: 1px solid #888;
+}
+
+h2 {
+  font-size: 1.1em;
+  color: #333;
+  border-bottom: 1px solid #888;
+}
+
+div.pro-help {
+  font-size: 88%;
+  width: 66%;
+}
+
+

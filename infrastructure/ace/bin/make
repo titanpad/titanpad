@@ -1,0 +1,337 @@
+#!/bin/sh
+exec scala -classpath lib/yuicompressor-2.4-appjet.jar:lib/rhino-js-1.7r1.jar $0 $@
+!#
+
+import java.io._;
+
+def superpack(input: String): String = {
+  // this function is self-contained;  takes a string, returns an expression
+  // that evaluates to that string
+  // XXX (This compresses well but decompression is too slow)
+
+  // constraints on special chars:
+  // - this string must be able to go in a character class
+  // - each char must be able to go in single quotes
+  val specialChars = "-~@%$#*^_`()|abcdefghijklmnopqrstuvwxyz=!+,.;:?{}";
+  val specialCharsSet:Set[Char] = Set(specialChars:_*);
+  def containsSpecialChar(str: String) = str.exists(specialCharsSet.contains(_));
+  
+  val toks:Array[String] = (
+    "@|[a-zA-Z0-9]+|[^@a-zA-Z0-9]{1,3}").r.findAllIn(input).collect.toArray;
+  
+  val stringCounts = {
+    val m = new scala.collection.mutable.HashMap[String,Int];
+    def incrementCount(s: String) = { m(s) = m.getOrElse(s, 0) + 1; }
+    for(s <- toks) incrementCount(s);
+    m;
+  }
+  
+  val estimatedSavings = scala.util.Sorting.stableSort(
+    for((s,n) <- stringCounts.toArray; savings = s.length*n
+	if (savings > 8 || containsSpecialChar(s)))
+    yield (s,n,savings),
+    (x:(String,Int,Int))=> -x._3);
+  
+  def strLast(str: String, n: Int) = str.substring(str.length - n, str.length);
+  // order of encodeNames is very important!
+  val encodeNames = for(n <- 0 until (36*36); c <- specialChars) yield c.toString+strLast("0"+Integer.toString(n, 36).toUpperCase, 2);
+  
+  val thingsToReplace:Seq[String] = estimatedSavings.map(_._1);
+  assert(encodeNames.length >= thingsToReplace.length);
+  
+  val replacements = Map(thingsToReplace.elements.zipWithIndex.map({
+    case (str, i) => (str, encodeNames(i));
+  }).collect:_*);
+  def encode(tk: String) = if (replacements.contains(tk)) replacements(tk) else tk;
+  
+  val afterReplace = toks.map(encode(_)).mkString.replaceAll(
+    "(["+specialChars+"])(?=..[^0-9A-Z])(00|0)", "$1");
+  
+  def makeSingleQuotedContents(str: String): String = {
+    str.replace("\\", "\\\\").replace("'", "\\'").replace("<", "\\x3c").replace("\n", "\\n").
+    replace("\r", "\\n").replace("\t", "\\t");
+  }
+
+  val expansionMap = new scala.collection.mutable.HashMap[Char,scala.collection.mutable.ArrayBuffer[String]];
+  for(i <- 0 until thingsToReplace.length; sc = encodeNames(i).charAt(0);
+      e = thingsToReplace(i)) {
+    expansionMap.getOrElseUpdate(sc, new scala.collection.mutable.ArrayBuffer[String]) +=
+      (if (e == "@") "" else e);
+  }
+  val expansionMapLiteral = "{"+(for((sc,strs) <- expansionMap) yield {
+    "'"+sc+"':'"+makeSingleQuotedContents(strs.mkString("@"))+"'";
+  }).mkString(",")+"}";
+  
+  val expr = ("(function(m){m="+expansionMapLiteral+
+    ";for(var k in m){if(m.hasOwnProperty(k))m[k]=m[k].split('@')};return '"+
+      makeSingleQuotedContents(afterReplace)+
+	"'.replace(/(["+specialChars+
+	  "])([0-9A-Z]{0,2})/g,function(a,b,c){return m[b][parseInt(c||'0',36)]||'@'})}())");
+  /*val expr = ("(function(m){m="+expansionMapLiteral+
+    ";for(var k in m){if(m.hasOwnProperty(k))m[k]=m[k].split('@')};"+
+      "var result=[];var i=0;var s='"+makeSingleQuotedContents(afterReplace)+
+	"';var len=s.length;while (i<len) {var x=s.charAt(i); var L=m[x],a = s.charAt(i+1),b = s.charAt(i+2);if (L) { var c;if (!(a >= 'A' && a <= 'Z' || a >= '0' && a <= '9')) {c=L[0];i++} else if (!(b >= 'A' && b <= 'Z' || b >= '0' && b <= '9')) {c = L[parseInt(a,36)]; i+=2} else {c = L[parseInt(a+b,36)]; i+=3}; result.push(c||'@'); } else {result.push(x); i++} }; return result.join(''); }())");*/
+
+  def evaluateString(js: String): String = {
+    import org.mozilla.javascript._;
+    ContextFactory.getGlobal.call(new ContextAction {
+      def run(cx: Context) = {
+	val scope = cx.initStandardObjects;
+	cx.evaluateString(scope, js, "<cmd>", 1, null) } }).asInstanceOf[String];
+  }
+
+  def putFile(str: String, path: String): Unit = {
+    import java.io._;
+    val writer = new FileWriter(path);
+    writer.write(str);
+    writer.close;
+  }
+  
+  val exprOut = evaluateString(expr);
+  if (exprOut != input) {
+    putFile(input, "/tmp/superpack.input");
+    putFile(expr, "/tmp/superpack.expr");
+    putFile(exprOut, "/tmp/superpack.output");
+    error("Superpacked string does not evaluate to original string; check /tmp/superpack.*");
+  }
+  
+  val singleLiteral = "'"+makeSingleQuotedContents(input)+"'";
+  if (singleLiteral.length < expr.length) {
+    singleLiteral;
+  }
+  else {
+    expr;
+  }
+}
+
+def doMake {
+
+  lazy val isEtherPad = (args.length >= 2 && args(1) == "etherpad");
+  lazy val isNoHelma = (args.length >= 2 && args(1) == "nohelma");
+    
+  def getFile(path:String): String = {
+    val builder = new StringBuilder(1000);
+    val reader = new BufferedReader(new FileReader(path));
+    val buf = new Array[Char](1024);
+    var numRead = 0;
+    while({ numRead = reader.read(buf); numRead } != -1) {
+      builder.append(buf, 0, numRead);
+    }
+    reader.close;
+    return builder.toString;
+  }
+
+  def putFile(str: String, path: String): Unit = {
+    val writer = new FileWriter(path);
+    writer.write(str);
+    writer.close;
+  }
+
+  def writeToString(func:(Writer=>Unit)): String = {
+    val writer = new StringWriter;
+    func(writer);
+    return writer.toString;
+  }
+
+  def compressJS(code: String, wrap: Boolean): String = {
+    import yuicompressor.org.mozilla.javascript.{ErrorReporter, EvaluatorException};
+    object MyErrorReporter extends ErrorReporter {
+      def warning(message:String, sourceName:String, line:Int, lineSource:String, lineOffset:Int) {
+	if (message startsWith "Try to use a single 'var' statement per scope.") return;
+	if (line < 0) System.err.println("\n[WARNING] " + message);
+	else System.err.println("\n[WARNING] " + line + ':' + lineOffset + ':' + message);
+      }
+      def error(message:String, sourceName:String, line:Int, lineSource:String, lineOffset:Int) {
+	if (line < 0) System.err.println("\n[ERROR] " + message);
+	else System.err.println("\n[ERROR] " + line + ':' + lineOffset + ':' + message);
+      }
+      def runtimeError(message:String, sourceName:String, line:Int, lineSource:String, lineOffset:Int): EvaluatorException = {
+	error(message, sourceName, line, lineSource, lineOffset);
+	return new EvaluatorException(message);
+      }
+    }
+    
+    val munge = true;
+    val verbose = false;
+    val optimize = true;
+    val compressor = new com.yahoo.platform.yui.compressor.JavaScriptCompressor(new StringReader(code), MyErrorReporter);
+    return writeToString(compressor.compress(_, if (wrap) 100 else -1, munge, verbose, true, !optimize));
+  }
+
+  def compressCSS(code: String, wrap: Boolean): String = {
+    val compressor = new com.yahoo.platform.yui.compressor.CssCompressor(new StringReader(code));
+    return writeToString(compressor.compress(_, if (wrap) 100 else -1));  
+  }
+
+  import java.util.regex.{Pattern, Matcher, MatchResult};
+
+  def stringReplace(orig: String, regex: String, groupReferences:Boolean, func:(MatchResult=>String)): String = {
+    val buf = new StringBuffer;
+    val m = Pattern.compile(regex).matcher(orig);
+    while (m.find) {
+      var str = func(m);
+      if (! groupReferences) {
+	str = str.replace("\\", "\\\\").replace("$", "\\$");
+      }
+      m.appendReplacement(buf, str);
+    }
+    m.appendTail(buf);
+    return buf.toString;
+  }
+
+  def stringToExpression(str: String): String = {
+    var contents = str.replace("\\", "\\\\").replace("'", "\\'").replace("<", "\\x3c").replace("\n", "\\n").
+    replace("\r", "\\n").replace("\t", "\\t");
+    contents = contents.replace("\\/", "\\\\x2f"); // for Norton Internet Security
+    val result = "'"+contents+"'";
+    result;
+  }
+
+  val srcDir = "www";
+  val destDir = "build";
+  var code = getFile(srcDir+"/ace2_outer.js");
+
+  val useCompression = true; //if (isEtherPad) false else true;
+
+  code = stringReplace(code, "\\$\\$INCLUDE_([A-Z_]+)\\([\"']([^\"']+)[\"']\\)", false, (m:MatchResult) => {
+    val includeType = m.group(1);
+    val paths = m.group(2);
+    val pathsArray = paths.replaceAll("""/\*.*?\*/""", "").split(" +").filter(_.length > 0);
+    def getSubcode = pathsArray.map(p => getFile(srcDir+"/"+p)).mkString("\n");
+    val doPack = (stringToExpression _);
+    includeType match {
+      case "JS" => {
+	var subcode = getSubcode;
+	subcode = subcode.replaceAll("var DEBUG=true;//\\$\\$[^\n\r]*", "var DEBUG=false;");
+	if (useCompression) subcode = compressJS(subcode, true);
+	"('\\x3cscript type=\"text/javascript\">//<!--\\n'+" + doPack(subcode) +
+	  "+'//-->\\n</script>')";
+      }
+      case "CSS" => {
+	var subcode = getSubcode;
+	if (useCompression) subcode = compressCSS(subcode, false);
+	"('<style type=\"text/css\">'+" + doPack(subcode) + "+'</style>')";
+      }
+      case "JS_Q" => {
+	var subcode = getSubcode
+	subcode = subcode.replaceAll("var DEBUG=true;//\\$\\$[^\n\r]*", "var DEBUG=false;");
+	if (useCompression) subcode = compressJS(subcode, true);
+	"('(\\'\\\\x3cscript type=\"text/javascript\">//<!--\\\\n\\'+'+" +
+	  doPack(stringToExpression(subcode)) +
+	    "+'+\\'//-->\\\\n\\\\x3c/script>\\')')";
+      }
+      case "CSS_Q" => {
+	var subcode = getSubcode;
+	if (useCompression) subcode = compressCSS(subcode, false);
+	"('(\\'<style type=\"text/css\">\\'+'+" + doPack(stringToExpression(subcode)) +
+	  "+'+\\'\\\\x3c/style>\\')')";
+      }
+      case ("JS_DEV" | "CSS_DEV") => "''";
+      case ("JS_Q_DEV" | "CSS_Q_DEV") => "'\\'\\''";
+      //case _ => "$$INCLUDE_"+includeType+"(\"../www/"+path+"\")";
+    }
+  });
+
+  if (useCompression) code = compressJS(code, true);
+
+  putFile(code, destDir+"/ace2bare.js");
+
+  //var wrapper = getFile(srcDir+"/ace2_wrapper.js");
+  //if (useCompression) wrapper = compressJS(wrapper, true);
+  putFile(/*wrapper+"\n"+*/code, destDir+"/ace2.js");
+
+  var index = getFile(srcDir+"/index.html");
+  index = index.replaceAll("<!--\\s*DEBUG\\s*-->\\s*([\\s\\S]+?)\\s*<!--\\s*/DEBUG\\s*-->", "");
+  index = index.replaceAll("<!--\\s*PROD:\\s*([\\s\\S]+?)\\s*-->", "$1");
+  putFile(index, destDir+"/index.html");
+
+  putFile(getFile(srcDir+"/testcode.js"), destDir+"/testcode.js");
+
+  def copyFile(fromFile: String, toFile: String) {
+    if (0 != Runtime.getRuntime.exec("cp "+fromFile+" "+toFile).waitFor) {
+      printf("copy failed (%s -> %s).\n", fromFile, toFile);
+    }      
+  }
+
+  def replaceFirstLine(txt: String, newFirstLine: String): String = {
+    var newlinePos = txt.indexOf('\n');
+    newFirstLine + txt.substring(newlinePos);
+  }
+  
+  if (isEtherPad) {
+    copyFile("build/ace2.js", "../../etherpad/src/static/js/ace.js");
+
+    def copyFileToEtherpad(fromName: String, toName: String) {
+      var code = getFile(srcDir+"/"+fromName);
+      code = replaceFirstLine(code, "// DO NOT EDIT THIS FILE, edit "+
+        "infrastructure/ace/www/"+fromName);
+      code = code.replaceAll("""(?<=\n)\s*//\s*%APPJET%:\s*""", "");
+      putFile(code, "../../etherpad/src/etherpad/collab/ace/"+toName);
+    }
+    def copyFileToClientSide(fromName: String, toName: String) {
+      var code = getFile(srcDir+"/"+fromName);
+      code = replaceFirstLine(code, "// DO NOT EDIT THIS FILE, edit "+
+        "infrastructure/ace/www/"+fromName);
+      code = code.replaceAll("""(?<=\n)\s*//\s*%APPJET%:.*?\n""", "");
+      code = code.replaceAll("""(?<=\n)\s*//\s*%CLIENT FILE ENDS HERE%[\s\S]*""",
+                             "");
+      putFile(code, "../../etherpad/src/static/js/"+toName);
+    }
+
+    copyFileToEtherpad("easy_sync.js", "easysync1.js");
+    copyFileToEtherpad("easysync2.js", "easysync2.js");
+    copyFileToEtherpad("contentcollector.js", "contentcollector.js");
+    copyFileToEtherpad("easysync2_tests.js", "easysync2_tests.js");
+    copyFileToClientSide("colorutils.js", "colorutils.js");
+    copyFileToClientSide("easysync2.js", "easysync2_client.js");
+    copyFileToEtherpad("linestylefilter.js", "linestylefilter.js");
+    copyFileToClientSide("linestylefilter.js", "linestylefilter_client.js");
+    copyFileToEtherpad("domline.js", "domline.js");
+    copyFileToClientSide("domline.js", "domline_client.js");
+    copyFileToClientSide("cssmanager.js", "cssmanager_client.js");
+  }
+  /*else if (! isNoHelma) {
+    copyFile("build/ace2.js", "../helma_apps/appjet/protectedStatic/js/ace.js");	     
+  }*/
+}
+
+def remakeLoop {
+  
+  def getStamp: Long = {
+    return (new java.io.File("www").listFiles.
+	    filter(! _.getName.endsWith("~")).
+	    filter(! _.getName.endsWith("#")).
+	    filter(! _.getName.startsWith(".")).map(_.lastModified).
+	    reduceLeft(Math.max(_:Long,_:Long)));
+  }
+  
+  var madeStamp:Long = 0;
+  var errorStamp:Long = 0;
+  while (true) {
+    Thread.sleep(500);
+    val s = getStamp;
+    if (s > madeStamp && s != errorStamp) {
+      Thread.sleep(1000);
+      if (getStamp == s) {
+	madeStamp = s;
+	print("Remaking...  ");
+	try {
+	  doMake;
+	  println("OK");
+	}
+	catch { case e => {
+	  println("ERROR");
+	  errorStamp = s;
+	} }
+      }
+    }
+  }
+
+}
+
+if (args.length >= 1 && args(0) == "auto") {
+  remakeLoop;
+}
+else {
+  doMake;
+}

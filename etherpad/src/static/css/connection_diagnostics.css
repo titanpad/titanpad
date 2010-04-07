@@ -1,0 +1,13 @@
+#content {
+   text-align: center;
+}
+
+#statusmsg {
+   font-size: 200%;
+   color: #444;
+}
+
+#emailform { margin: 2em; padding: 1em; background: #eee; border: 1px solid #999; }
+#emailform p { font-size: 200%;  color: #444; }
+#emailform input { font-size: 200%; margin-bottom: 1em; }
+#emailform #email { color: #555; }
