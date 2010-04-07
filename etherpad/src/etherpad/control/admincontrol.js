@@ -36,7 +36,6 @@ import("etherpad.statistics.statistics");
 import("etherpad.log");
 import("etherpad.admin.shell");
 import("etherpad.usage_stats.usage_stats");
-import("etherpad.control.blogcontrol");
 import("etherpad.control.pro_beta_control");
 import("etherpad.control.statscontrol");
 import("etherpad.statistics.exceptions");
@@ -84,7 +83,6 @@ var _mainLinks = [
   ['diagnostics', 'Pad Connection Diagnostics'],
   ['cachebrowser', 'Cache Browser'],
   ['pne-tracker', 'PNE Tracking Stats'],
-  ['reload-blog-db', 'Reload blog DB'],
   ['pro-domain-accounts', 'Pro Domain Accounts'],
   ['beta-valve', 'Beta Valve'],
   ['reset-subscription', "Reset Subscription"]
@@ -1261,21 +1259,6 @@ function render_pne_tracker_lookup_keyhash_get() {
     response.write(HTML(BODY(DIV({style: "font-family: monospace;"},
       DIV(H1("Trial Signup Record:")), t))));
   }
-}
-
-function render_reload_blog_db_get() {
-  var d = DIV();
-  if (request.params.ok) {
-    d.push(DIV(P("OK")));
-  }
-  d.push(FORM({method: "post", action: request.path},
-    INPUT({type: "submit", value: "Reload Blog DB Now"})));
-  response.write(HTML(BODY(d)));
-}
-
-function render_reload_blog_db_post() {
-  blogcontrol.reloadBlogDb();
-  response.redirect(request.path+"?ok=1");
 }
 
 function render_pro_domain_accounts() {

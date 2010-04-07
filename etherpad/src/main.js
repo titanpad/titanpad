@@ -35,7 +35,6 @@ import("etherpad.legacy_urls");
 
 import("etherpad.control.aboutcontrol");
 import("etherpad.control.admincontrol");
-import("etherpad.control.blogcontrol");
 import("etherpad.control.connection_diagnostics_control");
 import("etherpad.control.global_pro_account_control");
 import("etherpad.control.historycontrol");
@@ -43,7 +42,6 @@ import("etherpad.control.loadtestcontrol");
 import("etherpad.control.maincontrol");
 import("etherpad.control.pad.pad_control");
 import("etherpad.control.pne_manual_control");
-import("etherpad.control.pne_tracker_control");
 import("etherpad.control.pro.admin.license_manager_control");
 import("etherpad.control.pro_beta_control");
 import("etherpad.control.pro.pro_main_control");
@@ -85,7 +83,6 @@ serverhandlers.startupHandler = function() {
   collab_server.onStartup();
   pad_control.onStartup();
   dbwriter.onStartup();
-  blogcontrol.onStartup();
   importexport.onStartup();
   pro_pad_editors.onStartup();
   noprowatcher.onStartup();
@@ -364,19 +361,15 @@ function handlePath() {
   var etherpadDotComDispatcher = new Dispatcher();
   etherpadDotComDispatcher.addLocations([
     ['/', maincontrol.render_main],
-    [DirMatcher('/ep/beta-account/'), forward(pro_beta_control)],
     [DirMatcher('/ep/pro-signup/'), forward(pro_signup_control)],
     [DirMatcher('/ep/about/'), forward(aboutcontrol)],
     [DirMatcher('/ep/admin/'), forward(admincontrol)],
-    [DirMatcher('/ep/blog/posts/'), blogcontrol.render_post],
-    [DirMatcher('/ep/blog/'), forward(blogcontrol)],
     [DirMatcher('/ep/connection-diagnostics/'), forward(connection_diagnostics_control)],
     [DirMatcher('/ep/loadtest/'), forward(loadtestcontrol)],
-    [DirMatcher('/ep/tpne/'), forward(pne_tracker_control)],
     [DirMatcher('/ep/pro-account/'), forward(global_pro_account_control)],
     [/^\/ep\/pad\/history\/(\w+)\/(.*)$/, historycontrol.render_history],
     [PrefixMatcher('/ep/pad/slider/'), pad_control.render_slider],
-    [DirMatcher('/ep/store/'), forward(storecontrol)],
+//    [DirMatcher('/ep/store/'), forward(storecontrol)],
     [PrefixMatcher('/ep/'), forward(maincontrol)]
   ]);
 
