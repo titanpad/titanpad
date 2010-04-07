@@ -130,6 +130,9 @@ object config {
   @GeneratedConfigParam
   def listenSecurePort = extractHostAndPort(listenSecure)._2;
 
+  @ConfigParam("Assume external visible ports are defaults for HTTP/HTTPS. Default: false")
+  def assumePortsAreDefaults = boolOrElse("assumePortsAreDefaults", false);
+
   @ConfigParam("[host:]port:port on which to listen for monitoring. Default: none.")
               { val argName = "[host:]primaryPort:secondaryPort" }
   def listenMonitoring = stringOrElse("listenMonitoring", "0:0");

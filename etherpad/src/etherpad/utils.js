@@ -375,7 +375,7 @@ function isStaticRequest() {
 
 function httpsHost(h) {
   h = h.split(":")[0];  // strip any existing port
-  if (appjet.config.listenSecurePort != "443") {
+  if (appjet.config.listenSecurePort != "443" && !appjet.config.assumePortsAreDefaults) {
     h = (h + ":" + appjet.config.listenSecurePort);
   }
   return h;
@@ -383,7 +383,7 @@ function httpsHost(h) {
 
 function httpHost(h) {
   h = h.split(":")[0];  // strip any existing port
-  if (appjet.config.listenPort != "80") {
+  if (appjet.config.listenPort != "80" && !appjet.config.assumePortsAreDefaults) {
     h = (h + ":" + appjet.config.listenPort);
   }
   return h;
