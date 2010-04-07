@@ -28,6 +28,7 @@ CP="appjet-eth-dev.jar:data"
 for f in lib/*.jar; do
     CP="$CP:$f"
 done
+CP="$CP:/usr/lib/openoffice/basis3.2/ure-link/share/java/juh.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/jurt.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/ridl.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/unoloader.jar:/usr/lib/openoffice/basis3.2/program/classes/unoil.jar"
 
 if [ -z "$JAVA" ]; then
     JAVA=java

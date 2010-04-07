@@ -125,34 +125,34 @@ class RequestWrapper(val req: HttpServletRequest) {
         null;
     }
   def files(globalScope: Scriptable): Object = {
-//    if (! req.isInstanceOf[com.oreilly.servlet.MultipartWrapper]) {
+    if (! req.isInstanceOf[com.oreilly.servlet.MultipartWrapper]) {
       new ScriptableAdapter();
-//    } else {
-//      val r = req.asInstanceOf[com.oreilly.servlet.MultipartWrapper];
-//      val fileScriptables = new HashMap[String, Scriptable]();
-//      val fileBytes = new HashMap[String, Array[byte]]();
-//      new ScriptableFromMapOfScriptableArrays(globalScope,
-//        r.getFileNames().asInstanceOf[Enumeration[String]].toList,
-//        name => {
-//          if (r.getFile(name) == null) 
-//            None 
-//          else 
-//            Some(Array(fileScriptables.getOrElseUpdate(name, 
-//              new ScriptableFromMapOfArrays[Object](globalScope,
-//                Set("contentType", "filesystemName", "bytes").toSeq,
-//                _ match {
-//                  case "contentType" => Some(Array(r.getContentType(name)));
-//                  case "filesystemName" =>
-//                    Some(Array(r.getFilesystemName(name)));
-//                  case "bytes" =>
-//                    Some(Array(Context.javaToJS(fileBytes.getOrElseUpdate(name,
-//                      BetterFile.getFileBytes(r.getFile(name))), globalScope)));
-//                  case _ => None;
-//                },
-//                true))))
-//        },
-//        true);
-//    }
+    } else {
+      val r = req.asInstanceOf[com.oreilly.servlet.MultipartWrapper];
+      val fileScriptables = new HashMap[String, Scriptable]();
+      val fileBytes = new HashMap[String, Array[byte]]();
+      new ScriptableFromMapOfScriptableArrays(globalScope,
+        r.getFileNames().asInstanceOf[Enumeration[String]].toList,
+        name => {
+          if (r.getFile(name) == null) 
+            None 
+          else 
+            Some(Array(fileScriptables.getOrElseUpdate(name, 
+              new ScriptableFromMapOfArrays[Object](globalScope,
+                Set("contentType", "filesystemName", "bytes").toSeq,
+                _ match {
+                  case "contentType" => Some(Array(r.getContentType(name)));
+                  case "filesystemName" =>
+                    Some(Array(r.getFilesystemName(name)));
+                  case "bytes" =>
+                    Some(Array(Context.javaToJS(fileBytes.getOrElseUpdate(name,
+                      BetterFile.getFileBytes(r.getFile(name))), globalScope)));
+                  case _ => None;
+                },
+                true))))
+        },
+        true);
+    }
   }
 }
 

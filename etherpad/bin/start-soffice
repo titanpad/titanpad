@@ -1,21 +1,21 @@
-#!/bin/bash
+#!/bin/sh
 
-#  Copyright 2009 Google Inc.
-#  
+#  Copyright 2010 Christian Hofstaedtler
+#
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  
+#
 #       http://www.apache.org/licenses/LICENSE-2.0
-#  
+#
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS-IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-CP="./:/usr/lib/openoffice/basis3.2/ure-link/share/java/juh.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/jurt.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/ridl.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/unoloader.jar:/usr/lib/openoffice/basis3.2/program/classes/unoil.jar"
-for f in `ls lib/*.jar`; do
-    CP="${CP}:${f}"
-done
-echo $CP
+unset DISPLAY
+mkdir -p /tmp/oohome
+HOME=/tmp/oohome
+/usr/lib/openoffice/program/soffice -nologo -headless -nofirststartwizard -accept="socket,host=localhost,port=8100;urp;StarOffice.ServiceManager"
+echo $?
