@@ -27,9 +27,7 @@ function isProduction() {
 }
 
 var SUPERDOMAINS = {
-  'localbox.info': true,
-  'localhost': true,
-  'etherpad.com': true
+	'titanpad.com': true
 };
 
 var PNE_RELEASE_VERSION = "1.1.3";
