@@ -11,3 +11,25 @@ distributed under the License is distributed on an "AS-IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */ %>
+
+<% function renderTopNav() {
+    var links = [
+      ['/ep/pro-account/sign-in', 'Sign In', 'signin'],
+      ['/', 'Home', 'home'],
+    ];
+    var ul = UL();
+    links.forEach(function(l) {
+      var c = l[2];
+      var selc = (request.path == l[0] || selected == c) ? " selected" : "";
+      ul.push(LI({className: 'topnav_'+c+selc},
+                 A({href: request.scheme + '://'+request.host+l[0]}, l[1])));
+    });
+    return ul;
+} %>
+
+<div id="topnav_wrap">
+  <div id="navigation">
+      <%= renderTopNav() %>
+      <%= helpers.clearFloats() %>
+  </div>
+</div>
