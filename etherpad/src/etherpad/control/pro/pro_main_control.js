@@ -70,7 +70,7 @@ function render_main() {
 
   renderFramed('pro/pro_home.ejs', {
     isEvaluation: licensing.isEvaluation(),
-    evalExpDate: licensing.getLicense().expiresDate,
+    evalExpDate: null,
     account: getSessionProAccount(),
     isPNE: pne_utils.isPNE(),
     pneVersion: pne_utils.getVersionString(),
