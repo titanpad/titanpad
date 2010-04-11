@@ -322,7 +322,7 @@ function checkHTTPS() {
     var url = scheme + "://";
     url += request.host.split(':')[0]; // server
 
-    if (_ports[scheme] != _defaultPorts[scheme] && !appjet.config.asumePortsAreDefaults) {
+    if (_ports[scheme] != _defaultPorts[scheme] && !appjet.config.assumePortsAreDefaults) {
       url += ':'+_ports[scheme];
     }
 
