@@ -14,7 +14,7 @@ limitations under the License. */ %><%
   var padIdHtml = toHTML(request.url.split("?", 1)[0]);
 %>
 
-<% helpers.setHtmlTitle("EtherPad: "+toHTML(proTitle || request.path.substr(1))); %>
+<% helpers.setHtmlTitle("TitanPad: "+toHTML(proTitle || request.path.substr(1))); %>
 <% helpers.setBodyId("padbody") %>
 <% helpers.addBodyClass(bodyClass) %>
 <% helpers.includeCss("pad.css") %>

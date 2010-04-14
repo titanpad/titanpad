@@ -47,8 +47,8 @@ etherpad.validEmail = function(x) {
 
 etherpad.deobfuscateEmails = function() {
   $("a.obfuscemail").each(function() {
-    $(this).html($(this).html().replace('e***rp*d','etherpad'));
-    this.href = this.href.replace('e***rp*d','etherpad');
+    $(this).html($(this).html().replace('t***np*d','titanpad'));
+    this.href = this.href.replace('t***np*d','titanpad');
   });
 };
 

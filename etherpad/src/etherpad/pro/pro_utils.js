@@ -145,11 +145,11 @@ function getFullSuperdomainHost() {
 }
 
 function getEmailFromAddr() {
-  var fromDomain = 'etherpad.com';
+  var fromDomain = 'titanpad.com';
   if (pne_utils.isPNE()) {
     fromDomain = getFullProDomain();
   }
-  return ('"EtherPad" <noreply@'+fromDomain+'>');
+  return ('"TitanPad" <noreply@'+fromDomain+'>');
 }
 
 function renderGlobalProNotice() {

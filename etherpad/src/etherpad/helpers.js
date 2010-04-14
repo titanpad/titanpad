@@ -194,8 +194,8 @@ function cssIncludes() {
 }
 
 function oemail(username) {
-  return '&lt;<a class="obfuscemail" href="mailto:'+username+'@e***rp*d.com">'+
-    username+'@e***rp*d.com</a>&gt;';
+  return '&lt;<a class="obfuscemail" href="mailto:'+username+'@t***np*d.com">'+
+    username+'@t***np*d.com</a>&gt;';
 }
 
 function googleAnalytics() {

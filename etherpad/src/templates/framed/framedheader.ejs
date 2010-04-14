@@ -14,21 +14,25 @@ limitations under the License. */ %>
 
 <% function renderTopNav() {
     var links = [
-      ['/ep/pro-account/sign-in', 'Sign In', 'signin'],
+//      ['/ep/pro-account/sign-in', 'Sign In', 'signin'],
+      ['http://blog.titanpad.com/', 'Blog', 'blog'],
       ['/', 'Home', 'home'],
     ];
     var ul = UL();
     links.forEach(function(l) {
       var c = l[2];
       var selc = (request.path == l[0] || selected == c) ? " selected" : "";
+      var href_ = request.scheme + '://'+request.host+l[0];
+      if (l[0].substr(0,1) != '/') href_ = l[0];
       ul.push(LI({className: 'topnav_'+c+selc},
-                 A({href: request.scheme + '://'+request.host+l[0]}, l[1])));
+                 A({href: href_}, l[1])));
     });
     return ul;
 } %>
 
 <div id="topnav_wrap">
   <div id="navigation">
+      <h1><a href="/">TitanPad</a></h1>
       <%= renderTopNav() %>
       <%= helpers.clearFloats() %>
   </div>
