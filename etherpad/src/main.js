@@ -266,7 +266,7 @@ function checkHost() {
   }
 
   // redirect to etherpad.com
-  var newurl = appjet.config['etherpad.baseURL']+request.path;
+  var newurl = request.scheme + "://" + appjet.config['etherpad.baseURL']+request.path;
   if (request.query) { newurl += "?"+request.query; }
   response.redirect(newurl);
 }
