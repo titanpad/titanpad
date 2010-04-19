@@ -401,7 +401,7 @@ function sendReceiptEmail(subscription, invoice) {
     globals: globals
   });
   var address = paymentInfo.email;
-  checkout.salesEmail(address, "sales@etherpad.com", "EtherPad: Receipt for "+paymentInfo.fullname,
+  checkout.salesEmail(address, EMAILADDRESSES['sales'], "EtherPad: Receipt for "+paymentInfo.fullname,
                       {}, emailText);
 }
 
@@ -417,6 +417,6 @@ function sendFailureEmail(subscription, invoice, failureMessage) {
     billingAdminLink: "https://"+subDomain+".etherpad.com/ep/admin/billing/"
   });
   var address = paymentInfo.email;
-  checkout.salesEmail(address, "sales@etherpad.com", "EtherPad: Payment Failure for "+paymentInfo.fullname,
+  checkout.salesEmail(address, EMAILADDRESSES['sales'], "EtherPad: Payment Failure for "+paymentInfo.fullname,
                       {}, emailText);
 }

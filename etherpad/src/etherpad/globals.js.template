@@ -31,7 +31,17 @@ function isProduction() {
 }
 
 var SUPERDOMAINS = {
-	'titanpad.com': true,
+	'test.titanpad.com': true,
+};
+
+var emailaddresses = {
+	'sales': 'sales@test.titanpad.com',
+	'bugs': 'bugs@test.titanpad.com',
+	'noreply': 'noreply@test.titanpad.com',
+	'support': 'support@test.titanpad.com',
+	'feedback': 'feedback@test.titanpad.com',
+	'urgent': 'urgent@test.titanpad.com',
+	'dev': 'dev@test.titanpad.com'
 };
 
 var PNE_RELEASE_VERSION = "1.1.3";

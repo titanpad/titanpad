@@ -44,7 +44,7 @@ function knockReply(responseText) {
 }
 
 function knockError() {
-  alert("There was an error requesting access to the pad.  Kindly report this by sending email to bugs@etherpad.com.");
+  alert("There was an error requesting access to the pad.  Kindly report this by sending email to "+EMAILADDRESSES['bugs']+".");
 }
 
 $(document).ready(function() {

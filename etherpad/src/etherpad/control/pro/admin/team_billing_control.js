@@ -250,7 +250,7 @@ function _attemptAuthorization(success_f) {
     _validationError('', "A temporary error has prevented processing of your payment. Please try again later.");
   } else {
     billing.log({'type': 'FATAL', value: "Unknown error: "+result.status+" - debug: "+result.debug});
-    sendEmail('support@etherpad.com', 'urgent@etherpad.com', 'UNKNOWN ERROR WARNING!', {}, 
+    sendEmail(EMAILADDRESSES['sales'], EMAILADDRESSES['urgent'], 'UNKNOWN ERROR WARNING!', {}, 
               "Hey,\n\nThis is a billing system error. Some unknown error occurred. "+
               "This shouldn't ever happen. Probably good to let J.D. know. <grin>\n\n"+
               fastJSON.stringify(cart));
@@ -284,7 +284,7 @@ function _processNewSubscription() {
     });
 
     if (globals.isProduction()) {
-      sendEmail('sales@etherpad.com', 'sales@etherpad.com', "EtherPad: New paid pro account for "+fullName, {},
+      sendEmail(EMAILADDRESSES['sales'], EMAILADDRESSES['sales'], "EtherPad: New paid pro account for "+fullName, {},
                 "This is an automatic notification.\n\n"+fullName+" ("+email+") successfully set up "+
                 "a billing profile for domain: "+domainName+".");
     }
@@ -363,10 +363,10 @@ function _processInvoicePurchase() {
       "\nEmail: ",
       pro_accounts.getSessionProAccount().email
     ].join("\n");
-  var recipient = (globals.isProduction() ? 'sales@etherpad.com' : 'jd@appjet.com');
+  var recipient = (globals.isProduction() ? EMAILADDRESSES['sales'] : EMAILADDRESSES['dev']);
   sendEmail(
     recipient, 
-    'sales@etherpad.com', 
+    EMAILADDRESSES['sales'], 
     'Invoice payment request - '+pro_utils.getProRequestSubdomain(), 
     {},
     "Hi there,\n\nA pro user tried to pay by invoice. Their information follows."+

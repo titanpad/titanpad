@@ -38,7 +38,7 @@ function getTrialUserQuota() {
 function mailLicense(data, licenseKey, expiresDate) {
   var toAddr = data.email;
   if (isTestEmail(toAddr)) {
-    toAddr = "blackhole@appjet.com";
+    toAddr = EMAILADDRESSES['dev'];
   }
   var subject = ('EtherPad: Trial License Information for '+
 		 data.firstName+' '+data.lastName+' ('+data.orgName+')');
@@ -52,7 +52,7 @@ function mailLicense(data, licenseKey, expiresDate) {
 
   sendEmail(
     toAddr,
-    'sales@etherpad.com',
+    EMAILADDRESSES['sales'],
     subject,
     {},
     emailBody
@@ -188,13 +188,13 @@ function _sendSalesNotification(data, ip, ref) {
     ""
   ].join("\n");
 
-  var toAddr = 'sales@etherpad.com';
+  var toAddr = EMAILADDRESSES['sales'];
   if (isTestEmail(data.email)) {
-    toAddr = 'blackhole@appjet.com';
+    toAddr = EMAILADDRESSES['dev'];
   }
   sendEmail(
     toAddr,
-    'sales@etherpad.com',
+    EMAILADDRESSES['sales'],
     subject,
     {'Reply-To': data.email},
     body

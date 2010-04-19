@@ -671,7 +671,7 @@ function _performCreditCardPurchase() {
     billing.log({'type': 'FATAL', value: "Direct purchase failed on paypal.", cart: cart, paypal: paypalResult});
     if (result.errorField.permanentErrors[0] == 'invoiceId') {
       // repeat invoice id. damnit, this is bad.
-      sendEmail('support@etherpad.com', 'urgent@etherpad.com', 'DUPLICATE INVOICE WARNING!', {}, 
+      sendEmail(EMAILADDRESSES['sales'], EMAILADDRESSES['urgent'], 'DUPLICATE INVOICE WARNING!', {}, 
                 "Hey,\n\nThis is a billing system error. The EEPNET checkout tried to make a "+
                 "purchase with PayPal and got a duplicate invoice error on invoice ID "+cart.invoiceId+
                 ".\n\nUnless you're expecting this (or recently ran a selenium test, or have reason to "+
@@ -679,8 +679,8 @@ function _performCreditCardPurchase() {
                 "and get back to the user ASAP!\n\n"+fastJSON.stringify(cart));
       _validationError('', "Your payment was processed, but we cannot proceed. "+
                            "You will hear from us shortly via email. (If you don't hear from us "+
-                           "within 24 hours, please email <a href='mailto:sales@etherpad.com'>"+
-                           "sales@etherpad.com</a>.)");
+                           "within 24 hours, please email <a href='mailto:"+EMAILADDRESSES['sales']+"'>"+
+                           EMAILADDRESSES['sales']+"</a>.)");
     }
     checkout.validateErrorFields(function(x, y) { _validationError(x, y, 'billing-info') }, "There seems to be an error in your billing information."+
                          " Please verify and correct your ",
@@ -690,7 +690,7 @@ function _performCreditCardPurchase() {
     _validationError('', "A temporary error has prevented processing of your payment. Please try again later.");
   } else {
     billing.log({'type': 'FATAL', value: "Unknown error: "+result.status+" - debug: "+result.debug});
-    sendEmail('support@etherpad.com', 'urgent@etherpad.com', 'UNKNOWN ERROR WARNING!', {}, 
+    sendEmail(EMAILADDRESSES['sales'], EMAILADDRESSES['urgent'], 'UNKNOWN ERROR WARNING!', {}, 
               "Hey,\n\nThis is a billing system error. Some unknown error occurred. "+
               "This shouldn't ever happen. Probably good to let J.D. know. <grin>\n\n"+
               fastJSON.stringify(cart));

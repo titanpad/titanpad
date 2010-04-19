@@ -295,6 +295,6 @@ function formatDate(date) {
 function salesEmail(to, from, subject, headers, body) {
   sendEmail(to, from, subject, headers, body);
   if (globals.isProduction()) {
-    sendEmail("sales@etherpad.com", from, subject, headers, body);
+    sendEmail(EMAILADDRESSES['sales'], from, subject, headers, body);
   }
 }

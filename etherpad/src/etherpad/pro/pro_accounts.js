@@ -468,7 +468,7 @@ function getEtherpadAdminAccount() {
     id: 0,
     isAdmin: true,
     fullName: "ETHERPAD ADMIN",
-    email: "support@etherpad.com",
+    email: EMAILADDRESSES['support'],
     domainId: domains.getRequestDomainId(),
     isDeleted: false
   };
