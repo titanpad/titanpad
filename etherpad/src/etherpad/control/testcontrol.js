@@ -41,7 +41,7 @@ function _testName(x) {
 
 function render_run() {
   response.setContentType("text/plain; charset=utf-8");
-  if (isProduction() && (request.params.p != "waverunner")) {
+  if (isProduction()) {
     response.write("access denied");
     response.stop();
   }
