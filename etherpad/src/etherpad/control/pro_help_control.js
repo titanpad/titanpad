@@ -16,12 +16,10 @@
 
 import("etherpad.utils.*");
 import("etherpad.globals.*");
-import("etherpad.billing.team_billing");
 
 var _helpTopics = [
-/*  ['essentials', "EtherPad Essentials"], */
-  ['billing', "Account Quotas and Billing"],
-/*  ['guests', "Collaborating with Teammates and Guests"] */
+  ['essentials', "EtherPad Essentials"],
+  /*['guests', "Collaborating with Teammates and Guests"] */
 ];
 
 function onRequest() {
@@ -46,7 +44,6 @@ function _renderPage(pageId) {
     return renderTemplateAsString('pro-help/'+pageId+'.ejs', {
       helpTopics: _helpTopics,
       numFreeAccounts: PRO_FREE_ACCOUNTS,
-      pricePerAccount: team_billing.COST_PER_USER
     });
   }
 

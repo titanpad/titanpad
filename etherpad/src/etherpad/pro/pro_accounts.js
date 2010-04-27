@@ -33,7 +33,6 @@ import("etherpad.pro.pro_utils");
 import("etherpad.pro.pro_quotas");
 import("etherpad.pad.padusers");
 import("etherpad.log");
-import("etherpad.billing.team_billing");
 
 jimport("org.mindrot.BCrypt");
 jimport("java.lang.System.out.println");

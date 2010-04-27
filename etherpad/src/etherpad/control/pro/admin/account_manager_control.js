@@ -30,7 +30,6 @@ import("etherpad.pro.pro_accounts.getSessionProAccount");
 import("etherpad.pro.pro_utils");
 import("etherpad.pro.pro_config");
 import("etherpad.pro.domains");
-import("etherpad.billing.team_billing");
 
 jimport("java.lang.System.out.println");
 
@@ -94,28 +93,10 @@ function render_new_get() {
   });
 }
 
-function _ensureBillingOK() {
-  var activeAccounts = pro_accounts.getCachedActiveCount(domains.getRequestDomainId());
-  if (activeAccounts < PRO_FREE_ACCOUNTS) {
-    return;
-  }
-
-  var status = team_billing.getDomainStatus(domains.getRequestDomainId());
-  if (!((status == team_billing.CURRENT)
-        || (status == team_billing.PAST_DUE))) {
-    _err(SPAN(
-      "A payment profile is required to create more than ", PRO_FREE_ACCOUNTS,
-      " accounts.  ",
-      A({href: "/ep/admin/billing/", id: "billinglink"}, "Manage billing")));
-  }
-}
-
 function render_new_post() {
   if (request.params.cancel) {
     response.redirect('/ep/admin/account-manager/');
   }
-
-  _ensureBillingOK();
 
   var fullName = request.params.fullName;
   var email = trim(request.params.email);

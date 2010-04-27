@@ -22,7 +22,6 @@ import("sqlbase.sqlcommon");
 import("stringutils");
 import("sessions.{readLatestSessionsFromDisk,writeSessionsToDisk}");
 
-import("etherpad.billing.team_billing");
 import("etherpad.globals.*");
 import("etherpad.log.{logRequest,logException}");
 import("etherpad.log");
@@ -35,10 +34,8 @@ import("etherpad.legacy_urls");
 
 import("etherpad.control.aboutcontrol");
 import("etherpad.control.admincontrol");
-import("etherpad.control.connection_diagnostics_control");
 import("etherpad.control.global_pro_account_control");
 import("etherpad.control.historycontrol");
-import("etherpad.control.loadtestcontrol");
 import("etherpad.control.maincontrol");
 import("etherpad.control.pad.pad_control");
 import("etherpad.control.pro_beta_control");
@@ -47,7 +44,6 @@ import("etherpad.control.pro_signup_control");
 import("etherpad.control.pro_help_control");
 import("etherpad.control.scriptcontrol");
 import("etherpad.control.static_control");
-import("etherpad.control.store.storecontrol");
 import("etherpad.control.testcontrol");
 
 import("etherpad.pro.pro_pad_editors");
@@ -57,7 +53,6 @@ import("etherpad.pro.pro_config");
 import("etherpad.collab.collabroom_server");
 import("etherpad.collab.collab_server");
 import("etherpad.collab.readonly_server");
-import("etherpad.collab.genimg");
 import("etherpad.pad.model");
 import("etherpad.pad.dbwriter");
 import("etherpad.pad.pad_migrations");
@@ -83,7 +78,6 @@ serverhandlers.startupHandler = function() {
   importexport.onStartup();
   pro_pad_editors.onStartup();
   noprowatcher.onStartup();
-  team_billing.onStartup();
   collabroom_server.onStartup();
   readLatestSessionsFromDisk();
 };
@@ -342,7 +336,6 @@ function handlePath() {
     ['/robots.txt', forward(static_control)],
     ['/crossdomain.xml', forward(static_control)],
     [PrefixMatcher('/static/'), forward(static_control)],
-    [PrefixMatcher('/ep/genimg/'), genimg.renderPath],
     [PrefixMatcher('/ep/pad/'), forward(pad_control)],
     [PrefixMatcher('/ep/script/'), forward(scriptcontrol)],
     [/^\/([^\/]+)$/, pad_control.render_pad],
@@ -356,12 +349,9 @@ function handlePath() {
     [DirMatcher('/ep/pro-signup/'), forward(pro_signup_control)],
     [DirMatcher('/ep/about/'), forward(aboutcontrol)],
     [DirMatcher('/ep/admin/'), forward(admincontrol)],
-    [DirMatcher('/ep/connection-diagnostics/'), forward(connection_diagnostics_control)],
-    [DirMatcher('/ep/loadtest/'), forward(loadtestcontrol)],
     [DirMatcher('/ep/pro-account/'), forward(global_pro_account_control)],
     [/^\/ep\/pad\/history\/(\w+)\/(.*)$/, historycontrol.render_history],
     [PrefixMatcher('/ep/pad/slider/'), pad_control.render_slider],
-//    [DirMatcher('/ep/store/'), forward(storecontrol)],
     [PrefixMatcher('/ep/'), forward(maincontrol)]
   ]);
 

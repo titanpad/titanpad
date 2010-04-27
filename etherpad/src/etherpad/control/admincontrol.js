@@ -26,7 +26,6 @@ import("varz");
 import("comet");
 import("dispatch.{Dispatcher,PrefixMatcher,DirMatcher,forward}");
 
-import("etherpad.billing.team_billing");
 import("etherpad.globals.*");
 import("etherpad.utils.*");
 import("etherpad.sessions.getSession");
@@ -38,7 +37,6 @@ import("etherpad.usage_stats.usage_stats");
 import("etherpad.control.pro_beta_control");
 import("etherpad.control.statscontrol");
 import("etherpad.statistics.exceptions");
-import("etherpad.store.checkout");
 
 import("etherpad.pad.activepads");
 import("etherpad.pad.model");
@@ -81,7 +79,6 @@ var _mainLinks = [
   ['cachebrowser', 'Cache Browser'],
   ['pro-domain-accounts', 'Pro Domain Accounts'],
   ['beta-valve', 'Beta Valve'],
-  ['reset-subscription', "Reset Subscription"]
 ];
 
 function onRequest(name) {
@@ -206,9 +203,6 @@ function render_dashboard() {
   body.push(H2({style: "color: #226; font-size: 1em;"}, "Comet Stats"));
   body.push(renderCometStats());
 
-  body.push(H2({style: "color: #226; font-size: 1em;"}, "Recurring revenue, monthly"));
-  body.push(renderRevenueStats());
-
   response.write(HTML(_commonHead(), body));
 }
 
@@ -319,21 +313,6 @@ function renderServerUptime() {
     pos++;
   }
   return sprintf("%.1f %s", time, labels[pos]);
-}
-
-function renderRevenueStats() {
-  var subs = team_billing.getAllSubscriptions();
-  var total = 0;
-  var totalUsers = 0;
-  subs.forEach(function(sub) {
-    var users = team_billing.getMaxUsers(sub.customer);
-    var cost = team_billing.calculateSubscriptionCost(users, sub.coupon);
-    if (cost > 0) {
-      totalUsers += users;
-      total += cost;
-    }
-  });
-  return "US $"+checkout.dollars(total)+", from "+subs.length+" domains and "+totalUsers+" users.";
 }
 
 //----------------------------------------------------------------
@@ -1174,72 +1153,3 @@ function render_setadminmode() {
   response.redirect("/ep/admin/");
 }
 
-// --------------------------------------------------------------
-// billing-related
-// --------------------------------------------------------------
-
-// some of these functions are only used from selenium tests, and so have no UI.
-
-function render_setdomainpaidthrough() {
-  var domainName = request.params.domain;
-  var when = new Date(Number(request.params.paidthrough));
-  if (! domainName || ! when) {
-    response.write("fail");
-    response.stop();
-  }
-  var domain = domains.getDomainRecordFromSubdomain(domainName);
-  var domainId = domain.id;
-
-  var subscription = team_billing.getSubscriptionForCustomer(domainId);
-  if (subscription) {
-    billing.updatePurchase(subscription.id, {paidThrough: when});
-    team_billing.domainCacheClear(domainId);
-    response.write("OK");
-  } else {
-    response.write("fail");
-  }
-}
-
-function render_runsubscriptions() {
-  team_billing.processAllSubscriptions();
-  response.write("OK");
-}
-
-function render_reset_subscription() {
-  var body = BODY();
-  if (request.isGet) {
-    body.push(FORM({method: "POST"},
-                   "Subdomain: ", INPUT({type: "text", name: "subdomain"}), BUTTON({name: "clear"}, "Go")));
-  } else if (request.isPost) {
-    if (! request.params.confirm) {
-      var domain = domains.getDomainRecordFromSubdomain(request.params.subdomain);
-      var admins = pro_accounts.listAllDomainAdmins(domain.id);
-      body.push(P("Domain ", domain.subDomain, ".", request.domain, "; admins:"));
-      var p = UL();
-      admins.forEach(function(admin) {
-        p.push(LI(admin.fullName, " <", admin.email, ">"));
-      });
-      body.push(p);
-      var subscription = team_billing.getSubscriptionForCustomer(domain.id);
-      if (subscription) {
-        body.push(P("Subscription is currently ", subscription.status, ", and paid through: ", checkout.formatDate(subscription.paidThrough), "."))
-        body.push(FORM({method: "POST"},
-                       INPUT({type: "hidden", name: "subdomain", value: request.params.subdomain}),
-                       "Are you sure? ", BUTTON({name: "confirm", value: "yes"}, "YES")));
-      } else {
-        body.push(P("No current subscription"));
-      }
-    } else {
-      var domain = domains.getDomainRecordFromSubdomain(request.params.subdomain);
-      sqlcommon.inTransaction(function() {
-        team_billing.resetMaxUsers(domain.id);
-        sqlobj.deleteRows('billing_purchase', {customer: domain.id, type: 'subscription'});
-        team_billing.domainCacheClear(domain.id);
-        team_billing.clearRecurringBillingInfo(domain.id);
-      });
-      body.push("Done!")
-    }
-  }
-  body.push(A({href: request.path}, html("&laquo; back")));
-  response.write(HTML(body));
-}

@@ -19,12 +19,10 @@ import("stringutils.startsWith");
 import("sqlbase.sqlobj");
 import("sqlbase.sqlcommon.inTransaction");
 
-import("etherpad.billing.team_billing");
 import("etherpad.globals.*");
 import("etherpad.pro.pro_accounts");
 import("etherpad.pro.domains");
 import("etherpad.sessions.getSession");
-import("etherpad.store.checkout");
 
 function _createRecordIfNecessary(domainId) {
   inTransaction(function() {
@@ -85,33 +83,6 @@ function updateAccountUsageCount(domainId) {
 
 // called per request
 
-function _generateGlobalBillingNotice(status) {
-  if (status == team_billing.CURRENT) {
-    return;
-  }
-  var notice = SPAN();
-  if (status == team_billing.PAST_DUE) {
-    var suspensionDate = checkout.formatDate(team_billing.getDomainSuspensionDate(domains.getRequestDomainId()));
-    notice.push(
-      "Warning: your account is past due and will be suspended on ",
-      suspensionDate, ".");
-  }
-  if (status == team_billing.SUSPENDED) {
-    notice.push(
-      "Warning: your account is suspended because it is more than ",
-      team_billing.GRACE_PERIOD_DAYS, " days past due.");
-  }
-
-  if (pro_accounts.isAdminSignedIn()) {
-    notice.push("  ", A({href: "/ep/admin/billing/"}, "Manage billing"), ".");
-  } else {
-    getSession().billingProblem = "Payment is required for sites with more than "+PRO_FREE_ACCOUNTS+" accounts.";
-    notice.push("  ", "Please ",
-      A({href: "/ep/payment-required"}, "contact a site administrator"), ".");
-  }
-  request.cache.globalProNotice = notice;
-}
-
 function perRequestBillingCheck() {
   // Do nothing if under the free account limit.
   var activeAccounts = pro_accounts.getCachedActiveCount(domains.getRequestDomainId());
@@ -119,14 +90,6 @@ function perRequestBillingCheck() {
     return;
   }
 
-  var status = team_billing.getDomainStatus(domains.getRequestDomainId());
-  _generateGlobalBillingNotice(status);
-
-  // now see if we need to block the request because of account
-  // suspension
-  if (status != team_billing.SUSPENDED) {
-    return;
-  }
   // These path sare still OK if a suspension is on.
   if ((startsWith(request.path, "/ep/account/") ||
        startsWith(request.path, "/ep/admin/") ||
@@ -134,8 +97,5 @@ function perRequestBillingCheck() {
        startsWith(request.path, "/ep/payment-required"))) {
     return;
   }
-
-  getSession().billingProblem = "Payment is required for sites with more than "+PRO_FREE_ACCOUNTS+" accounts.";
-  response.redirect('/ep/payment-required');
 }
 
