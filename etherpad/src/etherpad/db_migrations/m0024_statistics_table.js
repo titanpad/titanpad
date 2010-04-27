@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-import("etherpad.utils.isPrivateNetworkEdition");
 import("sqlbase.sqlobj");
 import("sqlbase.sqlcommon");
 import("fastJSON");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   sqlobj.createTable('statistics', {
     id: 'INT NOT NULL '+sqlcommon.autoIncrementClause()+' PRIMARY KEY',
     name: 'VARCHAR(128) NOT NULL',

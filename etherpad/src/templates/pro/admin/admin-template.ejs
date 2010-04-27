@@ -16,11 +16,9 @@ limitations under the License. */ %><% helpers.setHtmlTitle("Etherpad Administra
 <div class="fpcontent">
   <table id="admin-layout-table">
     <tr>
-      <% if (validLicense) { %>
         <td width="1%" id="admin-leftnav">
           <%= renderAdminLeftNav() %>
         </td>
-      <% } %>
       <td width="99%" id="admin-right">
         <%= getAdminContent() %>
       </td>

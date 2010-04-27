@@ -15,13 +15,8 @@
  */
 
 import("sqlbase.sqlobj");
-import("etherpad.utils.isPrivateNetworkEdition");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   // add new columns.
   sqlobj.addColumns('eepnet_signups', {
     firstName: 'VARCHAR(128) NOT NULL DEFAULT \'\'',

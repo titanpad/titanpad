@@ -15,14 +15,9 @@
  */
 
 import("dateutils");
-import("etherpad.utils.isPrivateNetworkEdition");
 import("sqlbase.sqlobj");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-  
   var allDomains = sqlobj.selectMulti('pro_domains', {}, {});
   
   allDomains.forEach(function(domain) {

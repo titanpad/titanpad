@@ -287,46 +287,6 @@ function render_sign_out() {
 }
 
 //--------------------------------------------------------------------------------
-// create-admin-account (eepnet only)
-//--------------------------------------------------------------------------------
-
-function render_create_admin_account_get() {
-  if (pro_accounts.doesAdminExist()) {
-    renderFramedError("An admin account already exists on this domain.");
-    response.stop();
-  }
-  _renderTemplate('create-admin-account', {});
-}
-
-function render_create_admin_account_post() {
-  var email = trim(request.params.email);
-  var password = request.params.password;
-  var passwordConfirm = request.params.passwordConfirm;
-  var fullName = request.params.fullName;
-
-  getSession().tempFormData.email = email;
-  getSession().tempFormData.fullName = fullName;
-
-  if (password != passwordConfirm) { _redirOnError('Passwords did not match.'); }
-
-  _redirOnError(pro_accounts.validateEmail(email));
-  _redirOnError(pro_accounts.validateFullName(fullName));
-  _redirOnError(pro_accounts.validatePassword(password));
-
-  pro_accounts.createNewAccount(null, fullName, email, password, true);
-
-  var u = pro_accounts.getAccountByEmail(email, null);
-
-  // TODO: should we send a welcome email here?
-  //pro_accounts.sendWelcomeEmail(u);
-
-  _redirOnError(pro_accounts.authenticateSignIn(email, password));
-
-  response.redirect("/");
-}
-
-
-//--------------------------------------------------------------------------------
 // forgot password
 //--------------------------------------------------------------------------------
 

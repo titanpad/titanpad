@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-import("etherpad.utils.isPrivateNetworkEdition");
 import("sqlbase.sqlobj");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   // add new columns.
   sqlobj.addColumns('eepnet_signups', {
     industry: 'VARCHAR(128)',

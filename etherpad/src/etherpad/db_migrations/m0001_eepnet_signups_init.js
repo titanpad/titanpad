@@ -16,13 +16,8 @@
 
 import("sqlbase.sqlobj");
 import("sqlbase.sqlcommon");
-import("etherpad.utils.isPrivateNetworkEdition");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   sqlobj.createTable('eepnet_signups', {
     id: 'INT NOT NULL '+sqlcommon.autoIncrementClause()+' PRIMARY KEY',
     email: 'VARCHAR(128) NOT NULL UNIQUE',

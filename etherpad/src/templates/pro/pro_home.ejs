@@ -86,20 +86,5 @@ limitations under the License. */ %><% helpers.setHtmlTitle(orgName + " - EtherP
 
   <%= helpers.clearFloats() %>
 
-  <% if (isPNE) { %>
-    <div id="version-info"
-     style="margin-top: 2em; font-size: 76%; color: #444; text-align: right;">
-     <br/>
-      EtherPad Private Network Edition (PNE)
-      Version <%= pneVersion %><br/>
-
-      <% if (isEvaluation && evalExpDate) { %>
-        <br/>
-        <span style="color: #c22;">EVALUATION EDITION: Expires <%= evalExpDate.toString()
-        %>.<br/>
-      <% } %>
-    </div>
-  <% } %>
-
 </div>
 

@@ -60,11 +60,9 @@ limitations under the License. */ %><% helpers.addBodyClass("pro-withtopbar"); %
     return ul;
 } %>
 
-  <%= pneTrackerHtml %>
-
 <div id="pro-topnav">
   <div id="pro-topnav-inner">
-    <% if (validLicense && account) { %>
+    <% if (account) { %>
       <%= renderProTopNav() %>
       <%= helpers.clearFloats() %>
     <% } %>

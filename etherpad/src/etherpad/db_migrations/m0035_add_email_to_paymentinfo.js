@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-import("etherpad.utils.isPrivateNetworkEdition");
 import("sqlbase.sqlobj");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-  
   sqlobj.addColumns('billing_payment_info', {
     email: "VARCHAR(255)"
   });

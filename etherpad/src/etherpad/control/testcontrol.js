@@ -23,7 +23,6 @@ jimport("java.lang.System.out.println");
 var tests = [
   "t0000_test",
   "t0001_sqlbase_transaction_rollback",
-  "t0002_license_generation",
   "t0003_persistent_vars",
   "t0004_sqlobj",
   "t0005_easysync"

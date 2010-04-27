@@ -15,12 +15,7 @@
  */
 
 import("sqlbase.sqlobj");
-import("etherpad.utils.isPrivateNetworkEdition");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-  
   sqlobj.modifyColumn('statistics', 'value', 'MEDIUMTEXT NOT NULL');
 }

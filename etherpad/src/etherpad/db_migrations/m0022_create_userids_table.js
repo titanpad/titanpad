@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-import("etherpad.utils.isPrivateNetworkEdition");
 import("sqlbase.sqlobj");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   sqlobj.createTable('pad_cookie_userids', {
     id: "VARCHAR(40) NOT NULL PRIMARY KEY",
     createdDate: sqlobj.getDateColspec("NOT NULL"),

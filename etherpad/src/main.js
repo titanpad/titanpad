@@ -41,8 +41,6 @@ import("etherpad.control.historycontrol");
 import("etherpad.control.loadtestcontrol");
 import("etherpad.control.maincontrol");
 import("etherpad.control.pad.pad_control");
-import("etherpad.control.pne_manual_control");
-import("etherpad.control.pro.admin.license_manager_control");
 import("etherpad.control.pro_beta_control");
 import("etherpad.control.pro.pro_main_control");
 import("etherpad.control.pro_signup_control");
@@ -52,7 +50,6 @@ import("etherpad.control.static_control");
 import("etherpad.control.store.storecontrol");
 import("etherpad.control.testcontrol");
 
-import("etherpad.pne.pne_utils");
 import("etherpad.pro.pro_pad_editors");
 import("etherpad.pro.pro_utils");
 import("etherpad.pro.pro_config");
@@ -253,10 +250,6 @@ function checkHost() {
     return;
   }
 
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   // we require the domain to either be <superdomain> or a pro domain request.
   if (SUPERDOMAINS[request.domain]) {
     return;
@@ -354,7 +347,6 @@ function handlePath() {
     [PrefixMatcher('/ep/script/'), forward(scriptcontrol)],
     [/^\/([^\/]+)$/, pad_control.render_pad],
     [DirMatcher('/ep/unit-tests/'), forward(testcontrol)],
-    [DirMatcher('/ep/pne-manual/'), forward(pne_manual_control)],
     [DirMatcher('/ep/pro-help/'), forward(pro_help_control)]
   ]);
 

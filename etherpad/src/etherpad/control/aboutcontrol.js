@@ -24,9 +24,6 @@ import("etherpad.log");
 import("etherpad.globals.*");
 import("etherpad.quotas");
 import("etherpad.sessions.getSession");
-import("etherpad.store.eepnet_trial");
-import("etherpad.store.checkout");
-import("etherpad.store.eepnet_checkout");
 
 jimport("java.lang.System.out.println");
 

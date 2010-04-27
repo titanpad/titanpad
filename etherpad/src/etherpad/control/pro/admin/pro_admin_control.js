@@ -18,9 +18,7 @@ import("stringutils");
 import("funhtml.*");
 import("dispatch.{Dispatcher,DirMatcher,forward}");
 
-import("etherpad.licensing");
 import("etherpad.control.admincontrol");
-import("etherpad.control.pro.admin.license_manager_control");
 import("etherpad.control.pro.admin.account_manager_control");
 import("etherpad.control.pro.admin.pro_config_control");
 import("etherpad.control.pro.admin.team_billing_control");
@@ -31,7 +29,6 @@ import("etherpad.admin.shell");
 import("etherpad.sessions");
 import("etherpad.sessions.getSession");
 
-import("etherpad.pne.pne_utils");
 import("etherpad.pro.pro_accounts");
 import("etherpad.utils.*");
 
@@ -39,54 +36,36 @@ import("etherpad.utils.*");
 
 var _pathPrefix = '/ep/admin/';
 
-var _PRO = 1;
-var _PNE_ONLY = 2;
-var _ONDEMAND_ONLY = 3;
-
 function _getLeftnavItems() {
   var nav = [
-    _PRO, [
-      [_PRO, null, "Admin"],
-      [_PNE_ONLY, "pne-dashboard", "Server Dashboard"],
-      [_PNE_ONLY, "pne-license-manager/", "Manage License"],
-      [_PRO, "account-manager/", "Manage Accounts"],
-      [_PRO, "recover-padtext", "Recover Pad Text"],
-      [_PRO, null, "Configuration"],
-      [_PRO, [[_PNE_ONLY, "pne-config", "Private Server Configuration"],
-              [_PRO, "pro-config", "Application Configuration"]]],
-      [_PNE_ONLY, null, "Documentation"],
-      [_PNE_ONLY, "/ep/pne-manual/", "Administrator's Manual"],
-      [_ONDEMAND_ONLY, null, "Billing"],
-      [_ONDEMAND_ONLY, "billing/", "Payment Information"],
-      [_ONDEMAND_ONLY, "billing/invoices", "Past Invoices"],
-    ]
+      [null, "Admin"],
+      ["account-manager/", "Manage Accounts"],
+      ["recover-padtext", "Recover Pad Text"],
+      ["pro-config", "Application Configuration"],
+      /*
+      [null, "Billing"],
+      ["billing/", "Payment Information"],
+      ["billing/invoices", "Past Invoices"], */
   ];
   return nav;
 }
 
 function renderAdminLeftNav() {
-  function _make(x) {
-    if ((x[0] == _PNE_ONLY) && !pne_utils.isPNE()) {
-      return null;
-    }
-    if ((x[0] == _ONDEMAND_ONLY) && pne_utils.isPNE()) {
-      return null;
-    }
-
-    if (x[1] instanceof Array) {
-      return _makelist(x[1]);
+  function _make(itemOrArray) {
+    if (itemOrArray[0] instanceof Array) {
+      return _makelist(itemOrArray);
     } else {
-      return _makeitem(x);
+      return _makeitem(itemOrArray);
     }
   }
   var selected;
   function _makeitem(x) {
-    if (x[1]) {
-      var p = x[1];
-      if (x[1].charAt(0) != '/') {
+    if (x[0]) {
+      var p = x[0];
+      if (p.charAt(0) != '/') {
         p = _pathPrefix+p;
       }
-      var li = LI(A({href: p}, x[2]));
+      var li = LI(A({href: p}, x[1]));
       if (stringutils.startsWith(request.path, p)) {
         // select the longest prefix match.
         if (! selected || p.length > selected.path.length) {
@@ -95,7 +74,7 @@ function renderAdminLeftNav() {
       }
       return li;
     } else {
-      return LI(DIV({className: 'leftnav-title'}, x[2]));
+      return LI(DIV({className: 'leftnav-title'}, x[1]));
     }
   }
   function _makelist(x) {
@@ -127,7 +106,6 @@ function renderAdminPage(p, data) {
   renderFramed('pro/admin/admin-template.ejs', {
     getAdminContent: getAdminContent,
     renderAdminLeftNav: renderAdminLeftNav,
-    validLicense: pne_utils.isServerLicensed(),
   });
 }
 
@@ -136,10 +114,9 @@ function renderAdminPage(p, data) {
 function onRequest() {
   var disp = new Dispatcher();
   disp.addLocations([
-    [DirMatcher(license_manager_control.getPath()), forward(license_manager_control)],
     [DirMatcher('/ep/admin/account-manager/'), forward(account_manager_control)],
     [DirMatcher('/ep/admin/pro-config/'), forward(pro_config_control)],
-    [DirMatcher('/ep/admin/billing/'), forward(team_billing_control)],
+    //[DirMatcher('/ep/admin/billing/'), forward(team_billing_control)],
   ]);
 
   if (disp.dispatch()) {
@@ -151,76 +128,7 @@ function onRequest() {
 }
 
 function render_main() {
-//  renderAdminPage('admin');
   response.redirect('/ep/admin/account-manager/')
-}
-
-function render_pne_dashboard() {
-  renderAdminPage('pne-dashboard', {
-    renderUptime: admincontrol.renderServerUptime,
-    renderResponseCodes: admincontrol.renderResponseCodes,
-    renderPadConnections: admincontrol.renderPadConnections,
-    renderTransportStats: admincontrol.renderCometStats,
-    todayActiveUsers: licensing.getActiveUserCount(),
-    userQuota: licensing.getActiveUserQuota()
-  });
-}
-
-var _documentedServerOptions = [
-  'listen',
-  'listenSecure',
-  'transportUseWildcardSubdomains',
-  'sslKeyStore',
-  'sslKeyPassword',
-  'etherpad.soffice',
-  'etherpad.adminPass',
-  'etherpad.SQL_JDBC_DRIVER',
-  'etherpad.SQL_JDBC_URL',
-  'etherpad.SQL_USERNAME',
-  'etherpad.SQL_PASSWORD',
-  'smtpServer',
-  'smtpUser',
-  'smtpPass',
-  'configFile',
-  'etherpad.licenseKey',
-  'verbose'
-];
-
-function render_pne_config_get() {
-  renderAdminPage('pne-config', {
-    propKeys: _documentedServerOptions,
-    appjetConfig: appjet.config
-  });
-}
-
-function render_pne_advanced_get() {
-  response.redirect("/ep/admin/shell");
-}
-
-function render_shell_get() {
-  if (!(pne_utils.isPNE() || sessions.isAnEtherpadAdmin())) {
-    return false;
-  }
-  appjet.requestCache.proTopNavSelection = 'admin';
-  renderAdminPage('pne-shell', {
-    oldCmd: getSession().pneAdminShellCmd,
-    result: getSession().pneAdminShellResult,
-    elapsedMs: getSession().pneAdminShellElapsed
-  });
-  delete getSession().pneAdminShellResult;
-  delete getSession().pneAdminShellElapsed;
-}
-
-function render_shell_post() {
-  if (!(pne_utils.isPNE() || sessions.isAnEtherpadAdmin())) {
-    return false;
-  }
-  var cmd = request.params.cmd;
-  var start = +(new Date);
-  getSession().pneAdminShellCmd = cmd;
-  getSession().pneAdminShellResult = shell.getResult(cmd);
-  getSession().pneAdminShellElapsed = +(new Date) - start;
-  response.redirect(request.path);
 }
 
 function render_recover_padtext_get() {
@@ -282,5 +190,4 @@ function render_recover_padtext_get() {
 
   renderAdminPage(function() { return d; });
 }
-
 

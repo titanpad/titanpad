@@ -20,7 +20,6 @@ import("etherpad.pad.easysync2migration");
 import("sqlbase.sqlcommon");
 import("sqlbase.sqlobj");
 import("etherpad.log");
-import("etherpad.pne.pne_utils");
 jimport("java.util.concurrent.ConcurrentHashMap");
 jimport("java.lang.System");
 jimport("java.util.ArrayList");
@@ -30,12 +29,6 @@ function onStartup() {
   if (! appjet.cache.pad_migrations) {
     appjet.cache.pad_migrations = {};
   }
-
-  // this part can be removed when all pads are migrated on etherpad.com
-  //if (! pne_utils.isPNE()) {
-  //  System.out.println("Building cache for live migrations...");
-  //  initLiveMigration();
-  //}
 }
 
 function initLiveMigration() {

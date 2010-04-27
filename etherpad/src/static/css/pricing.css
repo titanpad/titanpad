@@ -15,23 +15,6 @@ div.pricingpage {
 .pricingpage form#pricingcontact p { margin: .75em 0; font-weight: bold; }
 .pricingpage form#pricingcontact ul li { list-style: none; margin: 0;}
 
-.pricingpage .eepnet-inquiry label {
-  display: block;
-  float: left;
-  width: 140px;
-  text-align: right;
-  font-weight: normal;
-  color: #444;
-}
-.pricingpage .eepnet-inquiry input.ti,
-.pricingpage .eepnet-inquiry select {
-  width: 240px;
-  margin-left: 12px;
-}
-.pricingpage .eepnet-inquiry button {
-  width: 100px;
-  margin-left: 160px;
-}
 .pricingpage div.inquiryhead {
   font-weight: bold;
   color: #000;

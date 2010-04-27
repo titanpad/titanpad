@@ -20,7 +20,6 @@ import("stringutils.startsWith");
 import("etherpad.utils.*");
 import("etherpad.globals.*");
 import("etherpad.log");
-import("etherpad.pne.pne_utils");
 import("etherpad.pro.pro_accounts");
 import("etherpad.pro.pro_accounts.getSessionProAccount");
 import("etherpad.pro.domains");
@@ -45,12 +44,7 @@ function getProRequestSubdomain() {
 }
 
 function getRequestSuperdomain() {
-  var parts = request.domain.split('.');
-  parts.reverse();
-  if (parts[0] == ".") {
-    parts.shift();
-  }
-  return [parts[1], parts[0]].join('.');
+  return appjet.config['etherpad.baseURL'];
 }
 
 function isProDomainRequest() {
@@ -63,10 +57,6 @@ function isProDomainRequest() {
 }
 
 function _computeIsProDomainRequest() {
-  if (pne_utils.isPNE()) {
-    return true;
-  }
-
   var domain = _stripComet(request.domain);
 
   if (SUPERDOMAINS[domain]) {
@@ -89,22 +79,12 @@ function _computeIsProDomainRequest() {
 
 function preDispatchAccountCheck() {
   // if account is not logged in, redirect to /ep/account/login
-  //
-  // if it's PNE and there is no admin account, allow them to create an admin
-  // account.
 
   if (pro_main_control.isActivationAllowed()) {
     return;
   }
 
-  if (!pro_accounts.doesAdminExist()) {
-    if (request.path != '/ep/account/create-admin-account') {
-      // should only happen for eepnet installs
-      response.redirect('/ep/account/create-admin-account');
-    }
-  } else {
-    pro_accounts.requireAccount();
-  }
+  pro_accounts.requireAccount();
 
   pro_quotas.perRequestBillingCheck();
 }
@@ -146,9 +126,6 @@ function getFullSuperdomainHost() {
 
 function getEmailFromAddr() {
   var fromDomain = 'titanpad.com';
-  if (pne_utils.isPNE()) {
-    fromDomain = getFullProDomain();
-  }
   return ('"TitanPad" <noreply@'+fromDomain+'>');
 }
 

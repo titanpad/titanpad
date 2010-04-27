@@ -15,16 +15,11 @@
  */
 
 import("sqlbase.sqlobj");
-import("etherpad.utils.isPrivateNetworkEdition");
 import("fastJSON");
 
 import("etherpad.statistics.statistics");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-  
   statistics.getAllStatNames().forEach(function(statName) {
     if (statistics.getStatData(statName).dataType == 'topValues') {
       var entries = sqlobj.selectMulti('statistics', {name: statName});

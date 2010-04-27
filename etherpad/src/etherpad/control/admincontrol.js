@@ -29,7 +29,6 @@ import("dispatch.{Dispatcher,PrefixMatcher,DirMatcher,forward}");
 import("etherpad.billing.team_billing");
 import("etherpad.globals.*");
 import("etherpad.utils.*");
-import("etherpad.licensing");
 import("etherpad.sessions.getSession");
 import("etherpad.sessions");
 import("etherpad.statistics.statistics");
@@ -71,18 +70,15 @@ var _mainLinks = [
   ['usagestats/', 'Usage Stats'],
   ['padinspector', 'Pad Inspector'],
   ['dashboard', 'Dashboard'],
-  ['eepnet-licenses', 'EEPNET Licenses'],
   ['config', 'appjet.config'],
   ['shell', 'Shell'],
   ['timings', 'timing data'],
   ['broadcast-message', 'Pad Broadcast'],
 //  ['analytics', 'Google Analytics'],
   ['varz', 'varz'],
-  ['genlicense', 'Manually generate a license key'],
   ['flows', 'Flows (warning: slow)'],
   ['diagnostics', 'Pad Connection Diagnostics'],
   ['cachebrowser', 'Cache Browser'],
-  ['pne-tracker', 'PNE Tracking Stats'],
   ['pro-domain-accounts', 'Pro Domain Accounts'],
   ['beta-valve', 'Beta Valve'],
   ['reset-subscription', "Reset Subscription"]
@@ -198,29 +194,6 @@ function render_dashboard() {
   body.push(A({href: '/ep/admin/'}, html("&laquo; Admin")));
   body.push(H1({style: "border-bottom: 1px solid black;"}, "Dashboard"));
 
-  /*
-  body.push(H2({style: "color: #226; font-size: 1em;"}, "License"));
-  var license = licensing.getLicense();
-  body.push(P(TT("       Licensed To (name): "+license.personName)));
-  body.push(P(TT("       Licensed To (organization): "+license.organizationName)));
-  body.push(P(TT("       Software Edition: "+license.editionName)));
-  var quota = ((license.userQuota > 0) ? license.userQuota : 'unlimited');
-  body.push(P(TT("       User Quota: "+quota)));
-  var expires = (license.expiresDate ? (license.expiresDate.toString()) : 'never');
-  body.push(P(TT("       Expires: "+expires)));
-  */
-
-  /*
-  body.push(H2({style: "color: #226; font-size: 1em;"}, "Active User Quota"));
-
-  var activeUserCount = licensing.getActiveUserCount();
-  var activeUserQuota = licensing.getActiveUserQuota();
-  var activeUserWindowStart = licensing.getActiveUserWindowStart();
-
-  body.push(P(TT("       Since ", B(activeUserWindowStart.toString()), ", ",
-                 "you have used ", B(activeUserCount), " of ", B(activeUserQuota),
-                 " active users.")));
-*/
   body.push(H2({style: "color: #226; font-size: 1em;"}, "Uptime"));
   body.push(P({style: "margin-left: 25px;"}, "Server running for "+renderServerUptime()+"."))
 
@@ -239,7 +212,6 @@ function render_dashboard() {
   response.write(HTML(_commonHead(), body));
 }
 
-// Note: This function is called by the PNE dashboard (pro_admin_control.js)!  Be careful.
 function renderPadConnections() {
   var d = DIV();
   var lastCount = cometlatencies.lastCount();
@@ -267,7 +239,6 @@ function renderPadConnections() {
   return d;
 }
 
-// Note: This function is called by the PNE dashboard (pro_admin_control.js)!  Be careful.
 function renderCometStats() {
   var d = DIV();
   var lastStats = cometlatencies.lastStats();
@@ -304,7 +275,6 @@ function renderCometStats() {
   return d;
 }
 
-// Note: This function is called by the PNE dashboard (pro_admin_control.js)!  Be careful.
 function renderResponseCodes() {
   var statusCodeFrequencyNames = ["minute", "hour", "day", "week"];
   var data = { };
@@ -339,7 +309,6 @@ function renderResponseCodes() {
   return stats;
 }
 
-// Note: This function is called by the PNE dashboard (pro_admin_control.js)!  Be careful.
 function renderServerUptime() {
   var labels = ["seconds", "minutes", "hours", "days"];
   var ratios = [60, 60, 24];
@@ -537,24 +506,6 @@ function render_padinspector_get() {
 
 function render_analytics() {
   response.redirect("https://www.google.com/analytics/reporting/?reset=1&id=12611622");
-}
-
-//----------------------------------------------------------------
-// eepnet license display
-//----------------------------------------------------------------
-
-function render_eepnet_licenses() {
-  var data = sqlobj.selectMulti('eepnet_signups', {}, {orderBy: 'date'});
-  var t = TABLE({border: 1, cellspacing: 0, cellpadding: 2});
-  var cols = ['date','email','orgName','firstName','lastName', 'jobTitle','phone','estUsers'];
-  data.forEach(function(x) {
-    var tr = TR();
-    cols.forEach(function(colname) {
-      tr.push(TD(x[colname]));
-    });
-    t.push(tr);
-  });
-  response.write(HTML(BODY({style: 'font-family: monospace;'}, t)));
 }
 
 //----------------------------------------------------------------
@@ -965,90 +916,6 @@ function render_testbillingexpress() {
 
 //----------------------------------------------------------------
 
-function render_genlicense_get() {
-
-  var t = TABLE({border: 1});
-  function ti(id, label) {
-    t.push(TR(TD({align: "right"}, LABEL({htmlFor: id}, label+":")),
-              TD(INPUT({id: id, name: id, type: 'text', size: 40}))));
-  }
-
-  ti("name", "Name of Licensee");
-  ti("org", "Name of Organization");
-  ti("userQuota", "User Quota");
-
-  t.push(TR(TD({align: "right"}, LABEL("Software Edtition:")),
-            TD( SELECT({name: "edition"},
-                       OPTION({value: licensing.getEditionId('PRIVATE_NETWORK_EVALUATION')},
-                              "Private Network EVALUATION"),
-                       OPTION({value: licensing.getEditionId('PRIVATE_NETWORK')},
-                              "Private Network")))));
-
-  ti("expdays", "Number of days until expiration\n(leave blank if never expires)");
-
-  t.push(TR(TD({colspan: 2}, INPUT({type: "submit"}))));
-
-  var f = FORM({action: request.path, method: "post"});
-  f.push(t);
-
-  response.write(HTML(BODY(f)));
-}
-
-function render_genlicense_post() {
-  var name = request.params.name;
-  var org = request.params.org;
-  var editionId = +request.params.edition;
-  var editionName = licensing.getEditionName(editionId);
-  var userQuota = +request.params.userQuota;
-
-  var expiresTime = null;
-  if (request.params.expdays) {
-    expiresTime = +(new Date) + 1000*60*60*24*(+request.params.expdays);
-  }
-
-  var licenseKey = licensing.generateNewKey(
-    name,
-    org,
-    expiresTime,
-    editionId,
-    userQuota
-  );
-
-  // verify
-  if (!licensing.isValidKey(licenseKey)) {
-    throw Error("License key I just created is not valid: "+licenseKey);
-  }
-
-  // TODO: write to database??
-  //
-
-  // display
-  var licenseInfo = licensing.decodeLicenseInfoFromKey(licenseKey);
-  var t = TABLE({border: 1});
-  function line(k, v) {
-    t.push(TR(TD({align: "right"}, k+":"),
-              TD(v)));
-  }
-
-  var key = licenseKey.split(":")[2];
-  if ((key.length % 2) != 0) {
-    key = key + "+";
-  }
-  var keyLine1 = key.substr(0, key.length/2);
-  var keyLine2 = key.substr(key.length/2, key.length);
-
-  line("Name", licenseInfo.personName);
-  line("Organization", licenseInfo.organizationName);
-  line("Key", P(keyLine1, BR(), keyLine2));
-  line("Software Edition", licenseInfo.editionName);
-  line("User Quota", licenseInfo.userQuota);
-  line("Expires", (+licenseInfo.expiresDate > 0) ? licenseInfo.expiresDate.toString() : "(never)");
-
-  response.write(HTML(BODY(t)));
-}
-
-//----------------------------------------------------------------
-
 import("etherpad.metrics.metrics");
 
 function render_flows() {
@@ -1091,11 +958,7 @@ function render_flows() {
   print(P("Parsing logs from: "+startDate+" through "+endDate));
 
   var fs =
-    [metrics.getFunnel(startDate, endDate, ['/ep/about/pricing', '/ep/about/pricing-eepnet', '/ep/store/eepnet-eval-signup'], true),
-     metrics.getFunnel(startDate, endDate, ['/ep/about/pricing', '/ep/about/pricing-free'], true),
-     metrics.getFunnel(startDate, endDate, ['/ep/about/pricing', '/ep/about/pricing-eepod'], true),
-     metrics.getFunnel(startDate, endDate, ['/ep/about/pricing', '/ep/store/eepnet-eval-signup'], true),
-     metrics.getFunnel(startDate, endDate, ['/', '(pad)']),
+    [metrics.getFunnel(startDate, endDate, ['/', '(pad)']),
      metrics.getFunnel(startDate, endDate, ['/', '/ep/pad/newpad'], true),
      metrics.getFunnel(startDate, endDate, ['/ep/about/screencast', '(pad)'])];
 
@@ -1109,13 +972,7 @@ function render_flows() {
     if (i2 === undefined) { i2 = 1; }
     return ""+vcnt(i, i2)+" ("+pct(vcnt(i, i2)/vcnt(i, i2-1))+")";
   }
-  print(P("Of ", vcnt(0, 0), " visitors to the pricing page, ",
-          cntAndPct(0), " of them viewed eepnet, (", cntAndPct(0, 2), " of those downloaded), ",
-          cntAndPct(1), " of them viewed free, and ",
-          cntAndPct(2), " of them viewed eepod. ",
-          cntAndPct(3), " of them clicked on the eval signup link straight up."
-         ),
-        P("Of ", vcnt(4, 0), " visitors to the home page, ",
+  print(P("Of ", vcnt(4, 0), " visitors to the home page, ",
           cntAndPct(4), " of them went to a pad page in the same flow; ",
           cntAndPct(5), " of them clicked the new pad button immediately."),
         P("Of ", vcnt(6, 0), " vistitors to the screencast page, ",
@@ -1193,72 +1050,6 @@ function render_cachebrowser() {
 
   d.push(t);
   response.write(d);
-}
-
-function render_pne_tracker_get() {
-  var data = sqlobj.selectMulti('pne_tracking_data', {}, {});
-  data.sort(function(x, y) { return cmp(y.date, x.date); });
-
-  var t = TABLE();
-
-  var headrow = TR();
-  ['date', 'remote host', 'keyHash', 'name', 'value'].forEach(function(x) {
-    headrow.push(TH({align: "left", style: "padding: 0 6px;"}, x));
-  });
-  t.push(headrow);
-
-  data.forEach(function(d) {
-    var tr = TR();
-
-    tr.push(TD(d.date.toString().split(' ').slice(0,5).join('-')));
-
-    if (d.remoteIp) {
-      tr.push(TD(netutils.getHostnameFromIp(d.remoteIp) || d.remoteIp));
-    } else {
-      tr.push(TD("-"));
-    }
-
-    if (d.keyHash) {
-      tr.push(TD(A({href: '/ep/admin/pne-tracker-lookup-keyhash?hash='+d.keyHash}, d.keyHash)));
-    } else {
-      tr.push(TD("-"));
-    }
-
-    tr.push(TD(d.name));
-    tr.push(TD(d.value));
-
-    t.push(tr);
-  });
-
-  response.write(HTML(HEAD(html("<style>td { border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; padding: 0 6px; } \n tr:hover { background: #ffc; }</style>"),
-    BODY({style: "font-family: monospace; font-size: 12px;"}, t))));
-}
-
-function render_pne_tracker_lookup_keyhash_get() {
-  var hash = request.params.hash;
-  // brute force it
-  var allLicenses = sqlobj.selectMulti('eepnet_signups', {}, {});
-  var record = null;
-  var i = 0;
-  while (i < allLicenses.length && record == null) {
-    var d = allLicenses[i];
-    if (md5(d.licenseKey).substr(0, 16) == hash) {
-      record = d;
-    }
-    i++;
-  }
-  if (!record) {
-    response.write("Not found. Perhaps this was a test download from local development, or a paid customer whose licenses we don't currently look through on this page.");
-  } else {
-    var kl = keys(record).sort();
-    var t = TABLE();
-    kl.forEach(function(k) {
-      t.push(TR(TH({align: "right"}, k+":"),
-                TD({style: "padding-left: 1em;"}, record[k])));
-    });
-    response.write(HTML(BODY(DIV({style: "font-family: monospace;"},
-      DIV(H1("Trial Signup Record:")), t))));
-  }
 }
 
 function render_pro_domain_accounts() {

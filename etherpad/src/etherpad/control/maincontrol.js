@@ -20,7 +20,6 @@ import("stringutils.toHTML");
 
 import("etherpad.globals.*");
 import("etherpad.helpers.*");
-import("etherpad.licensing");
 import("etherpad.log");
 import("etherpad.utils.*");
 

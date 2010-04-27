@@ -27,7 +27,6 @@ import("etherpad.collab.collab_server");
 import("etherpad.debug.dmesg");
 import("etherpad.globals.*");
 import("etherpad.helpers");
-import("etherpad.licensing");
 import("etherpad.quotas");
 import("etherpad.log");
 import("etherpad.log.{logRequest,logException}");
@@ -40,7 +39,6 @@ import("etherpad.pro.pro_utils");
 import("etherpad.pro.pro_accounts.getSessionProAccount");
 import("etherpad.pro.domains");
 import("etherpad.pro.pro_config");
-import("etherpad.pne.pne_utils");
 import("etherpad.pro.pro_quotas");
 
 import("etherpad.pad.revisions");
@@ -263,16 +261,6 @@ function _checkPadQuota(pad) {
     renderFramed('pad/padfull_body.ejs',
                   {maxUsersPerPad: maxUsersPerPad, padId: pad.getLocalId()});
     response.stop();
-  }
-
-  if (pne_utils.isPNE()) {
-    if (!licensing.canSessionUserJoin()) {
-      renderFramed('pad/total_users_exceeded.ejs', {
-        userQuota: licensing.getActiveUserQuota(),
-        activeUserWindowHours: licensing.getActiveUserWindowHours()
-      });
-      response.stop();
-    }
   }
 }
 
@@ -661,9 +649,9 @@ function render_emailinvite_post() {
              {toEmails: toEmails, padId: padId, username: username,
               subject: subject, message: message});
 
-  var fromAddr = '"EtherPad" <' + EMAILADDRESSES['support'] +'>';
+  var fromAddr = '"TitanPad" <' + EMAILADDRESSES['support'] +'>';
   // client enforces non-empty subject and message
-  var subj = '[EtherPad] '+subject;
+  var subj = '[TitanPad] '+subject;
   var body = renderTemplateAsString('email/padinvite.ejs',
                                     {body: message});
   var headers = {};

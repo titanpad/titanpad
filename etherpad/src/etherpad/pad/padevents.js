@@ -16,7 +16,6 @@
 
 // src/etherpad/events.js
 
-import("etherpad.licensing");
 import("etherpad.log");
 import("etherpad.pad.chatarchive");
 import("etherpad.pad.activepads");
@@ -58,7 +57,6 @@ function onUserJoin(pad, userInfo) {
       userId: userInfo.userId
     });
     activepads.touch(pad.getId());
-    licensing.onUserJoin(userInfo);
     log.onUserJoin(userInfo.userId);
     padusers.notifyActive();
     noprowatcher.onUserJoin(pad, userInfo);
@@ -78,7 +76,6 @@ function onUserLeave(pad, userInfo) {
       userId: userInfo.userId
     });
     activepads.touch(pad.getId());
-    licensing.onUserLeave(userInfo);
     noprowatcher.onUserLeave(pad, userInfo);
 
   });

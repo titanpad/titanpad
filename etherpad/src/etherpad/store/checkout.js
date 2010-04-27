@@ -23,7 +23,6 @@ import("sync");
 
 import("etherpad.globals");
 import("etherpad.globals.*");
-import("etherpad.licensing");
 import("etherpad.utils.*");
 
 import("static.js.billing_shared.{billing=>billingJS}");

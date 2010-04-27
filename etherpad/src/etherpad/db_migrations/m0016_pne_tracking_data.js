@@ -15,14 +15,9 @@
  */
 
 import("sqlbase.sqlobj");
-import("etherpad.utils.isPrivateNetworkEdition");
 
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   sqlobj.createTable('pne_tracking_data', {
     id: sqlobj.getIdColspec(),
     date: sqlobj.getDateColspec("NOT NULL"),

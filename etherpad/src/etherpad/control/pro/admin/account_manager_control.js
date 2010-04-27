@@ -25,7 +25,6 @@ import("etherpad.sessions.getSession");
 
 import("etherpad.control.pro.admin.pro_admin_control");
 
-import("etherpad.pne.pne_utils");
 import("etherpad.pro.pro_accounts");
 import("etherpad.pro.pro_accounts.getSessionProAccount");
 import("etherpad.pro.pro_utils");
@@ -172,10 +171,6 @@ function sendWelcomeEmail(account, tempPass) {
   } catch (ex) {
     var d = DIV();
     d.push(P("Warning: unable to send welcome email."));
-    if (pne_utils.isPNE()) {
-      d.push(P("Perhaps you have not ", 
-               A({href: '/ep/admin/pne-config'}, "Configured SMTP on this server", "?")));
-    }
     getSession().accountManagerWarning = d;
   }
 }

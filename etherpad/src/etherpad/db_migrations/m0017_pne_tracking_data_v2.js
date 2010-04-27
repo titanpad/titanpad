@@ -15,13 +15,8 @@
  */
 
 import("sqlbase.sqlobj");
-import("etherpad.utils.isPrivateNetworkEdition");
 
 function run() {
-  if (isPrivateNetworkEdition()) {
-    return;
-  }
-
   sqlobj.addColumns('pne_tracking_data', {
     remoteIp: 'VARCHAR(128) NOT NULL'
   });

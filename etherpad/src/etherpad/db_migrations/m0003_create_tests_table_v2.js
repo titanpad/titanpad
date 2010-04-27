@@ -16,7 +16,6 @@
 
 import("sqlbase.sqlobj");
 import("sqlbase.sqlcommon");
-import("etherpad.utils.isPrivateNetworkEdition");
 
 function run() {
   if (sqlcommon.doesTableExist('just_a_test')) {

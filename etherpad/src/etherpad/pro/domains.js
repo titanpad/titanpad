@@ -20,8 +20,6 @@ import("jsutils.*");
 import("sqlbase.sqlobj");
 
 import("etherpad.pro.pro_utils");
-import("etherpad.pne.pne_utils");
-import("etherpad.licensing");
 
 jimport("java.lang.System.out.println");
 
@@ -99,41 +97,18 @@ function createNewSubdomain(subDomain, orgName) {
   return id;
 }
 
-function getPrivateNetworkDomainId() {
-  var r = getDomainRecordFromSubdomain('<<private-network>>');
-  if (!r) {
-    throw Error("<<private-network>> does not exist in the domains table!");
-  }
-  return r.id;
-}
-
 /** returns null if not found. */
 function getRequestDomainRecord() {
-  if (pne_utils.isPNE()) {
-    var r = getDomainRecord(getPrivateNetworkDomainId());
-    if (appjet.cache.fakePNE) {
-      r.orgName = "fake";
-    } else {
-      var licenseInfo = licensing.getLicense();
-      if (licenseInfo) {
-        r.orgName = licenseInfo.organizationName;
-      } else {
-        r.orgName = "Private Network Edition TRIAL";
-      }
-    }
-    return r;
-  } else {
-    var subDomain = pro_utils.getProRequestSubdomain();
-    var r = getDomainRecordFromSubdomain(subDomain);
-    return r;
-  }
+  var subDomain = pro_utils.getProRequestSubdomain();
+  var r = getDomainRecordFromSubdomain(subDomain);
+  return r;
 }
 
 /* throws exception if not pro domain request. */
 function getRequestDomainId() {
   var r = getRequestDomainRecord();
   if (!r) {
-    throw Error("Error getting request domain id.");
+    throw new Error("Error getting request domain id.");
   }
   return r.id;
 }

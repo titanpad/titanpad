@@ -1002,8 +1002,6 @@ function onReset() {
 
   addSimpleCount("exceptions", 1, "frontend/exception", null);
 
-  addSimpleCount("eepnet_trial_downloads", 1, "frontend/eepnet_download_info", null);
-  
   addSimpleSum("revenue", 1, "frontend/billing", typeMatcher("purchase-complete"), "dollars")
     
   var hostRegExp = new RegExp("^https?:\\/\\/([-a-zA-Z0-9]+.)?"+expectedHostnames()+"\\/");
