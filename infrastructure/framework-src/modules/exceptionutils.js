@@ -54,8 +54,12 @@ function _convertStackFrameToTable(id, frame) {
 
 function getStackTraceHTML(ex) {
   ex = _getException(ex);
-  if (ex.frames().isEmpty()) 
-    return "No stack trace available.";
+  if (ex.frames().isEmpty()) {
+    var cause = ex.cause();
+    var sw = new java.io.StringWriter();
+    cause.printStackTrace(new java.io.PrintWriter(sw));
+    return sw.toString();
+  }
   var out = [];
   var counter = 0;
   var firstFrame = ex.frames().first();
