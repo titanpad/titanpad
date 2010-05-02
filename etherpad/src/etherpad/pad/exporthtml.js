@@ -279,16 +279,14 @@ function _analyzeLine(text, aline, apool) {
   return line;
 }
 
-function getPadHTMLDocument(pad, revNum, noDocType) {
-  var head = (noDocType?'':'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" '+
-              '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n')+
+function getPadHTMLDocument(pad, revNum) {
+  var head = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" '+
+              '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n'+
     '<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">\n'+
-    (noDocType?'':
       '<head>\n'+
       '<meta http-equiv="Content-type" content="text/html; charset=utf-8" />\n'+
-      '<meta http-equiv="Content-Language" content="en-us" />\n'+
-      '<title>'+'/'+pad.getId()+'</title>\n'+
-      '</head>\n')+
+      '<title>'+pad.getId()+'</title>\n'+
+      '</head>\n'+
     '<body>';
 
   var foot = '</body>\n</html>\n';

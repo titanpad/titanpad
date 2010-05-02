@@ -55,13 +55,13 @@ function _getPadTextBytes(padId, revNum) {
   }, 'r');
 }
 
-function _getPadHtmlBytes(padId, revNum, noDocType) {
+function _getPadHtmlBytes(padId, revNum) {
   if (revNum === undefined) {
     return null;
   }
   var html = padutils.accessPadLocal(padId, function(pad) {
     if (pad.exists()) {
-      return exporthtml.getPadHTMLDocument(pad, revNum, noDocType);
+      return exporthtml.getPadHTMLDocument(pad, revNum);
     }
   });
   if (html) {
@@ -152,7 +152,7 @@ function renderExport() {
 function _exportToFormat(padId, revisionId, revNum, format) {
   var bytes = _doExportConversion(format,
     function() { return _getPadTextBytes(padId, revNum); },
-    function(noDocType) { return _getPadHtmlBytes(padId, revNum, noDocType); });
+    function() { return _getPadHtmlBytes(padId, revNum); });
   if (! bytes) {
     return "Unable to convert file for export... try a different format?"
   } else if (typeof(bytes) == 'string') {
@@ -177,7 +177,7 @@ function _doExportConversion(format, getTextBytes, getHtmlBytes) {
     bytes = getTextBytes();
     srcFormat = 'txt';
   } else {
-    bytes = getHtmlBytes(format == 'doc' || format == 'odt');
+    bytes = getHtmlBytes();
     srcFormat = 'html';
   }
   if (bytes == null) {
