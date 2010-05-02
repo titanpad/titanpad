@@ -194,8 +194,9 @@ function cssIncludes() {
 }
 
 function oemail(username) {
-  return '&lt;<a class="obfuscemail" href="mailto:'+username+'@t***np*d.com">'+
-    username+'@t***np*d.com</a>&gt;';
+  var email = EMAILADDRESSES[username];
+  return '&lt;<a class="obfuscemail" href="mailto:'+email+'">'+
+    email+'</a>&gt;';
 }
 
 function googleAnalytics() {

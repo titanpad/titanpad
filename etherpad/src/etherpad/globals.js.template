@@ -34,7 +34,7 @@ var SUPERDOMAINS = {
 	'test.titanpad.com': true,
 };
 
-var emailaddresses = {
+var EMAILADDRESSES = {
 	'sales': 'sales@test.titanpad.com',
 	'bugs': 'bugs@test.titanpad.com',
 	'noreply': 'noreply@test.titanpad.com',
