@@ -256,21 +256,6 @@ function qpath(m) {
 
 //----------------------------------------------------------------
 
-function ipToHostname(ip) {
-  var DNS = Packages.org.xbill.DNS;
-
-  if (!DNS.Address.isDottedQuad(ip)) {
-    return null
-  }
-
-  try {
-    var addr = DNS.Address.getByAddress(ip);
-    return DNS.Address.getHostName(addr);
-  } catch (ex) {
-    return null;
-  }
-}
-
 function extractGoogleQuery(ref) {
   ref = String(ref);
   ref = ref.toLowerCase();
