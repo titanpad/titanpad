@@ -14,6 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+cd ../build
 mkdir -p data/appjet
 
 MXRAM="1G"
@@ -24,11 +25,11 @@ if [ ! -z $1 ]; then
     fi
 fi
 
-CP="appjet-eth-dev.jar:data"
+CP="appjet.jar:data"
 for f in lib/*.jar; do
     CP="$CP:$f"
 done
-CP="$CP:/usr/lib/openoffice/basis3.2/ure-link/share/java/juh.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/jurt.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/ridl.jar:/usr/lib/openoffice/basis3.2/ure-link/share/java/unoloader.jar:/usr/lib/openoffice/basis3.2/program/classes/unoil.jar"
+CP="$CP"
 
 if [ -z "$JAVA" ]; then
     JAVA=java
@@ -37,7 +38,7 @@ fi
 # etherpad properties file
 cfg_file=./data/etherpad.local.properties
 if [ ! -f $cfg_file ]; then
-  cfg_file=./etc/etherpad.localdev-default.properties
+  cfg_file=../etherpad/etc/etherpad.localdev-default.properties
 fi
 if [[ $1 == "--cfg" ]]; then
   cfg_file=${2}
