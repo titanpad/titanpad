@@ -34,7 +34,7 @@ import("etherpad.pro.pro_quotas");
 import("etherpad.pad.padusers");
 import("etherpad.log");
 
-jimport("org.mindrot.BCrypt");
+jimport("BCrypt");
 jimport("java.lang.System.out.println");
 
 function _dmesg(m) {
