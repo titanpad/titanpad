@@ -649,7 +649,7 @@ function render_emailinvite_post() {
              {toEmails: toEmails, padId: padId, username: username,
               subject: subject, message: message});
 
-  var fromAddr = '"TitanPad" <' + EMAILADDRESSES['support'] +'>';
+  var fromAddr = '"TitanPad - DO NOT REPLY" <' + EMAILADDRESSES['noreply'] +'>';
   // client enforces non-empty subject and message
   var subj = '[TitanPad] '+subject;
   var body = renderTemplateAsString('email/padinvite.ejs',
