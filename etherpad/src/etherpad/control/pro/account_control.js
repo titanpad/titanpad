@@ -114,7 +114,7 @@ function render_update_info_post() {
   _redirOnError(pro_accounts.validateFullName(fullName));
   
   pro_accounts.setEmail(getSessionProAccount(), email);
-  pro_accounts.setFullName(getSessionProAccount(), fullName);
+  pro_accounts.setFullName(getSessionProAccount(), toHTML(fullName));
 
   getSession().accountMessage = "Info updated.";
   response.redirect('/ep/account/');
