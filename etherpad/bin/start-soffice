@@ -17,5 +17,8 @@
 unset DISPLAY
 mkdir -p /tmp/oohome
 HOME=/tmp/oohome
-/usr/lib/openoffice/program/soffice -nologo -headless -nofirststartwizard -accept="socket,host=localhost,port=8100;urp;StarOffice.ServiceManager"
-echo $?
+
+	/usr/lib/openoffice/program/soffice -nologo -headless -nofirststartwizard -accept="socket,host=localhost,port=8100;urp;StarOffice.ServiceManager" 2>&1 > /dev/null &
+	sleep 3
+	# echo $$ && exec doesn't work because both screen and soffice fork around a bit. Fetching the pid the fun way.
+	pgrep soffice.bin > /tmp/soffice.pid
