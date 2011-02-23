@@ -113,4 +113,13 @@ function getRequestDomainId() {
   return r.id;
 }
 
+function deleteDomainById(id) {
+  if (sqlobj.selectMulti('pro_padmeta', {domainId: id}).length != 0)
+    return false;
+  sqlobj.deleteRows('pro_accounts', {domainId: id});
+  sqlobj.deleteRows('pro_domains', {id: id});
+  _updateCache({id: id});
+  return true;
+}
+
 

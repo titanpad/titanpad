@@ -47,6 +47,7 @@ import("etherpad.collab.collab_server");
 import("etherpad.pro.pro_accounts");
 import("etherpad.pro.pro_utils");
 import("etherpad.pro.domains");
+import("etherpad.pro.pro_pad_db");
 
 jimport("java.lang.System.out.println");
 
@@ -78,6 +79,7 @@ var _mainLinks = [
   ['diagnostics', 'Pad Connection Diagnostics'],
   ['cachebrowser', 'Cache Browser'],
   ['pro-domain-accounts', 'Pro Domain Accounts'],
+  ['pro-domain-delete', 'Delete Pro Domain'],
   ['beta-valve', 'Beta Valve'],
 ];
 
@@ -1066,6 +1068,45 @@ function render_pro_domain_accounts() {
   response.write(HTML(b));
 }
 
+function render_pro_domain_delete_get() {
+  var b = BODY();
+  b.push(FORM({action: request.path, method: 'post', style: 'border: 1px solid #ccc; background-color: #eee; padding: .2em 1em;'},
+                        P("Delete Pro Domain:  ",
+                          INPUT({name: 'subdomain', value: '<enter subdomain>'}),
+                          INPUT({type: 'submit'}))));
+  response.write(HTML(b));
+}
+
+function render_pro_domain_delete_post() {
+  var subdomain = request.params.subdomain;
+  if (!subdomain) {
+    response.write("No subdomain given");
+    response.stop();
+    return;
+  }
+  var r = domains.getDomainRecordFromSubdomain(subdomain);
+  if (!r) {
+    response.write("Subdomain not found");
+    response.stop();
+    return;
+  }
+  response.write("Domain ID: " + r.id + "<br>");
+  var records = sqlobj.selectMulti('pro_accounts', {domainId: r.id}, {});
+  response.write("Will delete "+records.length+" accounts (incl. already deleted).<br>");
+  var rc = domains.deleteDomainById(r.id);
+  if (rc) {
+    response.write("Domain + Accounts deleted.");
+  } else {
+    var padlist = sqlobj.selectMulti('pro_padmeta', {domainId: r.id});
+    if (padlist.length != 0) {
+      response.write("Must delete all pads (incl. deleted, archived) first. Still have " + padlist.length + " pads.<br>Local pad ids: ");
+      padlist.forEach(function(pad){
+        response.write(pad.localPadId+ " ");
+      });
+    }
+  }
+  response.stop();
+}
 
 function render_beta_valve_get() {
   var d = DIV(
