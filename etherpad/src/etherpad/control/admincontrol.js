@@ -423,6 +423,7 @@ function render_padinspector_get() {
   model.accessPadGlobal(padId, function(pad) {
     if (! pad.exists()) {
       response.write("Pad not found: /"+padId);
+      response.stop();
     }
     else {
       var headRev = pad.getHeadRevisionNumber();
@@ -453,11 +454,19 @@ function render_padinspector_get() {
         div.push(P(collab_server.dumpStorageToString(pad)));
       } else if (request.params.showlatest) {
         div.push(P(pad.text()));
+      } else if (request.params.deletepad) {
+        model.accessPadGlobal(padId, function(pad) {
+          collab_server.bootUsersFromPad(pad, "deleted");
+          pad.destroy();
+        });
+        dbwriter.taskFlushPad(padId, "delete");
+        div.push(P("Pad " + padId + " deleted."));
       } else {
         div.push(H2(A({href: request.path}, "PadInspector"), ' > ', "/"+padId));
         // no action
         div.push(P(A({href: qpath({revtext: 'HEAD'})}, 'HEAD='+headRev)));
         div.push(P(A({href: qpath({dumpstorage: 1})}, 'dumpstorage')));
+        div.push(P(A({href: qpath({deletepad: 1})}, 'delete (no confirmation)')));
         var supportsTimeSlider = pad.getSupportsTimeSlider();
         if (supportsTimeSlider) {
           div.push(P(A({href: qpath({setsupportstimeslider: 'false'})}, 'hide slider')));
