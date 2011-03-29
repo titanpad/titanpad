@@ -1,31 +1,102 @@
-<% /* Copyright 2009 Google Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS-IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License. */ %>
-<h1>EtherPad Professional Edition Help</h1>
+<% helpers.setHtmlTitle("TitanPad Help"); %>
+<h1>TitanPad Help</h1>
 
 <p>These pages are evolving.  If you have any questions, or find
-parts of EtherPad confusing, please write in to our Helpdesk by
+parts of TitanPad confusing, please write in to our Helpdesk by
 emailing <%= helpers.oemail("support") %>.</p>
 
 <p>Please report bugs to <%= helpers.oemail("bugs") %>.</p>
 
-<h2>Help Topics:</h2>
+<hr>
 
 <ul>
-<% helpTopics.forEach(function(t) { %>
-  <li><%= A({href: "/ep/pro-help/"+t[0]}, t[1]) %></li>
-<% }); %>
+<li><a href="./#securityprivacy">Security & Privacy</a>
+<li><a href="./#limitations">Limitations</a>
 </ul>
 
+<hr>
 
+<a name="securityprivacy"></a>
+<h1>Security & Privacy</h1>
+<br/>
+
+<h2>What security models does TitanPad offer for pads?</h2>
+
+<p>
+TitanPad offers two different ways to work on Pads.
+<br/>
+Public Pads (e.g. http://titanpad.com/&lt;yourpadname&gt;) are accessible by everyone who has access to the URL. There is no way to password protect these Pads or keep unwanted people out. Only use these Pads for shortlived unsensitive information.
+
+<br/>
+Pads in private Subdomains (e.g. http://&lt;yourdomain&gt;.titanpad.com/42) are by default only accessible by users who have an account in the subdomain.
+<br/>
+
+You can make these Pads accessible to the public by setting it's Access Level to Public in the Security-menu of the pad. Optionally you can also set a password for the pad, which is then required for _ALL_ users who want to access the Pad, even users of your private domain.
+<br/>
+</p>
+
+<h2>
+       How can I add people to a Pad in a private subdomain?
+</h2>
+<p>
+You need to send the users the link to the pad in question. Additionally you need to decide on a level of collaboration.
+<br/>
+
+For one-time collaboration it's usually sufficient to temporarily set the Pad's access level to "Public" and optionally configure a password for the pad.
+<br/>
+
+For regular collaborators it usually makes more sense to create an account for the user in your private subdomain. Additional users can be created in the Admin menu of your private subdomain. 
+<br/>
+</p>
+
+<h2>
+        How can I reset a password of a Pad?
+</h2>
+
+<p>
+Lost passwords for Pads cannot be recovered/reset at the moment. You need to recover the text of the pad via the Recover Pad Text functionality in the Admin Menu and copy-paste the text into a new Pad. Afterwards you can delete the Pad for which you've lost the password.
+<br/>
+</p>
+
+<h2>
+        How can I delete an account in a private subdomain?
+</h2>
+
+<p>
+Administrator users can delete acccounts in the Manage Accounts menu found in the Admin area. Please note that you can't delete your own account.
+<br/>
+</p>
+
+<h2>
+        How can I delete my private subdomain?
+</h2>
+
+<p>
+If you want to remove your subdomain completely please delete all pads and all other user accounts. Then send us an email at support@titanpad.com stating your domain name and the name of your account and we'll remove your subdomain.
+<br/>
+</p>
+
+<a name="limitations"></a>
+<h1>
+    Limitations
+</h1>
+<br/>
+
+<h2>
+        How many users can simutaneously edit a pad?
+</h2>
+
+<p>
+Public Pads are limited to 8 simultaneous users. Pads in private subdomains have no hardcoded limits but usability degrades quite harshly after that since coordination of many people editing the same text isn't an easy task.
+<br/>
+</p>
+
+<h2>
+        How many users can I have in my private domain?
+</h2>
+
+<p>
+There are no limits on the amount of users which can be created in a private domain.
+<br/>
+</p>
 
