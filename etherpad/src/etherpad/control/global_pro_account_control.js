@@ -20,6 +20,7 @@ import("stringutils.*");
 import("email.sendEmail");
 import("cache_utils.syncedWithCache");
 
+import("etherpad.globals.*");
 import("etherpad.utils.*");
 import("etherpad.sessions.getSession");
 
