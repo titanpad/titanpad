@@ -1099,9 +1099,9 @@ function render_pro_domain_delete_post() {
   } else {
     var padlist = sqlobj.selectMulti('pro_padmeta', {domainId: r.id});
     if (padlist.length != 0) {
-      response.write("Must delete all pads (incl. deleted, archived) first. Still have " + padlist.length + " pads.<br>Local pad ids: ");
+      response.write("Must delete all pads (incl. deleted, archived) first. Still have " + padlist.length + " pads.<br>Pad deletion links: ");
       padlist.forEach(function(pad){
-        response.write(pad.localPadId+ " ");
+        response.write(A({href: "padinspector?&deletepad=1&padId=" + r.id + "%24" + pad.localPadId}, " "+pad.localPadId+" ")+ " &nbsp; ");
       });
     }
   }
