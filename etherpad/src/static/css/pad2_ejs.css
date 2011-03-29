@@ -781,6 +781,8 @@ form#reconnectform { display: none; }
 .nonprouser #sharebox { height: 110px/*set in code*/; }
 #sharebox-inner { width: 100%; }
 #sharebox-forms { position: absolute; top: 50px; width: 100%; }
+.sharebox-forms-public { display: block; }
+.sharebox-forms-private { display: none; }
 #sharebox-hide, #sharebox-send {
   position: absolute; background-repeat: no-repeat;
   background-image: url(/static/img/jun09/pad/sharebox4.gif);

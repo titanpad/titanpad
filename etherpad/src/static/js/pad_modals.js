@@ -210,9 +210,11 @@ var padmodals = (function() {
 
       if (pad.isPadPublic()) {
         $("#sharebox-stripe").get(0).className = 'sharebox-stripe-public';
+        $("#sharebox-forms").get(0).className = 'sharebox-forms-public';
       }
       else {
         $("#sharebox-stripe").get(0).className = 'sharebox-stripe-private';
+        $("#sharebox-forms").get(0).className = 'sharebox-forms-private';
       }
 
       allModals.hide();
