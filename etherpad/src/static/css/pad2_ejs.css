@@ -53,10 +53,11 @@ a#backtoprosite { padding-left: 20px; left: 6px;
 #topbarcenter { margin-left: 150px; margin-right: 150px; }
 a#topbaretherpad { margin-left: auto; margin-right: auto; display: block; width: 103px;
   position: relative; top: 3px; height: 0; padding-top: 20px;
-  background: url(/static/img/jun09/pad/padtop5.gif) no-repeat -397px -3px; overflow: hidden; }
-
+  /*background: url(/static/img/jun09/pad/padtop5.gif) no-repeat -397px -3px; */
+  overflow: hidden; }
+/*
 .propad a#topbaretherpad { background: url(/static/img/jun09/pad/protop.gif) no-repeat -397px -3px; }
-
+*/
 #specialkeyarea { top: 5px; left: 250px; color: yellow; font-weight: bold;
   font-size: 1.5em; position: absolute; }
 

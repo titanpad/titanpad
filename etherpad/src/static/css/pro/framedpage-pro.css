@@ -53,7 +53,7 @@ body.pro-withtopbar {
   margin: 0 auto;
   height: 48px;
   line-height: 48px;
-  background: url(/static/img/pro/header/pro-header-logo.png) no-repeat top center;
+  /* background: url(/static/img/pro/header/pro-header-logo.png) no-repeat top center; */
 }
 
 #pro-topbar div#org-name a {
