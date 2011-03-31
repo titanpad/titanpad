@@ -1,14 +1,24 @@
 
-h1 {
-  font-size: 1.33em;
+div.fpcontent h1 {
+  font-size: 1.8em;
   color: #555;
   border-bottom: 1px solid #888;
+  margin: 0.8em 1em 0.2em 0em;
 }
 
-h2 {
-  font-size: 1.1em;
-  color: #333;
+div.fpcontent h2 {
+  font-size: 1.8em;
+  color: #555;
   border-bottom: 1px solid #888;
+  margin: 2.2em 1em 0.2em 0em;
+}
+
+div.fpcontent h3 {
+  font-size: 1.5em;
+  color: #333;
+  border: none;
+  border-bottom: none;
+  margin: 2.2em 0 1em 0;
 }
 
 div.pro-help {
@@ -16,4 +26,6 @@ div.pro-help {
   width: 66%;
 }
 
-
+div.pro-help code {
+	font-family: monospace;
+}
