@@ -34,6 +34,10 @@ function _messageDiv() {
   return _renderTopDiv('proConfigMessage', 'pro-config-message');
 }
 
+function onRequest() {
+  pro_accounts.requireAdminAccount();
+}
+
 function render_main_get() {
   pro_config.reloadConfig();
   var config = pro_config.getConfig();

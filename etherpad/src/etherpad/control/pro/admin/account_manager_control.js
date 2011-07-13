@@ -55,6 +55,8 @@ function _messageDiv() { return _renderTopDiv('accountManagerMessage', 'message'
 function _warningDiv() { return _renderTopDiv('accountManagerWarning', 'warning'); }
 
 function onRequest() {
+  pro_accounts.requireAdminAccount();
+
   var parts = request.path.split('/');
 
   function dispatchAccountAction(action, handlerGet, handlerPost) {
