@@ -3874,8 +3874,6 @@ function OUTER(gscope) {
       else {
 	if (newWidth < viewWidth) newWidth = viewWidth;
       }
-      if (newHeight > 32000) newHeight = 32000;
-      if (newWidth > 32000) newWidth = 32000;
       setIfNecessary(iframe.style, "height", newHeight+"px");
       setIfNecessary(iframe.style, "width", newWidth+"px");
       setIfNecessary(sideDiv.style, "height", newHeight+"px");
