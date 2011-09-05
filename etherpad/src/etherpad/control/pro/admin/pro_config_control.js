@@ -19,6 +19,7 @@ import("funhtml.*");
 import("etherpad.sessions.getSession");
 import("etherpad.control.pro.admin.pro_admin_control");
 import("etherpad.pro.pro_config");
+import("etherpad.pro.pro_accounts");
 
 function _renderTopDiv(mid, htmlId) {
   var m = getSession()[mid];
