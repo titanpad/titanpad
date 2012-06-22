@@ -85,7 +85,7 @@ function createNewAccount(domainId, fullName, email, password, isAdmin) {
   if (!domainId) {
     domainId = domains.getRequestDomainId();
   }
-  email = trim(email);
+  email = trim(email).toLowerCase();
   isAdmin = !!isAdmin; // convert to bool
 
   // validation
@@ -161,7 +161,7 @@ function setTempPassword(account, tempPass) {
 
 function setEmail(account, newEmail) {
   _checkAccess(account);
-  sqlobj.update('pro_accounts', {id: account.id}, {email: newEmail});
+  sqlobj.update('pro_accounts', {id: account.id}, {email: newEmail.toLowerCase()});
   markDirtySessionAccount(account.id);
 }
 
@@ -388,7 +388,7 @@ function getAccountByEmail(email, domainId) {
   if (!domainId) {
     domainId = domains.getRequestDomainId();
   }
-  var r = sqlobj.selectSingle('pro_accounts', {domainId: domainId, email: email, isDeleted: false});
+  var r = sqlobj.selectSingle('pro_accounts', {domainId: domainId, email: email.toLowerCase(), isDeleted: false});
   if (r) {
     return r;
   } else {
@@ -458,7 +458,7 @@ function reloadSessionAccountData(uid) {
 }
 
 function getAllAccountsWithEmail(email) {
-  var accountRecords = sqlobj.selectMulti('pro_accounts', {email: email, isDeleted: false}, {});
+  var accountRecords = sqlobj.selectMulti('pro_accounts', {email: email.toLowerCase(), isDeleted: false}, {});
   return accountRecords;
 }
 
