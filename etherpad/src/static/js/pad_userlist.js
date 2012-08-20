@@ -470,7 +470,7 @@ var paduserlist = (function() {
       userData.activity = '';
       userData.id = info.userId;
       // Firefox ignores \n in title text; Safari does a linebreak
-      userData.titleText = [info.userAgent||'', info.ip||''].join(' \n');
+      // userData.titleText = [info.userAgent||'', info.ip||''].join(' \n');
 
       var existingIndex = findExistingIndex(info.userId);
 
