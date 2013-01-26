@@ -4,6 +4,7 @@
 <ul>
 <li><a href="/ep/pro-help/#securityprivacy">Security & Privacy</a>
 <li><a href="/ep/pro-help/#limitations">Limitations</a>
+<li><a href="/ep/pro-help/#deletionpolicy">Deletion Policy</a>
 <li><a href="/ep/pro-help/#featurerequests">Feature Requests</a>
 <li><a href="/ep/pro-help/#knownissues">Known Issues</a>
 </ul>
@@ -22,7 +23,7 @@ emailing <%= helpers.oemail("support") %>.</p>
 <p>
 TitanPad offers two different ways to work on Pads.
 </p><p>
-Public Pads (e.g. <code>http://titanpad.com/&lt;yourpadname&gt;</code>) are accessible by everyone who has access to the URL. There is no way to password protect these Pads or keep unwanted people out. Only use these Pads for shortlived unsensitive information.
+Public Pads (e.g. <code>http://titanpad.com/&lt;yourpadname&gt;</code>) are accessible by everyone who knows the address. There is no way to password protect these Pads or keep unwanted people out. Only use these Pads for shortlived unsensitive information.
 </p><p>
 Pads in private Subdomains (e.g. <code>http://&lt;yourdomain&gt;.titanpad.com/42</code>) are by default only accessible by users who have an account in the subdomain.
 </p><p>
@@ -44,11 +45,11 @@ For regular collaborators it usually makes more sense to create an account for t
 </p>
 
 <h3>
-        How can I reset a password of a Pad?
+        How can I reset the password of a Pad?
 </h3>
 
 <p>
-Lost passwords for Pads cannot be recovered/reset at the moment. You need to recover the text of the pad via the Recover Pad Text functionality in the Admin Menu and copy-paste the text into a new Pad. Afterwards you can delete the Pad for which you've lost the password.
+Lost passwords for Pads cannot be reset. You need to recover the text of the pad via the Recover Pad Text functionality in the Admin Menu and copy-paste the text into a new Pad. Afterwards you can delete the Pad for which you've lost the password.
 <br/>
 </p>
 
@@ -67,14 +68,6 @@ Administrator users can delete acccounts in the Manage Accounts menu found in th
 
 <p>
 If you want to remove your subdomain completely please delete all pads and all other user accounts. Then send us an email at support@titanpad.com stating your domain name and the name of your account and we'll remove your subdomain.
-<br/>
-</p>
-
-<h3>
-	How long will you store my pads?
-</h3>
-<p>
-Public pads are kept for 12 months since the last time they've been accessed. Pads in private subdomains are kept for as long as we continue operate this service.
 <br/>
 </p>
 
@@ -101,6 +94,54 @@ Public Pads are limited to 8 simultaneous users. Pads in private subdomains have
 There are no limits on the amount of users which can be created in a private domain.
 <br/>
 </p>
+
+
+<a name="deletionpolicy"></a>
+<h2>
+    Deletion Policy
+</h2>
+<br/>
+
+<h3>
+	You are deleting things?!
+</h3>
+<p>
+Since TitanPad is operated free of charge and had more success than we anticipated we needed to define a deletion policy for unused domains and pads. We've chosen quite liberal limits which shouldn't cause any problems for regular users but please take note that TitanPad is not an archival site. Please archive the work you care about somewhere safe.
+</p>
+
+
+
+<h3>
+	How long will you store my public pads?
+</h3>
+<p>
+If your pad has less than 20 revisions (click the Timeslider in the upper right corner and look for "Version") we will delete it 2 weeks after it has been accessed the last time.
+</p>
+<p>
+If your pad has less than 50 revisions we will delete it 2 months after it has been accessed the last time
+</p>
+<p>
+All other public pads are kept for 12 months since the last time they've been accessed.
+<br/>
+</p>
+
+
+<h3>
+	How long will you store my private subdomains?
+</h3>
+<p>
+We will delete your private subdomains, including all pads in it, if you haven't accessed it for more than 2 years. To prevent your domain from being deleted it suffices to log in every 12-18 months to be on the safe side.
+<br/>
+</p>
+
+<h3>
+	What happens to pads I delete in my private subdomain?
+</h3>
+<p>
+If you delete a pad in your list of pads it will just be flagged for removal. After 2 weeks we will then actually remove it from our database. Please remove any pads you don't need anymore since this reduces the size of our database and makes it possible to continue operate this service free of charge.
+<br/>
+</p>
+
 
 <a name="featurerequests"></a>
 <h2>
@@ -132,5 +173,13 @@ If you're interested to look at the source code yourself there's our public <a h
 
 <p>
 TitanPad currently does not work with iOS devices like Apple's iPad or iPhone. A request has been opened on Apple's bug tracker to get support for the necessary HTML features in it's Mobile Safari.
+<br/>
+
+<h3>
+	I keep getting disconnected!
+</h3>
+
+<p>
+If you're using a private subdomain please make sure that the Pad you're editing is set to public (and users don't need to log in) or that every user has his own account. If two persons use the same login credentials and try to edit the same pad they will disconnect each other.
 <br/>
 </p>

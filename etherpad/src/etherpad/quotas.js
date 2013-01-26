@@ -25,7 +25,7 @@ function getMaxSimultaneousPadEditors(globalPadId) {
     if (globalPadId && stringutils.startsWith(globalPadId, "conf-")) {
       return 64;
     } else {
-      return 16;
+      return 64;
     }
   }
   return 1e6;
