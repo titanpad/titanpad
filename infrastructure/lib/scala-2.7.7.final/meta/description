@@ -1,0 +1,4 @@
+<package>
+          <name>sbaz</name>
+          <version>1.25tmp</version><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description>
+        </package>

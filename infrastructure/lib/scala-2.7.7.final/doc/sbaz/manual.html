@@ -1,0 +1,215 @@
+<html>
+<head>
+<title>Scala Bazaars Manual</title>
+</head>
+<body>
+<h1 align="center">Scala Bazaars Manual</h1>
+<p align="center">Alexander Spoon</p>
+<p align="center">June 2007</p>
+<h1>Overview</h1>
+<p>Scala Bazaars supports Scala enthusiasts in sharing the software they create with each other.  The community is strengthened when people can help each other out by sharing code.  A programming language needs an archive of library code to be its most useful.<p>Scala Bazaars has several features specialized for this kind of community:<ul>
+<li>Since programming efforts in the community are distributed around the world, the system must allow loose, decoupled collaboration.  Participants are not required to wait for each other nor for any centralized authority. <li>Since subgroups of the community have their own needs&#8212;just consider groups doing commercial development!&#8212;the system should support subgroup-specific access control policies.<li>Since many open source projects are updated frequently, the system must allow conveniently updating components as new versions become available.<li>Since, even in the common open-source group, there are different tolerances for stable versus new offerings, the system supports having multiple public servers with different update policies</ul>
+<p>Scala Bazaars is most closely related to Debian's APT, though it shares spirit with systems including: YUM, FreeBSD ports, CPAN, CTAN, SqueakMap, and Fink.  The main difference from APT is that Bazaars tries to make it not only possible, but convenient, for subgroups to run their own servers with their own access policies.<p>The present document is a reference manual for Scala Bazaars. It is complete at the expense of readable.  It does include full specifications for all components of the system, including the command-line interface, all file formats, and the network protocol.  Those wanting to use the system should first check whether a tutorial exists for the specific need.  Those wanting a more philosophical look at the system, including comparisons to other systems and to the literature, should look at the Package Universes Architecture document.  It is available at the Scala Bazaars home page:<blockquote><pre>http://lamp.epfl.ch/~spoon/sbaz/</pre></blockquote>
+<h1>Architectural Concepts</h1>
+<p>This section describes the architecture as a whole.  Each component of the architecture is described in detail in a later section.<p>Users of the system have a <em>local managed directory</em> that includes content supplied by the system.  In general, users should not modify content in a managed directory except via a Scala Bazaars system tool.  The one exception is the <code>config</code> directory, which is explicitly intended for user modification and should not be modified by the Scala Bazaars tool.<p>Sharable content is held by <em>packages</em>. A package can be installed into a local managed directory, in which case all of its included files are extracted into the managed directory.  A package can also be removed from a local managed directory, causing all of the files it installed to be removed.<p>Each package has a name and a version.  Packages with the same name may be substituted for each other, but packages with larger version numbers are preferable in some sense. <p>A <em>bazaar</em> is an evolving set of packages.  Each managed directory is associated with one bazaar. The system makes it convenient to choose and install packages from a managed directory's own bazaar, but not from other bazaars.  The set of available packages evolves as the community associated with the bazaar shares and retracts packages over time. <p>Packages may depend on other packages.  All dependencies are resolved within a single bazaar.  The system does not allow installing or removing packages in a way that a managed directory's dependencies become unsatisfied. <p>On the whole, this approach gives convenient upgrades (simply grab the newest version of everything), loose coupling (you can wait for a while to upgrade), and convenient dependency management (requesting the install of a package automatically installs the packages it depends on).  The cost of this approach is that packages must be posted separately to each bazaar they are useful in, but as argued in the architecture document, that cost appears to be ephemeral. <p>Bazaars may be combined in a variety of ways.  Each bazaar has its own access policy, and thus combinations of bazaars with different access policies can yield a wide variety of useful configurations. <p>Bazaars do not hold the packages themselves.  Instead, a bazaar holds package advertisements, and the packages themselves must be posted separately.  Each package advertisement includes a URL referencing the associated package. <h1>Bazaars and Their Descriptors</h1>
+<p>There are several kinds of bazaars that sbaz understands.  Each of them is described below.  To describe a particular bazaar, one uses a <em>descriptor</em>.  There are XML descriptors for every legal bazaar, and their formats are defined alongside the definition of each kind of bazaar.  Additionally, there is a short, non-XML form of descriptor given at the end of this section.  The short form is more convenient for human editing, and is general enough to describe most bazaars that are used in practice.<h2>Simple Bazaar</h2>
+<p>A simple bazaar includes the packages advertised on a single bazaar server.  An example XML description of a simple bazaar is: <blockquote><pre>&lt;simpleuniverse>
+  &lt;name>scala-dev&lt;/name>
+  &lt;location>http://scala-webapps.epfl.ch/sbaz/scala-dev&lt;/location>
+&lt;/simpleuniverse></pre></blockquote>
+<p>The location tag specifies which Bazaars server supplies packages for this universe.  The name is used by the command-line interface to Scala Bazaars whenever it is necessary to specify a specific simple bazaar within a compound bazaar. <h2>Empty Bazaar</h2>
+<p>The empty bazaar holds no packages at all.  Its XML description is simply: <blockquote><pre>&lt;emptyuniverse/></pre></blockquote>
+<h2>Override Bazaar</h2>
+<p>An override bazaar combines the packages from multiple other bazaars, with packages in later bazaars overriding packages in earlier ones.  The overriding is name-based: a package in a later bazaar causes <em>any</em> same-named package in an earlier bazaar to disappear from the combined override bazaar. <p>An example XML description is as follows: <blockquote><pre>&lt;overrideuniverse>
+&lt;components>
+  &lt;simpleuniverse>
+    &lt;name>scala-dev&lt;/name>
+    &lt;location>http://scbaztmp.lexspoon.org:8006/scala-dev&lt;/location>
+  &lt;/simpleuniverse>
+  &lt;simpleuniverse>
+    &lt;name>local-hacks&lt;/name>
+    &lt;location>http://localhost/sbaz/local-hacks&lt;/location>
+  &lt;/simpleuniverse>
+&lt;/components>
+&lt;/overrideuniverse>
+</pre></blockquote>
+<h2>Filter Bazaar (not yet implemented)</h2>
+<p>A filter bazaar includes those packages from some other bazaar whose name matches a designated regular expression.  Filter bazaars are thus useful for taking just a few packages from an existing server. <h2>Literal Bazaar (not yet implemented)</h2>
+<p>A literal bazaar includes a fixed set of packages.  Literal bazaars are mainly useful for testing.<h2>Short, Non-XML Descriptors</h2>
+<p>There is a short descriptor format available for describing many common bazaars.  Each line of the format includes a name and a URL, thus designating a simple bazaar.  If the descriptor has exactly one line, then that line designates the simple bazaar. for the whole descriptor. If the descriptor has multiple lines, then it designates an override bazaar combining the bazaars listed on each line. If the descriptor includes no lines, then  it designates the empty bazaar.  As an example, the following descriptor is equivalent to the previous example of an override bazaar:<blockquote><pre>
+scala-dev http://scbaztmp.lexspoon.org:8006/scala-dev
+local-hacks http://localhost/sbaz/local-hacks
+</pre></blockquote>
+<h1>Access Control</h1>
+<p>Many organizations that use Scala Bazaars do not want to allow arbitrary accesses from unknown users.  Scala Bazaars includes a simple access control system to limit usage as appropriate for the organization. <p>The approach is based on <em>keys</em>.  A bazaar server has a list of keys that it considers valid.  Each request to a server must either include a valid and sufficient key, or it must be in the subset of requests configured as <em>open access</em> for the particular server. <p>Each key is associated with a <em>message pattern</em> denoting the subset of requests it can authorize.  The following message patterns are supported: <p><strong>Read</strong>
+Requests that ask for the list of available packages recorded on a bazaar server.  In XML, it looks like:<blockquote><pre>&lt;read/></pre></blockquote>
+<p><strong>Edit</strong>
+Requests that modify the list of available packages recorded on the server, including posting new advertisements, removing advertisements, and updating an advertisement in place.  Edit request patterns include a regular expression that limits the request pattern to those requests involving a package whose name matches the regular expression. The semantics of the supplied regular expression are as for Java's regular-expression library.  In XML, it looks like:<blockquote><pre>&lt;edit nameregex="sbaz.*"/></pre></blockquote>
+<p><strong>Key Edit</strong>
+Requests that modify the list of valid keys known to a server.  There is only one request-pattern for key editing.  Any client that knows a valid key-edit key can perform arbitrary manipulations on the set of keys known to a server (and thus transitively has full access to the server).  In XML, a key edit pattern looks like:<blockquote><pre>&lt;editkeys/></pre></blockquote>
+<p>A key includes three pieces of information: a request pattern, a short, descriptive text, and a string of decimal digits.  The descriptive text is human-readable and allows keys to be associated with principles in an external access control system. Typical uses are names, email addresses, usernames, and employee ID's.  The string of decimal digits is typically randomly generated and must be unguessable in order for the server to remain protected. <p>In XML, a key looks like: <blockquote><pre>&lt;key>
+  &lt;messages>
+    &lt;edit nameregex="lex-.*"/>
+  &lt;/messages>
+  &lt;description>lex@lexspoon.org&lt;/description>
+  &lt;data>26405971450520721508638067086623258803&lt;/data>
+&lt;/key></pre></blockquote>
+<p>A group of keys can be stored in an <em>keyring</em>, which in XML looks like: <blockquote><pre>&lt;keyring>
+&lt;key>
+  &lt;messages>
+    &lt;editkeys>&lt;/editkeys>
+  &lt;/messages>
+  &lt;description>keyservlet&lt;/description>
+  &lt;data>40597145052072150863806708662325880326&lt;/data>
+&lt;/key>
+&lt;key>
+  &lt;messages>
+    &lt;edit nameregex="sbaz-.*">&lt;/edit>
+  &lt;/messages>
+  &lt;description>lex@lexspoon.org&lt;/description>
+  &lt;data>26405971450520721508638067086623258803&lt;/data>
+&lt;/key>
+&lt;key>
+  &lt;messages>
+    &lt;editkeys>&lt;/editkeys>
+  &lt;/messages>
+  &lt;description>lamp&lt;/description>
+  &lt;data>05971450520721508638067086623258803264&lt;/data>
+&lt;/key>
+&lt;/keyring>
+</pre></blockquote>
+<p>The keys-based access control system of Scala Bazaars is both usable directly and supports, it is hoped, a variety of useful access policies.  For simple access policies, the server administrator (or someone to whom they delegate) can manually manage and distribute keys.  Note that key data can be transmitted via email and web sites, thus allowing distribution of keys to piggyback on existing secured infrastructure. <p>For organizations that have too many users for manual management of access, the keys approach supports writing a simple web server that can manage and distribute keys in an arbitrary fashion.  For example, one could write a web server that gives out keys to people who have a valid login according to an LDAP server; nightly, the server could revoke keys for any users whose LDAP entry has disappeared. <h1>Common Configurations</h1>
+<p>The available bazaar types and access-control policies described above can be combined to form a number of useful configurations.  This section outlines several of them. <p><strong>No restrictions</strong>
+Wikis have proven that effective and useful communities can be built even with no security restrictions at all.  This policy can be implemented by configuring the server with all requests as open access.<p><strong>Full access, but only to community members</strong>
+Many open-source projects have an organization of this form, including Debian's "Debian Developers"  and FreeBSD's "committers." This policy can be implemented by giving a key-editing key to the membership gate keepers.  The last step of admitting a new member to the community is to give them their own keys to manipulate the community bazaar servers. <p><strong>Single provider, multiple users</strong>
+An individual developer wants to provide a suite of packages to be used by a larger community&#8212;possibly the world, or possibly a limited base of subscribers.  To implement this policy, the developer can keep editing keys for personal use but publish the read key  to the desired user base. <p><strong>Moderation queues</strong>
+Sometimes it is desirable to have a large community contribute suggested packages, but a smaller group to decide on what is actually included.  A moderation queue can be implemented as a separate bazaar where a full edit key (with regular expression ".*" is made available to whichever community is allowed to contribute suggestions (perhaps the entire world).  Moderators would have both a read key for the moderation queue and a full edit key for the main bazaar, and could copy packages from the queue to the main bazaar whenever they are deemed appropriate. <p><strong>Private local development</strong>
+Individual groups can form their own bazaar for private development without needing to coordinate with any central organization.  They simply create the bazaar and share keys with members of the group according to their own local security policy. <p><strong>Public libraries plus local development</strong>
+The above organization can be refined by allowing developers to use publicly available packages even as they develop packages for private use.  This policy can be implemented with an override bazaar combining the local bazaar with one or more public bazaars. <p><strong>Localized versions of packages</strong>
+Local groups may want to use something similar to a widely scoped bazaar, but override specific packages with localized versions.  For example, they might prefer a different default language settings of the packages than is used on the widely scoped bazaar.  Users want to use the localized version of a package whenever one is available, but the global version otherwise.  This policy can be implemented by creating a bazaar server holding the localized packages, and then having users operate in an override bazaar combining this localized bazaar with the public one. <p><strong>Stable versus unstable streams</strong>
+Projects frequently distinguish between stable and unstable streams of development.  The stable streams include packages that are heavily tested and deemed to be reliable, while the unstable streams include packages that are more current and featureful but are not as reliable.  A project can implement this policy by having separate bazaar servers for each development stream.  Users point their managed directories to the bazaar server appropriate to their needs.<p><strong>Freezing new stable distribution</strong>
+A common process for generating stable distributions of code is to take an unstable stream, start testing it, and disallow any patches except for bug fixes.  After some point, the distribution is <em>frozen</em> and considered a stable release. Such processes can be implemented by manipulating the outstanding keys as time passes.  The testing phase can be implemented by revoking all outstanding edit keys and switching to a moderation queue process.  The final, complete freeze can be implemented by destroying the moderation queue and revoking the remaining edit keys.  The frozen bazaar can then be duplicated, with one fork hosting a new development stream while the other becomes is designated a stable release. <h1>Packages and Package Advertisements</h1>
+<h2>Overview</h2>
+<p>A Scala Bazaars package is stored in a file with file-ending <code>.sbp</code> (Scala Bazaars Package).  The file is in zip format.  It should include all of the files that are to be extracted into a managed directory when the package is installed. <p>The <code>meta/</code> directory within a <code>.sbp</code> file does not include files to be extracted, but instead contains meta-information about the package itself.  The only defined element of that directory is <code>meta/description</code>, which should include an XML document describing the package's contents.  All other names within the <code>meta</code> subdirectory are reserved for future use. <h2>Package Description Files</h2>
+<p>An example description file is as follows: <blockquote><pre>&lt;package>
+  &lt;name>sbaz&lt;/name>
+  &lt;version>1.10&lt;/version>
+  &lt;depends> &lt;/depends>
+  &lt;description>The command-line interface to Scala Bazaars.  Scala
+Bazaars let you share Scala packages and other goodies with other
+Scala users.&lt;/description>
+&lt;/package></pre></blockquote>
+<p>The elements of this description are hopefully self-explanatory.  This package is named "sbaz", its version is 1.10, it has no dependencies, and it has the given human-readable description. <p>A package name should only include alphanumeric characters and hyphens.<h2>Package Advertisements</h2>
+<p>A package advertisement is simply a package description plus a URL where the package file can be downloaded from.  An example of the XML format for a package advertisement is: <blockquote><pre>&lt;availablePackage>
+  &lt;package>
+    &lt;name>sbaz&lt;/name>
+    &lt;version>1.10&lt;/version>
+    &lt;depends> &lt;/depends>
+    &lt;description>The command-line interface to Scala Bazaars.  Scala 
+Bazaars let you share Scala packages and other goodies with other 
+Scala users.&lt;/description>
+  &lt;/package>
+  &lt;link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.10.sbp&lt;/link>
+&lt;/availablePackage></pre></blockquote>
+<h1>Versions and Dependencies</h1>
+<p>Every package has a version.  A version is a string that may contain ASCII digits, alphabetic characters, and the following symbolic characters: <blockquote><pre>.-+/,@</pre></blockquote>
+<p>Versions are totally ordered by the following algorithm.  To compare two versions, first break them into a number of subsequences, each maximally long, where each subsequence only contains decimal digits, only contains alphabetic characters, or only contains symbolic characters.  Compare the two sequences lexicographically.  Two numeric subsequences are compared numerically, two alphabetic subsequences are compared in ASCII order, and two symbolic subsequences are compared in ASCII order as well.  For two subsequences with different kinds of characters, the order is: alphabetic, then numeric, then symbolic.  For some examples, the following versions are sorted in order: <ol>
+<li>(empty string)<li>abc<li>abcd<li>abd<li>1<li>1.1<li>1.1a<li>1.1a2<li>1.1a100<li>1.1.5<li>1.2<li>1.2.<li>2<li>12</ol>
+<p>A package's dependencies are a list of other packages' names.  For the dependencies to be satisfied, packages with the specified names must be installed.  Here is an example package description for a package that depends on packages "scala2-library" and "sbaz":<blockquote><pre>&lt;availablePackage>
+  &lt;package>
+    &lt;name>base&lt;/name>
+    &lt;version>1.7&lt;/version>
+    &lt;depends>
+       &lt;name>scala2-library&lt;/name>
+       &lt;name>sbaz&lt;/name>
+    &lt;/depends>
+    &lt;description>This package depends on the basic packages that all 
+managed directories must include.  Each of these packages is either 
+essential or is very commonly used.  &lt;/description>
+  &lt;/package>
+  &lt;link>http://lamp.epfl.ch/~spoon/scbaztmp/base-1.7.sbp&lt;/link>
+&lt;/availablePackage></pre></blockquote>
+<p>A richer set of dependencies is planned for the future, including provides, suggests, alternative dependencies, and minimum version numbers. <h1>Command-Line Interface</h1>
+<h2>Overview</h2>
+<p>The command-line interface to Scala Bazaars is the <code>sbaz</code> tool.  It is run as follows: <blockquote>
+sbaz [-n] [-d <em>dir</em>] <em>command</em> <em>arguments...</em></blockquote>
+<p>It always operates on one managed directory.  That directory can be specified explicitly with the -d option.  If it is not specified, and the <code>sbaz</code> binary is located within a managed directory, then <code>sbaz</code> operates on the managed directory the binary is in.  If neither of these cases hold, then <code>sbaz</code> will as a last resort operate on the current directory.  In all cases, the tool checks whether the specified directory appears in fact to be a managed directory; if it does not, then it aborts. <p>If -n is specified, then the tool does not perform any work. Instead, it only prints out what it would have done without the -n option. <p>If no <em>command</em> is specified, then the tool prints out a help message.  Otherwise, it runs the specified command with the specified arguments. <h2>Command Reference</h2>
+<p>This section will eventually include the entire command reference of the command-line tool.  It does not yet.  Refer to "<code>sbaz help</code>" to see the tool's built-in documentation. <h1>Suggested Directory Layout</h1>
+<p>Each sbaz repository has its own standards for the directory layout within a managed directory.  This section documents the emerging layout used in the <code>scala-dev</code>Scala bazaar. It is the standard for that repository, and it might serve as a guideline for other repositories. <ul>
+<li><code>lib</code> &#8212; Any jar file(s) associated with the package, especially those that are meant as libraries to be usable by other programs in the bazaar.  Jars placed in this directory are particularly easy to access, because both the generic <code>scala</code> script and most of the tool-running scripts in <code>bin</code> will automatically load classes from any jars in <code>lib</code>.  Normally, jar filenames in this directory do not include any version number.  A typical filename is <code>sbaz.jar</code>.<li><code>src</code> &#8212; Source code for the package.  This source code should be presented in a way that IDE's can find the code easily.  One good option is to include a jar file of each package's source code in a file ending with <code>-src.jar</code>.  For example, class <code>sbaz.clui.CommandLine</code> is found within file <code>src/sbaz-src.jar</code>.<li><code>bin</code> &#8212; Command-line runnable scripts.  These are most easily created via the Scala ant tasks. As a special case, the <code>sbaz</code> tool will make files within <code>bin</code> be executable on platforms where that makes sense.<li><code>config</code> &#8212; Configuration files.  Packages should not include any files in this directory! They should look in this directory for optional user configuration.  If there is a single configuration file, it can be included directly in the <code>config</code> directory, e.g. with a name like <code>config/sbaz.properties</code>. If there is more than one configuration file for a package, then the files should be located in a subdirectory of <code>config</code> named after the package name.  For example, the <code>sbaz</code> package could include its configuration files in a directory named <code>config/sbaz/</code>.<li><code>misc</code> &#8212; Arbitrary files not included in any of the above.  All such files for a package should be included in a directory named after the package.  For example, the <code>sbaz</code> package includes miscellaneous files in the directory <code>misc/sbaz/</code>.<li><code>doc</code> &#8212; Documentation files.  All such files for a package should be included in a directory named after the package.  For example, the <code>sbaz</code> package includes documentation files in the directory <code>doc/sbaz</code>.<li><code>man</code> &#8212; Unix man pages, with the usual man1, etc., subdirectories.</ul>
+<h1>The scala.home property</h1>
+<p>By convention, the <code>scala.home</code> system property is used to point at the root of the current managed directory. Command-line scripts installed in <code>bin</code>directories should normally set this variable.  The conventional choice is to set <code>scala.home</code> to the <code>SCALA_HOME</code> environment variable if it set, or otherwise to the parent directory of the <code>bin</code>directory the script is located in. <p>Programs intended to run within a sbaz directory can use this property to locate any files they may need.  For example, <code>sbaz</code> itself uses the following code to find a user-specified settings file: <blockquote><pre>val home = System.getProperty("scala.home", ".") 
+val propFile = new File(new File(new File(home),
+                        "config"), "sbaz.properties")</pre></blockquote>
+<h1>Managed Directory Layout</h1>
+<p>Most of a managed directory is populated by the contents of packages.  The single directory <code>meta</code>is reserved for the system to track information about the managed directory.  The <code>meta</code> directory has the following contents: <ul>
+<li><code>universe</code> &#8212; a file holding the XML description of the bazaar.<li><code>available</code> &#8212; a list of package advertisements available within the bazaar.  The file is an XML document whose top level node is <code>&lt;availableList></code> and whose subnodes are package advertisements.<li><code>cached</code> &#8212; a subdirectory holding a cache of package files that the tool has downloaded.<li><code>installed</code> &#8212; information about installed files.  The format is described below.<li><code>keyring.</code><em>name</em>&#8212; the keyring holding known keys for the universe named <em>name</em>.  There is one keyring file for each universe with locally known keys.</ul>
+<p>The <code>installed</code> file holds information about the packages that are currently installed in the managed directory.  Its format is mostly straightforward: <blockquote><pre>&lt;installedlist>
+  &lt;installedpackage>
+    &lt;package>
+      &lt;name>base&lt;/name>
+      &lt;version>1.7&lt;/version>
+      &lt;depends>
+        &lt;name>sbaz&lt;/name>
+        &lt;name>scala2-library&lt;/name>
+      &lt;/depends>
+      &lt;description>A package that depends on
+the basic, necessary packages&lt;/description>
+    &lt;/package>
+    &lt;files>
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>lib&lt;/pathcomp>
+      &lt;/filename>
+    &lt;/files>
+  &lt;/installedpackage>
+
+  &lt;installedpackage>
+    &lt;package>
+      &lt;name>sbaz&lt;/name>
+      &lt;version>1.10&lt;/version>
+      &lt;depends>&lt;/depends>
+      &lt;description>The command-line interface to Scala Bazaars.&lt;/description>
+    &lt;/package>
+    &lt;files>
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>bin&lt;/pathcomp> 
+        &lt;pathcomp>sbaz&lt;/pathcomp>
+      &lt;/filename>
+
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>bin&lt;/pathcomp>
+        &lt;pathcomp>sbaz.bat&lt;/pathcomp>
+      &lt;/filename>
+
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>misc&lt;/pathcomp> 
+        &lt;pathcomp>sbaz&lt;/pathcomp>
+        &lt;pathcomp>scala2-library.jar&lt;/pathcomp>
+      &lt;/filename>
+
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>misc&lt;/pathcomp> 
+        &lt;pathcomp>sbaz&lt;/pathcomp> 
+        &lt;pathcomp>smartrun.mswin.template&lt;/pathcomp>
+      &lt;/filename> 
+
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>misc&lt;/pathcomp> 
+        &lt;pathcomp>sbaz&lt;/pathcomp> 
+        &lt;pathcomp>smartrun.unix.template&lt;/pathcomp>
+      &lt;/filename> 
+
+      &lt;filename isAbsolute="true" isFile="true">
+        &lt;pathcomp>lib&lt;/pathcomp>  
+        &lt;pathcomp>sbaz.jar&lt;/pathcomp>
+      &lt;/filename>&lt;/files>
+    &lt;/installedpackage>
+  &lt;installedpackage>
+&lt;/installedist></pre></blockquote>
+<p>Notice that an installed package is the combination of a package plus a list of files.  Each file in the list of files is represented with a <code>filename</code> whose attributes determine whether it is an absolute file (never) and whether it is a file (versus a directory).  The contents of the <code>filename</code> are the sequence of path components of the file, relative to the managed directory's root. <h1>Common Problems</h1>
+<h2>Firewalls and HTTP Proxies</h2>
+<p>Scala Bazaars uses HTTP to communicate with universe servers.  If your network blocks HTTP access, then, you need to configure sbaz to use an HTTP proxy.  To do this, create a file named <code>config/sbaz.properties</code> in your managed directory and give it the appropriate proxy settings, something like: <blockquote><pre>http.proxySet=true
+http.proxyHost=localhost
+http.proxyPort=3128
+</pre></blockquote>
+</body></h1>

@@ -19,7 +19,6 @@ You need to set a few envvars when building. These are:
 
 export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64
 export JAVA="$JAVA_HOME/bin/java"
-export SCALA_LIBDIR="/opt/titanpad/infrastructure/lib"
 export PATH="$JAVA_HOME/bin:$PATH"
 export MYSQL_CONNECTOR_JAR="/usr/share/java/mysql-connector-java.jar"
 export OOJARS="/usr/lib/ure/share/java/juh.jar /usr/lib/ure/share/java/jurt.jar /usr/lib/ure/share/java/ridl.jar /usr/lib/ure/share/java/unoloader.jar /usr/share/libreoffice/program/classes/unoil.jar"

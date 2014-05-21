@@ -23,6 +23,8 @@ progress() {
 
 OWD=`pwd`
 
+export SCALA_HOME="/opt/titanpad/infrastructure/lib/scala-2.7.7.final"
+export SCALA_LIBDIR="$SCALA_HOME/lib"
 export BUILDDIR=`readlink -f $OWD/../build`
 export CODEDEST=$BUILDDIR/dest
 export LIBDIR=$BUILDDIR/lib
@@ -59,7 +61,7 @@ for codedir in $CODEDIRS; do
 	fi
 	files_scala=`find $codedir -name '*.scala'`
 	if [ ! -z "$files_scala" ]; then
-		fsc -classpath $CLASSPATH -d $CODEDEST $@ $files_scala
+		$SCALA_HOME/bin/fsc -classpath $CLASSPATH -d $CODEDEST $@ $files_scala
 	fi
 done
 
@@ -70,7 +72,7 @@ cp net.appjet.ajstdlib/streaming-iframe.html $CODEDEST/net/appjet/ajstdlib/
 mkdir -p $CODEDEST/net/appjet/ajstdlib/modules
 
 progress "Building ajstdlib javascript classfiles..."
-scala -classpath $CLASSPATH net.appjet.bodylock.Compiler \
+$SCALA_HOME/bin/scala -classpath $CLASSPATH net.appjet.bodylock.Compiler \
 	-destination=$CODEDEST/net/appjet/ajstdlib/ \
 	-cutPrefix=framework-src \
 	`find framework-src -name '*.js'`

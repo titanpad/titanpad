@@ -1,0 +1,254 @@
+<installedlist><installedpackage>
+  <package><name>scala-tool-support</name><version>2.7.7.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <files><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>a2ps</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>a2ps</pathcomp><pathcomp>scala.ssh</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>bluefish</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>bluefish</pathcomp><pathcomp>highlighting</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>context</pathcomp><pathcomp>Highlighters</pathcomp><pathcomp>Scala.chl</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>context</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>context</pathcomp><pathcomp>Template</pathcomp><pathcomp>Scala.ctpl</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>AUTHORS</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>FUTURE</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>Makefile</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>contrib</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>contrib</pathcomp><pathcomp>dot-ctags</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-auto.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-constants.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-feature-electric.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-feature-speedbar.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-feature-tags.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-feature.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-fontlock.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-indent.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-inf.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-lib.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-navigation.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-ui.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode-variables.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>emacs</pathcomp><pathcomp>scala-mode.el</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>enscript</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>enscript</pathcomp><pathcomp>scala.st</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>gedit</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>gedit</pathcomp><pathcomp>scala.lang</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>geshi</pathcomp><pathcomp>scala-alt.php</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>geshi</pathcomp><pathcomp>scala.php</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>intellij</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>intellij</pathcomp><pathcomp>scala.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>jedit</pathcomp><pathcomp>console</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>jedit</pathcomp><pathcomp>console</pathcomp><pathcomp>commando</pathcomp><pathcomp>scala.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>jedit</pathcomp><pathcomp>console</pathcomp><pathcomp>commando</pathcomp><pathcomp>scalac.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>jedit</pathcomp><pathcomp>modes</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>jedit</pathcomp><pathcomp>modes</pathcomp><pathcomp>scala.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>kate</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>kate</pathcomp><pathcomp>scala.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>latex</pathcomp><pathcomp>scaladefs.sty</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>latex</pathcomp><pathcomp>scaladoc.sty</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>latex</pathcomp><pathcomp>scalatex.scm</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>latex</pathcomp><pathcomp>tweaklist.sty</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>latex</pathcomp><pathcomp>verbfilterScala.java</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>notepad-plus</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>notepad-plus</pathcomp><pathcomp>userDefineLang.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>scite</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>scite</pathcomp><pathcomp>scala.properties</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Documentation.webloc</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Info.plist</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>AutocompleteAdditions.txt</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>English.lproj</pathcomp><pathcomp>InfoPlist.strings</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>English.lproj</pathcomp><pathcomp>Localizable.strings</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>ModeSettings.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>RegexSymbols.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>Scripts</pathcomp><pathcomp>Rot13.scpt</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>SyntaxDefinition.xml</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>Scala.mode</pathcomp><pathcomp>Contents</pathcomp><pathcomp>Resources</pathcomp><pathcomp>mytemplate.scala</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>artwork</pathcomp><pathcomp>SymbolM.psd</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>subethaedit</pathcomp><pathcomp>artwork</pathcomp><pathcomp>readme.txt</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>textmate</pathcomp><pathcomp>Bundles</pathcomp><pathcomp>Scala.tmbundle.zip</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>textpad</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>textpad</pathcomp><pathcomp>scala.syn</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>textwrangler</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>textwrangler</pathcomp><pathcomp>Scala_Configuration.plist</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>ultraedit</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>ultraedit</pathcomp><pathcomp>scala.txt</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>vim</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>vim</pathcomp><pathcomp>ftdetect</pathcomp><pathcomp>scala.vim</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>vim</pathcomp><pathcomp>indent</pathcomp><pathcomp>scala.vim</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>vim</pathcomp><pathcomp>plugin</pathcomp><pathcomp>31-create-scala.vim</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>vim</pathcomp><pathcomp>syntax</pathcomp><pathcomp>scala.vim</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>xcode</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>xcode</pathcomp><pathcomp>Specifications</pathcomp><pathcomp>Scala.pbfilespec</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>scala-tool-support</pathcomp><pathcomp>xcode</pathcomp><pathcomp>Specifications</pathcomp><pathcomp>Scala.pblangspec</pathcomp>
+</filename></files>
+</installedpackage><installedpackage>
+  <package><name>scala</name><version>2.7.7.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <files></files>
+</installedpackage><installedpackage>
+  <package><name>scala-library</name><version>2.7.7.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <files><filename isAbsolute="true" isFile="true">
+  <pathcomp>doc</pathcomp><pathcomp>LICENSE</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>doc</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>src</pathcomp><pathcomp>scala-dbc-src.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>src</pathcomp><pathcomp>scala-library-src.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>src</pathcomp><pathcomp>scala-swing-src.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>lib</pathcomp><pathcomp>scala-dbc.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>lib</pathcomp><pathcomp>scala-library.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>lib</pathcomp><pathcomp>scala-swing.jar</pathcomp>
+</filename></files>
+</installedpackage><installedpackage>
+  <package><name>sbaz</name><version>1.25tmp</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <files><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>sbaz-testall</pathcomp><pathcomp>tests</pathcomp><pathcomp>sbaz</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>doc</pathcomp><pathcomp>sbaz</pathcomp><pathcomp>manual.pdf</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>doc</pathcomp><pathcomp>sbaz</pathcomp><pathcomp>manual.html</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>sbaz</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>sbaz.bat</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>src</pathcomp><pathcomp>sbaz-src.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>sbaz</pathcomp><pathcomp>descriptors</pathcomp><pathcomp>README</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>sbaz</pathcomp><pathcomp>descriptors</pathcomp><pathcomp>lamp-rc</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>sbaz</pathcomp><pathcomp>descriptors</pathcomp><pathcomp>scala-dev</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>misc</pathcomp><pathcomp>sbaz</pathcomp><pathcomp>scala-library.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>lib</pathcomp><pathcomp>sbaz-tests.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>lib</pathcomp><pathcomp>sbaz.jar</pathcomp>
+</filename></files>
+</installedpackage><installedpackage>
+  <package><name>sbaz-setup</name><version>1.0</version><depends></depends><description>A script to setup a new sbaz directory given an existing one. This is particularly useful when sbaz is installed in a shared directory on a multi-user platform.</description></package>
+  <files><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>sbaz-setup.bat</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>sbaz-setup</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>doc</pathcomp><pathcomp>sbaz-setup</pathcomp><pathcomp>README.txt</pathcomp>
+</filename></files>
+</installedpackage><installedpackage>
+  <package><name>scala-devel</name><version>2.7.7.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <files><filename isAbsolute="true" isFile="true">
+  <pathcomp>man</pathcomp><pathcomp>man1</pathcomp><pathcomp>fsc.1</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>man</pathcomp><pathcomp>man1</pathcomp><pathcomp>sbaz.1</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>man</pathcomp><pathcomp>man1</pathcomp><pathcomp>scala.1</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>man</pathcomp><pathcomp>man1</pathcomp><pathcomp>scalac.1</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>man</pathcomp><pathcomp>man1</pathcomp><pathcomp>scaladoc.1</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>fsc</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>fsc.bat</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>scala</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>scala.bat</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>scalac</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>scalac.bat</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>scaladoc</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>bin</pathcomp><pathcomp>scaladoc.bat</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>src</pathcomp><pathcomp>scala-compiler-src.jar</pathcomp>
+</filename><filename isAbsolute="true" isFile="true">
+  <pathcomp>lib</pathcomp><pathcomp>scala-compiler.jar</pathcomp>
+</filename></files>
+</installedpackage><installedpackage>
+  <package><name>base</name><version>1.9</version><depends><name>sbaz</name><name>scala-library</name></depends><description>This package depends on the basic packages that all managed directories must include.  Each of these packages is either essential or is very commonly used.</description></package>
+  <files></files>
+</installedpackage></installedlist>
