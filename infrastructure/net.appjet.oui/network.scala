@@ -33,7 +33,7 @@ class CometConnectorEndPoint(channel: SocketChannel, selectSet: SelectorManager#
   def isDispatched = _dispatched;
 }
 
-class CometSelectChannelConnector extends SelectChannelConnector {
+class CometSelectChannelConnector extends ForwardingSelectChannelConnector {
   override def newEndPoint(channel: SocketChannel, selectSet: SelectorManager#SelectSet, key: SelectionKey) =
     new CometConnectorEndPoint(channel, selectSet, key);
 }

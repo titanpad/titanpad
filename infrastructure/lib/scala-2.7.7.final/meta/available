@@ -1,0 +1,1129 @@
+<availableList>
+  <availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.7.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.7.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.7.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.7.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.7.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.7.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.7.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.7.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.7.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.6</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.6.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.6.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.6.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.6.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.6.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.6.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.6.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.6.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.6.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>uncarved-helpers</name><version>0.3</version><depends><name>httpcore-4</name><name>httpclient-4</name><name>commons-logging</name></depends><description>A collection of helper classes, notably including a wrapper around HttpClient-4 
+that does conditional get, and some Memoization helpers
+</description></package>
+  <link>http://www.uncarved.com/static/scala/uncarved-helpers-0.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.5.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.5.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.5.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.5.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.5.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.5.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.5.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.5.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.5.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>uncarved-helpers</name><version>0.2</version><depends><name>commons-logging</name><name>httpclient-4</name><name>httpcore-4</name></depends><description>A collection of helper classes, notably including a wrapper around HttpClient-4 that does conditional get</description></package>
+  <link>http://www.uncarved.com/static/scala/uncarved-helpers-0.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>uncarved-helpers</name><version>0.1</version><depends><name>commons-logging</name><name>httpclient-4</name><name>httpcore-4</name></depends><description>A collection of helper classes, notably including a wrapper around HttpClient-4 that does conditional get</description></package>
+  <link>http://www.uncarved.com/static/scala/uncarved-helpers-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>uncarved-helpers</name><version>0.0</version><depends><name>commons-logging</name><name>httpclient-4</name><name>httpcore-4</name></depends><description>A collection of helper classes, notably including a wrapper around HttpClient-4 that does conditional get</description></package>
+  <link>http://www.uncarved.com/static/scala/uncarved-helpers-0.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>httpclient-4</name><version>0.0</version><depends></depends><description>(no description)</description></package>
+  <link>http://www.uncarved.com/static/scala/httpclient-4-0.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>httpcore-4</name><version>0.0</version><depends></depends><description>(no description)</description></package>
+  <link>http://www.uncarved.com/static/scala/httpcore-4-0.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>commons-logging</name><version>0.0</version><depends></depends><description>(no description)</description></package>
+  <link>http://www.uncarved.com/static/scala/commons-logging-0.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>commons-codec</name><version>0.0</version><depends></depends><description>(no description)</description></package>
+  <link>http://www.uncarved.com/static/scala/commons-codec-0.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.4.final</version><depends><name>scala-library</name><name>scala-devel</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.4.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.4.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.4.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.4.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.4.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.4.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.4.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.4.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalar</name><version>0.1</version><depends></depends><description>physical units and scalars -- see http://RussP.us/scalar-scala.htm for description and user guide</description></package>
+  <link>http://RussP.us/scalar-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.3.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.3.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.3.final</version><depends><name>scala-library</name><name>scala-devel</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.3.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.3.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.3.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.3.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.3.final</version><depends><name>scala-library</name><name>scala-devel</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.3.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.5</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.2.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.2.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.2.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.2.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.2.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.2.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.2.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.2.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.2.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalashell-scala</name><version>0.1</version><depends><name>scalashell-library</name></depends><description>(no description)</description></package>
+  <link>http://jweslley.googlecode.com/svn/scala-bazaar/scalashell-scala-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalashell-library</name><version>0.1</version><depends></depends><description>(no description)</description></package>
+  <link>http://jweslley.googlecode.com/svn/scala-bazaar/scalashell-library-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.4</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-swing</name><version>0.5</version><depends><name>scala</name></depends><description>A Scala Swing library</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-swing-0.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-swing</name><version>0.4</version><depends><name>scala</name></depends><description>A Scala Swing library</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-swing-0.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.3</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.1.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.1.final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.1.final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.7.1.final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.1.final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.1.final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.1.final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.1.final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.1.final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.1.final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-swing</name><version>0.3</version><depends><name>scala</name></depends><description>A Scala Swing library</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-swing-0.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-swing</name><version>0.2</version><depends><name>scala</name></depends><description>A Scala Swing library</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-swing-0.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-swing</name><version>0.1</version><depends><name>scala</name></depends><description>A Scala Swing library</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-swing-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.7.0-final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.7.0-final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.7.0-final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.7.0-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.7.0-final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.7.0-final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel-docs</name><version>2.7.0-final</version><depends></depends><description>The Scala developer documentation. This contains all developer documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-docs-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.7.0-final</version><depends><name>scala-library</name></depends><description>The Scala developer tools. This contains everything that is required to write, test and document new Scala programs.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-cldc</name><version>2.7.0-final</version><depends></depends><description>The Scala CLDC package contains everything needed to use Scala on CLDC devices.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-cldc-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-android</name><version>2.7.0-final</version><depends></depends><description>The Scala Android package contains everything needed to use Scala on Android.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-android-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.7.0-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.7.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>schema2src</name><version>73</version><depends></depends><description>data binding tool. used to convert XML types to Scala classes.</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/schema2src-73.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.2</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>units</name><version>1.5</version><depends><name>scala-devel</name></depends><description>A library for physical units, based on Andrew Kennedy's system.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/units-1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>units</name><version>1.4</version><depends><name>scala-devel</name></depends><description>A library for physical units, based on Andrew Kennedy's system.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/units-1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>x10runtime</name><version>1.5</version><depends></depends><description>X10 runtime</description></package>
+  <link>http://www.lexspoon.org/x10/x10runtime-1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.1.1</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.6.1-final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-cldc</name><version>2.6.1-final</version><depends></depends><description>The Scala CLDC package contains everything needed to use Scala on CLDC devices.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-cldc-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.6.1-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-android</name><version>2.6.1-final</version><depends></depends><description>The Scala Android package contains everything needed to use Scala on Android.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-android-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.6.1-final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.6.1-final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.6.1-final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.6.1-final</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.6.1-final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.6.1-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.6.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.1</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.24</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala-lang.org/downloads/packages/sbaz-1.24.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>xinc</name><version>13</version><depends></depends><description>XInclude tool and library</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/xinc-13.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.0</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>units</name><version>1.3</version><depends><name>scala-devel</name></depends><description>A library for physical units, based on Andrew Kennedy's system.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/units-1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.23</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala-lang.org/downloads/packages/sbaz-1.23.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.6.0-final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-test-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-msil</name><version>2.6.0-final</version><depends><name>scala-library</name><name>scala-devel</name></depends><description>The Scala MSIL package contains everything needed to use Scala on .NET.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-msil-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.6.0-final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.6.0-final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.6.0-final</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-devel-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.6.0-final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-library-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.6.0-final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.6.0-final</version><depends><name>scala-library</name><name>scala-devel</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://www.scala-lang.org/downloads/packages/scala-2.6.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>1.0-RC1</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-1.0-RC1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.22</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala-lang.org/downloads/packages/sbaz-1.22.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-testall</name><version>1.3b</version><depends><name>junit</name></depends><description>Umbrella test runner for all installed Scala packages.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-testall-1.3b.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jline</name><version>0.9.91</version><depends></depends><description>Readline for Java, including command history and tab completion.
+See http://jline.sourceforge.net/ .</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jline-0.9.91.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>0.2</version><depends></depends><description>ScalaCheck is a library for property-based, randomized testing of Scala programs. It is a Scala implementation of the QuickCheck Haskell library</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-0.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-testall</name><version>1.3</version><depends><name>junit</name></depends><description>Umbrella test runner for all installed Scala packages.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-testall-1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.5.1-final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.5.1-final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.5.1-final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.5.1-final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.5.1-final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.5.1-final</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.5.1-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.5.1-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>combinator</name><version>0.11991</version><depends></depends><description>The combinator parser library for easily parsing text into ASTs.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/combinator-0.11991.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>combinator</name><version>0.11988M</version><depends></depends><description>The combinator parser library for easily parsing text into ASTs.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/combinator-0.11988M.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalacheck</name><version>0.1</version><depends></depends><description>ScalaCheck is a library for automated randomized testing of Scala programs. It is an implementation of Haskell's QuickCheck library.
+</description></package>
+  <link>http://scalacheck.googlecode.com/files/scalacheck-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.5.0-final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.5.0-final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.5.0-final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.5.0-final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.5.0-final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala-lang.org/downloads/packages/scala-documentation-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.5.0-final</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.5.0-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.5.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jsr166</name><version>0.1</version><depends></depends><description>JSR 166: Concurrency</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jsr166-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>x10runtime</name><version>1.0.47</version><depends></depends><description>X10 runtime</description></package>
+  <link>http://www.lexspoon.org/x10/x10runtime-1.0.47.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>schema2src</name><version>72</version><depends></depends><description>data binding tool. used to convert XML types to Scala classes.</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/schema2src-72.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>units</name><version>1.2</version><depends><name>scala-devel</name></depends><description>A library for physical units, based on Andrew Kennedy's system.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/units-1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.20</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala-lang.org/downloads/packages/sbaz-1.20.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.4.0-final</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.4.0-final</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.4.0-final</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.4.0-final</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.4.0-final</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.4.0-final</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.4.0-final</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.4.0-final.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>combinator</name><version>0.10301</version><depends></depends><description>The combinator parser library for easily parsing text into ASTs.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/combinator-0.10301.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.40</version><depends></depends><description>The GUI interface to Scala Bazaars.</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.40.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.39</version><depends></depends><description>The GUI interface to Scala Bazaars.</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.39.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.3.3</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.3.3</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.3.3</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.3.3</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.3.3</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.3.3</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.3.3</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.3.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.19</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.19.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>units</name><version>1.1</version><depends></depends><description>A library for physical units, based on Andrew Kennedy's system.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/units-1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.3.2</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.3.2</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.3.2</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.3.2</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.3.2</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.3.2</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.3.2</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.3.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.38</version><depends></depends><description>The GUI interface to Scala Bazaars.</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.38.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.3.1</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.3.1</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.3.1</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.3.1</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.3.1</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.3.1</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.3.1</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.3.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.18</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.18.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>units</name><version>1.0</version><depends></depends><description>A library for physical units, based on Andrew Kennedy's system.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/units-1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.3.0</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.3.0</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.3.0</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.3.0</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.3.0</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.3.0</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.3.0</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.3.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>commons-net</name><version>1.4.1</version><depends></depends><description>Jakarta Commons Net implements the client side of many basic Internet
+protocols. The purpose of the library is to provide fundamental protocol
+access, not higher-level abstractions. Therefore, some of the design
+violates object-oriented design principles. Our philosophy is to make the
+global functionality of a protocol accessible (e.g., TFTP send file and
+receive file) when possible, but also provide access to the fundamental
+protocols where applicable so that the programmer may construct his own
+custom implementations (e.g, the TFTP packet classes and the TFTP packet
+send and receive methods are exposed).
+
+Supported protocols are:
+
+    * FTP
+    * NNTP
+    * SMTP
+    * POP3
+    * Telnet
+    * TFTP
+    * Finger
+    * Whois
+    * rexec/rcmd/rlogin
+    * Time (rdate) and Daytime
+    * Echo
+    * Discard
+    * NTP/SNTP
+</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/commons-net-1.4.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-testall</name><version>1.2</version><depends><name>junit</name></depends><description>Umbrella test runner for all installed Scala packages.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-testall-1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-testall</name><version>1.1</version><depends><name>junit</name></depends><description>Umbrella test runner for all installed Scala packages.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-testall-1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-testall</name><version>1.0</version><depends></depends><description>Umbrella test runner for all installed Scala packages.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-testall-1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.2.0</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.2.0</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.2.0</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.2.0</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.2.0</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.2.0</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.2.0</version><depends><name>scala-library</name><name>scala-devel</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.36</version><depends></depends><description>The GUI interface to Scala Bazaars.</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.36.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.33</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.33.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.32</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.32.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.17</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.17.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.8</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.8</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.8</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.8</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.8</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.8</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.8</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.31</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.31.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-keyclient</name><version>0.1</version><depends><name>scalaswing</name></depends><description>A GUI for viewing and editing the keys on an sbaz index server.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-keyclient-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.16</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.16.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>Actorrent</name><version>0.1</version><depends></depends><description>A simple bittorrent client that uses Scala actors.</description></package>
+  <link>http://lamp.epfl.ch/~phaller/actorrent-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.29</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.29.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.15</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.15.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.28</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.28.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.7</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.7</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.7</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.7</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.7</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.7</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.7</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-actors-examples</name><version>0.4</version><depends><name>scala-actors-jxta</name></depends><description>Examples for Scala actors. Includes auction example with GUI running locally, over TCP, and over JXTA.</description></package>
+  <link>http://lamp.epfl.ch/~phaller/scala-actors-examples-0.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-actors-jxta</name><version>0.4</version><depends><name>servlet-api</name><name>log4j</name><name>jxta</name><name>jetty</name><name>jdom</name><name>jaxen</name><name>bcprov-jdk14</name></depends><description>JXTA-based runtime system for Scala actors.</description></package>
+  <link>http://lamp.epfl.ch/~phaller/scala-actors-jxta-0.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-actors-jxta</name><version>0.3</version><depends><name>servlet-api</name><name>log4j</name><name>jxta</name><name>jetty</name><name>jdom</name><name>jaxen</name><name>bcprov-jdk14</name></depends><description>JXTA-based runtime system for Scala actors.</description></package>
+  <link>http://lamp.epfl.ch/~phaller/scala-actors-jxta-0.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-actors-examples</name><version>0.3</version><depends><name>scala-actors-jxta</name></depends><description>Examples for Scala actors. Includes auction example with GUI running locally, over TCP, and over JXTA.</description></package>
+  <link>http://lamp.epfl.ch/~phaller/scala-actors-examples-0.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.6</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.6</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.6</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.6</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.6</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.6</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.6</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.6.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>bcprov-jdk14</name><version>0.0.0.1</version><depends></depends><description>Java cryptographic service provider for JDK1.4 by
+Legion of the Bouncy Castle http://www.bouncycastle.org</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/bcprov-jdk14-0.0.0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jxta</name><version>2.3.5</version><depends></depends><description>JXT technology is a set of open protocols that allow
+any connected device on the network ranging from cell phones and
+wireless PDAs to PCs and servers to communicate and collaborate in a
+P2P manner.
+
+JXTA peers create a virtual network where any peer can interact with
+other peers and resources directly even when some of the peers and
+resources are behind firewalls and NATs or are on different network
+transports.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jxta-2.3.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jetty</name><version>4.2.19</version><depends></depends><description>
+The jetty servlet container.
+</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jetty-4.2.19.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jdom</name><version>0.10</version><depends></depends><description>
+A complete, Java-based solution for accessing, manipulating, and
+outputting XML data from Java code.
+</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jdom-0.10.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jaxen</name><version>0.0.0.1</version><depends></depends><description>
+The jaxen project is a Java XPath Engine. jaxen is a universal object
+model walker, capable of evaluating XPath expressions across multiple
+models. Currently supported are dom4j, JDOM, and DOM.
+</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jaxen-0.0.0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.14</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.14.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.5</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>jsp-api</name><version>2.0</version><depends></depends><description>A jar file with the JSP API but no implementation.
+It comes from the Jakarta project at http://jakarta.apache.org/tomcat .
+</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/jsp-api-2.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.5</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.5</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.5</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.5</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.5</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.5</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.5.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>mysql-connector-java</name><version>3.1.12</version><depends></depends><description>driver for JDBC-MySQL connection</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/mysql-connector-java-3.1.12.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>schema2src</name><version>45</version><depends></depends><description>data binding tool. used to convert XML types to Scala classes.</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/schema2src-45.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-analysis</name><version>0.1</version><depends><name>scala-devel</name></depends><description>A library of interprocedural data-flow analyses for Scala under development by Lex Spoon at LAMP.  It is currently very incomplete.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-analysis-0.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.4</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.4</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.4</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.4</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.4</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.4</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.4</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.4.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>schema2src</name><version>29</version><depends></depends><description>data binding tool. used to convert XML types to Scala classes.</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/schema2src-29.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>schema2src</name><version>27</version><depends></depends><description>data binding tool. used to convert XML types to Scala classes.</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/schema2src-27.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.27</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.27.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>webcont</name><version>15</version><depends></depends><description>web continuation framework</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/webcont-15.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>webcont-examples</name><version>15</version><depends></depends><description>web continuation framework examples</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/webcont-examples-15.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>smotor</name><version>25</version><depends></depends><description>Scala servlet container</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/smotor-25.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>xinc</name><version>12</version><depends></depends><description>XInclude tool and library</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/xinc-12.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>pex</name><version>14</version><depends></depends><description>persistent XML library</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/pex-14.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>smotor</name><version>23</version><depends></depends><description>Scala servlet container</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/smotor-23.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>smotor</name><version>12</version><depends></depends><description>Scala servlet container</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/smotor-12.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>xinc</name><version>9</version><depends></depends><description>XInclude tool and library</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/xinc-9.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>pex</name><version>9</version><depends></depends><description>persistent XML library</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/pex-9.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>xinc</name><version>7</version><depends></depends><description>XInclude tool and library</description></package>
+  <link>http://lamp.epfl.ch/~emir/sbaz/xinc-7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.3</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>base</name><version>1.9</version><depends><name>scala-library</name><name>sbaz</name></depends><description>This package depends on the basic packages that all managed directories must include.  Each of these packages is either essential or is very commonly used.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/base-1.9.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.3</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.3</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.3</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.3</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.3</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.3</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.3.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.2.7089</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.2.7089.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.2.7089</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.2.7089.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.2.7089</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.2.7089.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.2.7089</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.2.7089.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.26</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.26.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.25</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.25.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.13</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.13.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbazgui</name><version>0.24</version><depends><name>sbaz</name></depends><description>Swing-based GUI for sbaz</description></package>
+  <link>http://www.soletta.com/sbaz/sbazgui-0.24.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.2.7054</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.2.7054.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.2.7054</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.2.7054.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.2.7049</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.2.7049.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.2</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.2</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.2</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.2</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.2</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.2</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.2</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.2.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.1.6996</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.1.6996.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.1.6996</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.1.6996.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.1.6996</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.1.6996.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.1</version><depends></depends><description>The Scala tool support.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.1</version><depends><name>scala-devel</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.1</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.1</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.1</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.1</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-test</name><version>2.1.1</version><depends></depends><description>The Scala test package contains everything needed to test Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-test-2.1.1.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.12e</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/sbaz-1.12e.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.0.6937</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.0.6937.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.0.6937</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.0.6937.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.0.6937</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.0.6937.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.1.0</version><depends><name>scalac</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.1.0</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.1.0</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-documentation</name><version>2.1.0</version><depends></depends><description>The Scala documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-documentation-2.1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.1.0</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-devel-2.1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.1.0</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-2.1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.0.6743a</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://lamp.epfl.ch/~emir/scala-devel-2.0.1.6773.20060315-132554.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.0.6743placeholder</version><depends><name>scala-devel</name></depends><description>A placeholder package used for upgrading. You may safely remove it if you have it installed.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scalap-2.0.6743.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.0.6743</version><depends></depends><description>The Scala library. This is the minimal requirement to run any Scala program.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-library-2.0.6743.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-devel</name><version>2.0.6743</version><depends><name>scala-library</name></depends><description>The Scala developper tools. This contains everything that is required to write, test and document new Scala programs, as well as all developper documentation.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-devel-2.0.6743.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.0.6743</version><depends><name>scala-devel</name><name>scala-library</name></depends><description>The base Scala package that contains everything needed to start using Scala.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-2.0.6743.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.0.5869</version><depends><name>scalac</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.0.5869.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.0.5869</version><depends></depends><description>The base Scala library, required for running all Scala programs.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.0.5869.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.12d</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.12d.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.12c</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.12c.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz-setup</name><version>1.0</version><depends></depends><description>A script to setup a new sbaz directory given an existing one. This is particularly useful when sbaz is installed in a shared directory on a multi-user platform.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-setup-1.0.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scalap</name><version>2.0.5843</version><depends><name>scalac</name></depends><description>Scala classfile decoder</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scalap-2.0.5843.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.0.5843</version><depends></depends><description>The base Scala library, required for running all Scala programs.</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-library-2.0.5843.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-tool-support</name><version>2.0.5841</version><depends></depends><description>Configuration files for Scala developers using development tools like Emacs, VIM, XCode, ..</description></package>
+  <link>http://scala.epfl.ch/downloads/packages/scala-tool-support-2.0.5841.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.12b</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.12b.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.0.5795</version><depends></depends><description>The base Scala library, required for running all Scala programs.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-library-2.0.5795.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.0.5795</version><depends></depends><description>The Scala command runner.  It is a wrapper around the Java VM that, by default, sets up a large CLASSPATH including the Scala library as well as all jars installed in the lib directory of the sbaz- managed directory.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-2.0.5795.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.12</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.12.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>base</name><version>1.8</version><depends><name>scala-library</name><name>sbaz</name></depends><description>
+This package depends on the basic packages that all managed directories
+must include.  Each of these packages is either essential or is very
+commonly used.
+  </description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/base-1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>2.0.5774</version><depends></depends><description>The base Scala library, required for running all Scala programs.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-library-2.0.5774.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>2.0.5774</version><depends></depends><description>The Scala command runner.  It is a wrapper around the Java VM that, by default, sets up a large CLASSPATH including the Scala library as well as all jars installed in the lib directory of the sbaz- managed directory.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-2.0.5774.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.11</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.11.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.10</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.10.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.9</version><depends></depends><description>The command-line interface to Scala Bazaars.  Scala Bazaars let you share Scala packages and other goodies with other Scala users.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.9.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>log4j</name><version>1.2.13</version><depends></depends><description>The Apache log4j logging framework.  See:
+	http://logging.apache.org/</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/log4j-1.2.13.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>base</name><version>1.7</version><depends><name>scala2-library</name><name>sbaz</name></depends><description>
+This package depends on the basic packages that all managed directories
+must include.  Each of these packages is either essential or is very
+commonly used.
+  </description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/base-1.7.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala-library</name><version>1.0.0placeholder</version><depends><name>scala2-library</name></depends><description>
+A placeholder package used for upgrading.  You may safely remove it
+if you have it installed.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-library-0.3.5447placeholder.zip</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.8</version><depends></depends><description>
+The command-line interface to Scala Bazaars.  Scala Bazaars
+let you share Scala packages and other goodies with other
+Scala users.
+  </description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.8.sbp</link>
+</availablePackage><availablePackage>
+  <package><name>scala</name><version>1.1placeholder</version><depends><name>scala2</name></depends><description>A placeholder package used for upgrading.
+It can safely be removed if you have it installed.</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/scala-1.1placeholder.zip</link>
+</availablePackage><availablePackage>
+  <package><name>sbaz</name><version>1.7</version><depends></depends><description>
+The command-line interface to Scala Bazaars.  Scala Bazaars
+let you share Scala packages and other goodies with other
+Scala users.
+  </description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/sbaz-1.7.zip</link>
+</availablePackage><availablePackage>
+  <package><name>servlet-api</name><version>2.4</version><depends></depends><description>
+The Java Servlet API, version 2.4.  This is a Java jar file that
+is useful for compiling servlets.
+    </description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/servlet-api-2.4.zip</link>
+</availablePackage><availablePackage>
+  <package><name>junit</name><version>3.8.1.1</version><depends></depends><description>
+The JUnit testing framework.  This is a Java package
+included in the Bazaar because many Scala enthusiasts
+use it.
+</description></package>
+  <link>http://lamp.epfl.ch/~spoon/scbaztmp/junit-3.8.1.1.zip</link>
+</availablePackage>
+</availableList>

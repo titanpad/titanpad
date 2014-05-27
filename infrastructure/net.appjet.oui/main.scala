@@ -174,12 +174,16 @@ object main {
     val nioconnector = new CometSelectChannelConnector;
     var sslconnector: CometSslSelectChannelConnector = null;
     nioconnector.setPort(config.listenPort);
+    nioconnector.setForwarded(true);
+
     if (config.listenHost.length > 0)
       nioconnector.setHost(config.listenHost);
     if (config.listenSecurePort == 0) {
       server.setConnectors(Array(nioconnector));
     } else {
       sslconnector = new CometSslSelectChannelConnector;
+      sslconnector.setForwarded(true);
+
       sslconnector.setPort(config.listenSecurePort);
       if (config.listenSecureHost.length > 0)
         sslconnector.setHost(config.listenSecureHost);

@@ -17,10 +17,9 @@ Environment Variables
 
 You need to set a few envvars when building. These are:
 
-export JAVA_HOME=/usr/lib/jvm/sun-jdk-1.6
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64
 export JAVA="$JAVA_HOME/bin/java"
-export SCALA_LIBDIR="/usr/share/scala/lib"
 export PATH="$JAVA_HOME/bin:$PATH"
-export MYSQL_CONNECTOR_JAR="/usr/share/java/mysql-connector-java-5.1.12-bin.jar"
-export OOJARS="/usr/lib/openoffice/basis3.2/ure-link/share/java/juh.jar /usr/lib/openoffice/basis3.2/ure-link/share/java/jurt.jar /usr/lib/openoffice/basis3.2/ure-link/share/java/ridl.jar /usr/lib/openoffice/basis3.2/ure-link/share/java/unoloader.jar /usr/lib/openoffice/basis3.2/program/classes/unoil.jar"
+export MYSQL_CONNECTOR_JAR="/usr/share/java/mysql-connector-java.jar"
+export OOJARS="/usr/lib/ure/share/java/juh.jar /usr/lib/ure/share/java/jurt.jar /usr/lib/ure/share/java/ridl.jar /usr/lib/ure/share/java/unoloader.jar /usr/share/libreoffice/program/classes/unoil.jar"
 
