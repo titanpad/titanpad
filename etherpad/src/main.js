@@ -266,12 +266,6 @@ function checkHost() {
 function checkHTTPS() {
   if (stringutils.startsWith(request.path, "/static/")) { return; }
 
-  if (sessions.getSession().disableHttps || request.params.disableHttps) {
-    sessions.getSession().disableHttps = true;
-    println("setting session diableHttps");
-    return;
-  }
-
   var _ports = {
     http: appjet.config.listenPort,
     https: appjet.config.listenSecurePort
@@ -300,9 +294,6 @@ function checkHTTPS() {
 
   if (httpsRequired && !request.isSSL) {
     _redirectToScheme("https");
-  }
-  if (!httpsRequired && request.isSSL) {
-    _redirectToScheme("http");
   }
 
   function _redirectToScheme(scheme) {
