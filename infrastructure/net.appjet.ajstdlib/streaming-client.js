@@ -361,6 +361,11 @@ function WebSocket(id) {
       if ($ && $.browser.opera && type != 'shortpolling' && type != 'streaming') {
         continue;
       }
+      // Safari dislikes the current longpolling channel subdomain name generation when using SSL
+      // Disable longpolling as a hackaround, the whole thing needs to be changed to dash-separators eventually though
+      if ($ && $.browser.safari && type == 'longpolling') {
+        continue;
+      }
       channels.push(type);
     }
     return channels;
