@@ -207,6 +207,13 @@ function render_delete_account_get(accountId) {
     response.write("Account not found.");
     return true;
   }
+
+  /* Prevent username/email enumeration */
+  if (account.domainId != domains.getRequestDomainId()) {
+    response.write("Account not found.");
+    return true;
+  }
+
   pro_admin_control.renderAdminPage('delete-account', {
     account: account,
     errorDiv: _errorDiv
