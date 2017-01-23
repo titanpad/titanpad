@@ -1,3 +1,14 @@
+# WARNING - ORPHANED PROJECT
+
+This project has been orphaned and is no longer maintained.
+
+The [`SviMik/pad`](https://github.com/SviMik/pad) fork is seeing some activity. See also [`ether/pad#334`](https://github.com/ether/pad/issues/334).
+
+Best wishes from all of us, and thanks for all the pads!
+The TitanPad Team
+
+---
+
 This is the TitanPad.com Source-Code.
 
 See README.EtherPad for the Original EtherPad open-source release README, incl.
